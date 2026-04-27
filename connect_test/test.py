@@ -84,7 +84,8 @@ def get_hysys_from_rot(pythoncom: Any, win32com_client: Any) -> tuple[Any, str] 
 
         try:
             raw_obj = rot.GetObject(moniker)
-            obj = win32com_client.Dispatch(raw_obj)
+            dispatch_obj = raw_obj.QueryInterface(pythoncom.IID_IDispatch)
+            obj = win32com_client.Dispatch(dispatch_obj)
         except Exception:
             continue
 
