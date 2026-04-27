@@ -27,6 +27,8 @@ htmlcov/
 *.tmp
 *.log
 *_components.tpl
+*_peng_robinson.tpl
+*_pr.tpl
 *_edited.tpl
 *_copy.tpl
 

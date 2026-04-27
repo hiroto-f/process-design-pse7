@@ -24,7 +24,8 @@
 │   └── test.py                       # HYSYS COM 接続テスト
 └── hysys_methanation/
     ├── __init__.py
-    └── complete_components.py        # methanation.tpl の成分リスト補完
+    ├── complete_components.py        # methanation.tpl の成分リスト補完
+    └── create_property_package.py    # Peng-Robinson 物性パッケージ作成
 ```
 
 ## Requirements
@@ -93,6 +94,30 @@ python -m hysys_methanation.complete_components --template "C:\Users\Fukada Hiro
 python -m hysys_methanation.complete_components --template "C:\Users\Fukada Hiroto\Documents\プロセス設計\hysisファイル\methanation.tpl" --in-place
 ```
 
+## Create Property Package
+
+`methanation.tpl` を HYSYS 経由で開き、Peng-Robinson の Fluid Package を作成します。
+
+既定では `Methanation Components` という Component List を割り当てます。見つからない場合は、テンプレート内の先頭の Component List を使います。
+
+```powershell
+python -m hysys_methanation.create_property_package --template "C:\Users\Fukada Hiroto\Documents\プロセス設計\hysisファイル\methanation.tpl"
+```
+
+既定では元のテンプレートを上書きせず、同じフォルダに `methanation_peng_robinson.tpl` として保存します。
+
+保存先を指定する場合:
+
+```powershell
+python -m hysys_methanation.create_property_package --template "C:\Users\Fukada Hiroto\Documents\プロセス設計\hysisファイル\methanation.tpl" --output "C:\Users\Fukada Hiroto\Documents\プロセス設計\hysisファイル\methanation_pr.tpl"
+```
+
+元の `methanation.tpl` を直接更新する場合:
+
+```powershell
+python -m hysys_methanation.create_property_package --template "C:\Users\Fukada Hiroto\Documents\プロセス設計\hysisファイル\methanation.tpl" --in-place
+```
+
 ## Design Notes
 
 メタネーションの代表反応:
@@ -113,6 +138,7 @@ CO2 + 4H2 -> CH4 + 2H2O
 
 - [x] HYSYS COM 接続テスト
 - [x] 成分リスト補完スクリプト
+- [x] Peng-Robinson 物性パッケージ作成スクリプト
 - [ ] 物質収支計算の実装
 - [ ] ストリーム条件の読み取り・書き込み
 - [ ] 反応器条件の自動設定
