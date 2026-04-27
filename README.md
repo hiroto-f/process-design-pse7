@@ -9,9 +9,9 @@
 
 ## Overview
 
-このリポジトリは、メタネーション反応を対象にした HYSYS テンプレートを Python から操作し、反応条件・物質収支・エネルギー収支・装置構成を段階的に検討するための作業場です。
+このリポジトリは、メタネーション反応を対象にした 1 つの HYSYS テンプレートを Python から操作し、反応条件・物質収支・エネルギー収支・装置構成を段階的に検討するための作業場です。
 
-最初の自動化として、`methanation.tpl` の成分リストを Python から補完するスクリプトを用意しています。
+`methanation.tpl` を育てていく前提で、成分リストや物性パッケージなどのテンプレート準備作業をスクリプト化しています。
 
 ## Repository
 
@@ -76,22 +76,10 @@ python connect_test\check_rot.py
 - Water
 - Carbon Monoxide
 
-既定では元のテンプレートを上書きせず、同じフォルダに `methanation_components.tpl` として保存します。
+指定した `methanation.tpl` を直接更新します。
 
 ```powershell
 python -m hysys_methanation.complete_components --template "C:\Users\Fukada Hiroto\Documents\プロセス設計\hysisファイル\methanation.tpl"
-```
-
-保存先を指定する場合:
-
-```powershell
-python -m hysys_methanation.complete_components --template "C:\Users\Fukada Hiroto\Documents\プロセス設計\hysisファイル\methanation.tpl" --output "C:\Users\Fukada Hiroto\Documents\プロセス設計\hysisファイル\methanation_ready.tpl"
-```
-
-元の `methanation.tpl` を直接更新する場合:
-
-```powershell
-python -m hysys_methanation.complete_components --template "C:\Users\Fukada Hiroto\Documents\プロセス設計\hysisファイル\methanation.tpl" --in-place
 ```
 
 ## Create Property Package
@@ -99,23 +87,10 @@ python -m hysys_methanation.complete_components --template "C:\Users\Fukada Hiro
 `methanation.tpl` を HYSYS 経由で開き、Peng-Robinson の Fluid Package を作成します。
 
 既定では `Methanation Components` という Component List を割り当てます。見つからない場合は、テンプレート内の先頭の Component List を使います。
+指定した `methanation.tpl` を直接更新します。
 
 ```powershell
 python -m hysys_methanation.create_property_package --template "C:\Users\Fukada Hiroto\Documents\プロセス設計\hysisファイル\methanation.tpl"
-```
-
-既定では元のテンプレートを上書きせず、同じフォルダに `methanation_peng_robinson.tpl` として保存します。
-
-保存先を指定する場合:
-
-```powershell
-python -m hysys_methanation.create_property_package --template "C:\Users\Fukada Hiroto\Documents\プロセス設計\hysisファイル\methanation.tpl" --output "C:\Users\Fukada Hiroto\Documents\プロセス設計\hysisファイル\methanation_pr.tpl"
-```
-
-元の `methanation.tpl` を直接更新する場合:
-
-```powershell
-python -m hysys_methanation.create_property_package --template "C:\Users\Fukada Hiroto\Documents\プロセス設計\hysisファイル\methanation.tpl" --in-place
 ```
 
 ## Design Notes

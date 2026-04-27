@@ -2,7 +2,6 @@
 
 The script opens methanation.tpl through Aspen HYSYS COM Automation, adds the
 components needed for methanation calculations, and saves the edited template.
-By default it saves a copy next to the original template.
 """
 
 from __future__ import annotations
@@ -116,14 +115,6 @@ def find_template_path(explicit_path: str | None) -> Path:
     return matches[0].resolve()
 
 
-def output_path_for(template_path: Path, output: str | None, in_place: bool) -> Path:
-    if in_place:
-        return template_path
-    if output:
-        return Path(output).expanduser().resolve()
-    return template_path.with_name(f"{template_path.stem}_components{template_path.suffix}")
-
-
 def get_or_create_component_list(case: Any, component_list_name: str) -> Any:
     basis = case.BasisManager
     component_lists = basis.ComponentLists
@@ -208,17 +199,9 @@ def open_template(app: Any, template_path: Path) -> Any:
     return app.SimulationCases.Open(str(template_path))
 
 
-def save_case(case: Any, output_path: Path, in_place: bool) -> None:
-    if in_place:
-        log(f"Saving in place: {output_path}")
-        case.Save()
-        return
-
-    log(f"Saving edited copy: {output_path}")
-    try:
-        case.SaveAs2(str(output_path), True)
-    except Exception:
-        case.SaveAs(str(output_path))
+def save_case(case: Any, template_path: Path) -> None:
+    log(f"Saving template: {template_path}")
+    case.Save()
 
 
 def parse_args() -> argparse.Namespace:
@@ -228,15 +211,6 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--template",
         help="Path to methanation.tpl. If omitted, Documents is searched.",
-    )
-    parser.add_argument(
-        "--output",
-        help="Save path for the edited template. Default: methanation_components.tpl.",
-    )
-    parser.add_argument(
-        "--in-place",
-        action="store_true",
-        help="Overwrite the original template instead of saving a copy.",
     )
     parser.add_argument(
         "--component-list",
@@ -249,7 +223,6 @@ def parse_args() -> argparse.Namespace:
 def main() -> int:
     args = parse_args()
     template_path = find_template_path(args.template)
-    output_path = output_path_for(template_path, args.output, args.in_place)
 
     app, source, mode = get_hysys_application()
     log(f"Connected: {source} ({mode})")
@@ -260,7 +233,7 @@ def main() -> int:
     case.Activate()
 
     added, skipped = complete_component_list(case, args.component_list)
-    save_case(case, output_path, args.in_place)
+    save_case(case, template_path)
 
     if added:
         log("Added: " + ", ".join(added))
