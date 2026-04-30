@@ -32,6 +32,9 @@ outputs/
 results/
 exports/
 
+# Local reference documents
+documents/
+
 # OS and editor files
 .DS_Store
 Thumbs.db

@@ -25,11 +25,22 @@ def log(message: str) -> None:
     print(f"[HYSYS PROPERTY PACKAGE] {message}")
 
 
+def object_name(item: Any) -> str:
+    for attr in ("Name", "name", "TaggedName"):
+        try:
+            value = getattr(item, attr)
+            if value:
+                return str(value)
+        except Exception:
+            continue
+    return str(item)
+
+
 def find_by_name(collection: Any, name: str) -> Any | None:
     target = normalize_name(name)
     for index in range(int(collection.Count)):
         item = collection.Item(index)
-        if normalize_name(str(item.Name)) == target:
+        if normalize_name(object_name(item)) == target:
             return item
     return None
 
@@ -48,7 +59,7 @@ def get_component_list(case: Any, component_list_name: str) -> Any:
         )
 
     component_list = first_collection_item(component_lists, "component list")
-    log(f"Using existing component list: {component_list.Name}")
+    log(f"Using existing component list: {object_name(component_list)}")
     return component_list
 
 
@@ -72,8 +83,8 @@ def assign_component_list(fluid_package: Any, component_list: Any) -> None:
         fluid_package.ComponentList = component_list
     except Exception as exc:
         raise RuntimeError(
-            f"Could not assign component list {component_list.Name} "
-            f"to fluid package {fluid_package.Name}: {exc}"
+            f"Could not assign component list {object_name(component_list)} "
+            f"to fluid package {object_name(fluid_package)}: {exc}"
         ) from exc
 
 
@@ -89,11 +100,6 @@ def create_property_package(
         component_list = get_component_list(case, component_list_name)
         fluid_package, created = get_or_create_peng_robinson_package(case, package_name)
         assign_component_list(fluid_package, component_list)
-
-        try:
-            fluid_package.PropertyPackageName = "Peng-Robinson"
-        except Exception:
-            pass
     finally:
         if basis.CanEndBasisChange:
             basis.EndBasisChange()
@@ -147,11 +153,11 @@ def main() -> int:
     save_case(case, template_path)
 
     action = "Created" if created else "Reused"
-    log(f"{action}: {fluid_package.Name}")
+    log(f"{action}: {object_name(fluid_package)}")
     try:
         log(f"Property package: {fluid_package.PropertyPackageName}")
     except Exception:
-        log("Property package: Peng-Robinson")
+        log("Property package: select in HYSYS GUI")
     log("Done.")
     return 0
 
