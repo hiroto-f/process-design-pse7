@@ -1,0 +1,16 @@
+{
+  "H2": {
+    "langmuir_qmax_mol_per_g": 0.00651968876195235,
+    "langmuir_b_per_kpa": 4.04087089200678e-05,
+    "molar_mass_g_per_mol": 2.016,
+    "lennard_jones_epsilon_over_k_k": 38,
+    "lennard_jones_sigma_angstrom": 2.915
+  },
+  "CH4": {
+    "langmuir_qmax_mol_per_g": 0.00660359671165625,
+    "langmuir_b_per_kpa": 0.000943783749838986,
+    "molar_mass_g_per_mol": 16.043,
+    "lennard_jones_epsilon_over_k_k": 154,
+    "lennard_jones_sigma_angstrom": 3.78
+  }
+}

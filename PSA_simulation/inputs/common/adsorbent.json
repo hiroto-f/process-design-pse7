@@ -1,0 +1,9 @@
+{
+  "particle_diameter_m": 0.001,
+  "bed_void_fraction": 0.4,
+  "macro_pore_void_fraction": 0.29,
+  "micro_pore_void_fraction": 0.33,
+  "macro_pore_radius_m": 1.16e-06,
+  "micro_pore_radius_m": 6e-10,
+  "bulk_density_kg_per_m3": 500
+}
