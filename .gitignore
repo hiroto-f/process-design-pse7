@@ -28,7 +28,6 @@ htmlcov/
 *.log
 
 # Local outputs
-outputs/
 results/
 exports/
 

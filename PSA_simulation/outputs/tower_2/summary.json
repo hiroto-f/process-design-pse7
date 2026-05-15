@@ -1,0 +1,75 @@
+{
+  "tower_name": "tower_2",
+  "feed": {
+    "temperature_k": 313.15,
+    "pressure_kpa": 303.975,
+    "volume_flow_m3_per_h": 1177.0689422856715,
+    "average_molar_mass_g_per_mol": 4.543083962980716,
+    "components": [
+      {
+        "name": "H2",
+        "flow_kmol_per_h": 111.17459999999998,
+        "mole_fraction": 0.8026832496171582,
+        "two_component_fraction": 0.8198414512739205
+      },
+      {
+        "name": "CH4",
+        "flow_kmol_per_h": 24.4304,
+        "mole_fraction": 0.1763880676111902,
+        "two_component_fraction": 0.18015854872607942
+      },
+      {
+        "name": "C6H6",
+        "flow_kmol_per_h": 0.4829,
+        "mole_fraction": 0.0034865494568015157,
+        "two_component_fraction": 0.0
+      },
+      {
+        "name": "C7H8",
+        "flow_kmol_per_h": 0.4841,
+        "mole_fraction": 0.0034952134852715127,
+        "two_component_fraction": 0.0
+      },
+      {
+        "name": "C12H10",
+        "flow_kmol_per_h": 0.504,
+        "mole_fraction": 0.0036388919573989726,
+        "two_component_fraction": 0.0
+      },
+      {
+        "name": "other",
+        "flow_kmol_per_h": 1.4277000000000002,
+        "mole_fraction": 0.010308027872179592,
+        "two_component_fraction": 0.0
+      }
+    ]
+  },
+  "setup": {
+    "adsorption_pressure_kpa": 303.975,
+    "desorption_pressure_kpa": 101.325,
+    "tower_temperature_k": 313.15,
+    "tower_height_m": 3.3318796720177355,
+    "tower_diameter_m": 1.6659398360088677,
+    "adsorption_velocity_m_per_s": 0.15,
+    "desorption_velocity_m_per_s": 0.45,
+    "reflux_factor": 9.000000000000002,
+    "molar_flow_mol_per_s": 37.668055555555554
+  },
+  "performance": {
+    "adsorption_end_time_s": 165.4740277804659,
+    "desorption_end_time_s": 65.32919390986154,
+    "product_kmol": {
+      "H2": 2.318013899797039,
+      "CH4": 0.0009219394988500811
+    },
+    "regeneration_inlet_concentration_kmol_per_m3": {
+      "H2": 0.03890046919553264,
+      "CH4": 1.5471813641109983e-05
+    },
+    "offgas_kmol": {
+      "H2": 2.7891841030257867,
+      "CH4": 1.1067144915249514
+    },
+    "hydrogen_recovery_percent": 2.085021128744371
+  }
+}
