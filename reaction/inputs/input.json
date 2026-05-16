@@ -1,0 +1,236 @@
+{
+  "species": ["CO2", "H2", "CH4", "H2O", "CO"],
+  "reactions": [
+    {
+      "name": "CO2 methanation",
+      "equation": "CO2 + 4 H2 -> CH4 + 2 H2O",
+      "stoichiometry": {
+        "CO2": -1.0,
+        "H2": -4.0,
+        "CH4": 1.0,
+        "H2O": 2.0,
+        "CO": 0.0
+      },
+      "kinetics": {
+        "forward": {
+          "preexponential": 0.48181389,
+          "activation_energy_kj_per_kmol": 57406.6,
+          "orders": {
+            "CO2": 1.0,
+            "H2": 0.5
+          }
+        },
+        "reverse": {
+          "preexponential": 1020000000000000.0,
+          "activation_energy_kj_per_kmol": 243900.0,
+          "orders": {
+            "CH4": 1.0,
+            "H2O": 2.0,
+            "H2": -3.5
+          }
+        },
+        "denominator_terms": [
+          {
+            "preexponential": 0.0000823,
+            "activation_energy_kj_per_kmol": -70650.0,
+            "orders": {
+              "CO": 1.0
+            }
+          },
+          {
+            "preexponential": 6.12e-09,
+            "activation_energy_kj_per_kmol": -82900.0,
+            "orders": {
+              "H2": 1.0
+            }
+          },
+          {
+            "preexponential": 0.000665,
+            "activation_energy_kj_per_kmol": -38280.0,
+            "orders": {
+              "CH4": 1.0
+            }
+          },
+          {
+            "preexponential": 177000.0,
+            "activation_energy_kj_per_kmol": 88680.0,
+            "orders": {
+              "H2O": 1.0,
+              "H2": -1.0
+            }
+          }
+        ],
+        "denominator_exponent": 2.0
+      }
+    },
+    {
+      "name": "reverse water-gas shift",
+      "equation": "CO2 + H2 -> CO + H2O",
+      "stoichiometry": {
+        "CO2": -1.0,
+        "H2": -1.0,
+        "CH4": 0.0,
+        "H2O": 1.0,
+        "CO": 1.0
+      },
+      "kinetics": {
+        "forward": {
+          "preexponential": 110639500.0,
+          "activation_energy_kj_per_kmol": 103713.6,
+          "orders": {
+            "CO2": 1.0
+          }
+        },
+        "reverse": {
+          "preexponential": 1955000.0,
+          "activation_energy_kj_per_kmol": 67130.0,
+          "orders": {
+            "CO": 1.0,
+            "H2O": 1.0,
+            "H2": -1.0
+          }
+        },
+        "denominator_terms": [
+          {
+            "preexponential": 0.0000823,
+            "activation_energy_kj_per_kmol": -70650.0,
+            "orders": {
+              "CO": 1.0
+            }
+          },
+          {
+            "preexponential": 6.12e-09,
+            "activation_energy_kj_per_kmol": -82900.0,
+            "orders": {
+              "H2": 1.0
+            }
+          },
+          {
+            "preexponential": 0.000665,
+            "activation_energy_kj_per_kmol": -38280.0,
+            "orders": {
+              "CH4": 1.0
+            }
+          },
+          {
+            "preexponential": 177000.0,
+            "activation_energy_kj_per_kmol": 88680.0,
+            "orders": {
+              "H2O": 1.0,
+              "H2": -1.0
+            }
+          }
+        ],
+        "denominator_exponent": 2.0
+      }
+    },
+    {
+      "name": "CO methanation",
+      "equation": "CO + 3 H2 -> CH4 + H2O",
+      "stoichiometry": {
+        "CO2": 0.0,
+        "H2": -3.0,
+        "CH4": 1.0,
+        "H2O": 1.0,
+        "CO": -1.0
+      },
+      "kinetics": {
+        "forward": {
+          "preexponential": 0.035267112,
+          "activation_energy_kj_per_kmol": 17023.0,
+          "orders": {
+            "CO": 1.0,
+            "H2": 0.5
+          }
+        },
+        "reverse": {
+          "preexponential": 4225000000000000.0,
+          "activation_energy_kj_per_kmol": 240100.0,
+          "orders": {
+            "CH4": 1.0,
+            "H2O": 1.0,
+            "H2": -2.5
+          }
+        },
+        "denominator_terms": [
+          {
+            "preexponential": 0.0000823,
+            "activation_energy_kj_per_kmol": -70650.0,
+            "orders": {
+              "CO": 1.0
+            }
+          },
+          {
+            "preexponential": 6.12e-09,
+            "activation_energy_kj_per_kmol": -82900.0,
+            "orders": {
+              "H2": 1.0
+            }
+          },
+          {
+            "preexponential": 0.000665,
+            "activation_energy_kj_per_kmol": -38280.0,
+            "orders": {
+              "CH4": 1.0
+            }
+          },
+          {
+            "preexponential": 177000.0,
+            "activation_energy_kj_per_kmol": 88680.0,
+            "orders": {
+              "H2O": 1.0,
+              "H2": -1.0
+            }
+          }
+        ],
+        "denominator_exponent": 2.0
+      }
+    }
+  ],
+  "feed_kmol_per_h": {
+    "CO2": 1.0,
+    "H2": 4.0,
+    "CH4": 0.0,
+    "H2O": 0.0,
+    "CO": 0.0
+  },
+  "reactor": {
+    "pressure_bar": 10.0,
+    "integration_steps": 2000,
+    "tube_count": 100
+  },
+  "temperature_sweep_k": {
+    "start": 573,
+    "stop": 673,
+    "step": 20
+  },
+  "sizing": {
+    "target_conversion": 0.8,
+    "max_catalyst_mass_kg": 100.0
+  },
+  "metrics": {
+    "target_species": "CO2",
+    "product_species": "CH4"
+  },
+  "thermal": {
+    "enabled": true,
+    "species_heat_capacity_kj_per_kmol_k": {
+      "CO2": 37.1,
+      "H2": 28.8,
+      "CH4": 35.7,
+      "H2O": 33.6,
+      "CO": 29.1
+    },
+    "reaction_enthalpy_kj_per_kmol": {
+      "CO2 methanation": -165000.0,
+      "reverse water-gas shift": 41000.0,
+      "CO methanation": -206000.0
+    },
+    "countercurrent_cooling": {
+      "coolant_inlet_temperature_k": 550.0,
+      "coolant_flow_kmol_per_h": 100.0,
+      "coolant_heat_capacity_kj_per_kmol_k": 75.3,
+      "heat_transfer_ua_kj_per_kgcat_h_k": 0.05
+    }
+  }
+}
