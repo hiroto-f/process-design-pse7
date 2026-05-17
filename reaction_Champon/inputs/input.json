@@ -1,0 +1,121 @@
+{
+  "species": ["CO2", "H2", "CH4", "H2O", "CO"],
+  "reactions": [
+    {
+      "name": "CO2 methanation",
+      "equation": "CO2 + 4 H2 -> CH4 + 2 H2O",
+      "stoichiometry": {
+        "CO2": -1.0,
+        "H2": -4.0,
+        "CH4": 1.0,
+        "H2O": 2.0,
+        "CO": 0.0
+      }
+    },
+    {
+      "name": "reverse water-gas shift",
+      "equation": "CO2 + H2 -> CO + H2O",
+      "stoichiometry": {
+        "CO2": -1.0,
+        "H2": -1.0,
+        "CH4": 0.0,
+        "H2O": 1.0,
+        "CO": 1.0
+      }
+    },
+    {
+      "name": "CO methanation",
+      "equation": "CO + 3 H2 -> CH4 + H2O",
+      "stoichiometry": {
+        "CO2": 0.0,
+        "H2": -3.0,
+        "CH4": 1.0,
+        "H2O": 1.0,
+        "CO": -1.0
+      }
+    }
+  ],
+  "kinetics": {
+    "kinetic_constants": {
+      "CO2 methanation": {
+        "preexponential_mol_per_gcat_min": 114000000.0,
+        "activation_energy_kj_per_mol": 110.0
+      },
+      "reverse water-gas shift": {
+        "preexponential_mol_per_gcat_min": 1780000.0,
+        "activation_energy_kj_per_mol": 97.1
+      },
+      "CO methanation": {
+        "preexponential_mol_per_gcat_min": 223000000.0,
+        "activation_energy_kj_per_mol": 97.3
+      }
+    },
+    "adsorption_constants": {
+      "CO": {
+        "preexponential_bar_inv": 0.00239,
+        "heat_of_adsorption_kj_per_mol": 40.6
+      },
+      "H2O": {
+        "preexponential_bar_inv": 0.609,
+        "heat_of_adsorption_kj_per_mol": 14.5
+      },
+      "CO2": {
+        "preexponential_bar_inv": 1.07,
+        "heat_of_adsorption_kj_per_mol": 9.72
+      },
+      "H2": {
+        "preexponential_bar_inv": 0.000052,
+        "heat_of_adsorption_kj_per_mol": 52.0
+      }
+    }
+  },
+  "feed_kmol_per_h": {
+    "CO2": 1.0,
+    "H2": 4.0,
+    "CH4": 0.0,
+    "H2O": 0.0,
+    "CO": 0.0
+  },
+  "reactor": {
+    "pressure_bar": 1.0,
+    "integration_steps": 200,
+    "tube_count": 100,
+    "tube_inner_diameter_m": 0.02,
+    "tube_length_m": 2.0,
+    "catalyst_bulk_density_kg_per_m3": 800.0
+  },
+  "temperature_sweep_k": {
+    "start": 623,
+    "stop": 673,
+    "step": 25
+  },
+  "sizing": {
+    "target_conversion": 0.85,
+    "max_catalyst_mass_kg": 50.2654824574367
+  },
+  "metrics": {
+    "target_species": "CO2",
+    "product_species": "CH4"
+  },
+  "thermal": {
+    "enabled": true,
+    "species_heat_capacity_kj_per_kmol_k": {
+      "CO2": 37.1,
+      "H2": 28.8,
+      "CH4": 35.7,
+      "H2O": 33.6,
+      "CO": 29.1
+    },
+    "reaction_enthalpy_kj_per_kmol": {
+      "CO2 methanation": -165000.0,
+      "reverse water-gas shift": 41000.0,
+      "CO methanation": -206000.0
+    },
+    "countercurrent_cooling": {
+      "coolant_inlet_temperature_k": 624.0,
+      "coolant_flow_kmol_per_h": 100.0,
+      "coolant_heat_capacity_kj_per_kmol_k": 75.3,
+      "heat_transfer_ua_kj_per_kgcat_h_k": 7500.0
+    }
+  }
+}

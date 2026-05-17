@@ -1,0 +1,148 @@
+{
+  "reactions": [
+    {
+      "name": "CO2 methanation",
+      "equation": "CO2 + 4 H2 -> CH4 + 2 H2O"
+    },
+    {
+      "name": "reverse water-gas shift",
+      "equation": "CO2 + H2 -> CO + H2O"
+    },
+    {
+      "name": "CO methanation",
+      "equation": "CO + 3 H2 -> CH4 + H2O"
+    }
+  ],
+  "basis": {
+    "model": "non-isothermal multitube packed-bed reactor with countercurrent cooling",
+    "kinetic_model": "Champon et al. (2019)",
+    "pressure_bar": 1.0,
+    "tube_count": 100,
+    "tube_inner_diameter_m": 0.02,
+    "tube_length_m": 2.0,
+    "catalyst_bulk_density_kg_per_m3": 800.0,
+    "available_catalyst_mass_per_tube_kg": 0.5026548245743669,
+    "available_total_catalyst_mass_kg": 50.2654824574367,
+    "total_feed_kmol_per_h": {
+      "CO2": 1.0,
+      "H2": 4.0,
+      "CH4": 0.0,
+      "H2O": 0.0,
+      "CO": 0.0
+    },
+    "feed_per_tube_kmol_per_h": {
+      "CO2": 0.01,
+      "H2": 0.04,
+      "CH4": 0.0,
+      "H2O": 0.0,
+      "CO": 0.0
+    },
+    "target_species": "CO2",
+    "product_species": "CH4"
+  },
+  "cooling": {
+    "coolant_inlet_temperature_k": 624.0,
+    "total_coolant_flow_kmol_per_h": 100.0,
+    "coolant_flow_per_tube_kmol_per_h": 1.0,
+    "coolant_heat_capacity_kj_per_kmol_k": 75.3,
+    "heat_transfer_ua_kj_per_kgcat_h_k": 7500.0
+  },
+  "results": [
+    {
+      "inlet_temperature_k": 623.0,
+      "target_conversion": 0.85,
+      "reached_target": true,
+      "total_catalyst_mass_kg": 10.45561305022853,
+      "catalyst_mass_per_tube_kg": 0.10455613050228531,
+      "total_search_limit_kg": 50.2654824574367,
+      "search_limit_per_tube_kg": 0.5026548245743669,
+      "achieved_conversion": 0.8499776678349649,
+      "ch4_yield_on_co2_feed": 0.8475352805234888,
+      "co_yield_on_co2_feed": 0.002442387311477039,
+      "ch4_selectivity_on_converted_co2": 0.9971265276678419,
+      "co_selectivity_on_converted_co2": 0.002873472332159276,
+      "total_outlet_flows_kmol_per_h": {
+        "CO2": 0.15002233216503513,
+        "H2": 0.6074164905945697,
+        "CH4": 0.8475352805234888,
+        "H2O": 1.6975129483584532,
+        "CO": 0.002442387311477039
+      },
+      "outlet_flows_per_tube_kmol_per_h": {
+        "CO2": 0.0015002233216503513,
+        "H2": 0.006074164905945697,
+        "CH4": 0.008475352805234888,
+        "H2O": 0.016975129483584532,
+        "CO": 2.442387311477039e-05
+      },
+      "gas_outlet_temperature_k": 624.569773712934,
+      "max_gas_temperature_k": 672.8658451278294,
+      "coolant_outlet_temperature_k": 642.4111972963365,
+      "cooling_duty_kj_per_h": 138636.31564141362
+    },
+    {
+      "inlet_temperature_k": 648.0,
+      "target_conversion": 0.85,
+      "reached_target": true,
+      "total_catalyst_mass_kg": 10.43106935762236,
+      "catalyst_mass_per_tube_kg": 0.10431069357622359,
+      "total_search_limit_kg": 50.2654824574367,
+      "search_limit_per_tube_kg": 0.5026548245743669,
+      "achieved_conversion": 0.8499106200184725,
+      "ch4_yield_on_co2_feed": 0.8474627648031143,
+      "co_yield_on_co2_feed": 0.002447855215356819,
+      "ch4_selectivity_on_converted_co2": 0.9971198674805299,
+      "co_selectivity_on_converted_co2": 0.0028801325194684774,
+      "total_outlet_flows_kmol_per_h": {
+        "CO2": 0.15008937998152752,
+        "H2": 0.6077010855721834,
+        "CH4": 0.8474627648031143,
+        "H2O": 1.6973733848215913,
+        "CO": 0.002447855215356819
+      },
+      "outlet_flows_per_tube_kmol_per_h": {
+        "CO2": 0.001500893799815275,
+        "H2": 0.0060770108557218335,
+        "CH4": 0.008474627648031143,
+        "H2O": 0.016973733848215912,
+        "CO": 2.447855215356819e-05
+      },
+      "gas_outlet_temperature_k": 624.2584720916948,
+      "max_gas_temperature_k": 673.8424348928779,
+      "coolant_outlet_temperature_k": 642.9096216762264,
+      "cooling_duty_kj_per_h": 142389.45122198464
+    },
+    {
+      "inlet_temperature_k": 673.0,
+      "target_conversion": 0.85,
+      "reached_target": true,
+      "total_catalyst_mass_kg": 10.40652566501619,
+      "catalyst_mass_per_tube_kg": 0.1040652566501619,
+      "total_search_limit_kg": 50.2654824574367,
+      "search_limit_per_tube_kg": 0.5026548245743669,
+      "achieved_conversion": 0.8499848832588419,
+      "ch4_yield_on_co2_feed": 0.8475406664116228,
+      "co_yield_on_co2_feed": 0.0024442168472190756,
+      "ch4_selectivity_on_converted_co2": 0.9971243996271464,
+      "co_selectivity_on_converted_co2": 0.0028756003728536306,
+      "total_outlet_flows_kmol_per_h": {
+        "CO2": 0.15001511674115814,
+        "H2": 0.6073931175062862,
+        "CH4": 0.8475406664116228,
+        "H2O": 1.6975255496704655,
+        "CO": 0.0024442168472190756
+      },
+      "outlet_flows_per_tube_kmol_per_h": {
+        "CO2": 0.0015001511674115815,
+        "H2": 0.006073931175062862,
+        "CH4": 0.008475406664116229,
+        "H2O": 0.016975255496704655,
+        "CO": 2.4442168472190758e-05
+      },
+      "gas_outlet_temperature_k": 624.3880432029163,
+      "max_gas_temperature_k": 678.2857317854315,
+      "coolant_outlet_temperature_k": 643.413431724658,
+      "cooling_duty_kj_per_h": 146183.14088667504
+    }
+  ]
+}
