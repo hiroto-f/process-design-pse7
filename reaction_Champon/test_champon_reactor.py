@@ -7,19 +7,23 @@ from reaction_Champon.champon_reactor import (
     ReactorConfig,
     build_summary,
     equilibrium_constant,
+    evaluate_fixed_geometry,
     load_design_case,
     partial_pressures,
     reaction_rates_kmol_per_kgcat_h,
-    size_for_target_conversion,
     simulate_fixed_bed,
     temperature_profile_for_result,
     temperature_profile_for_full_bed,
+    validate_nonincreasing_gas_temperature_profile,
     validate_profile_temperature_range,
     write_reaction_rate_profile_by_position_image,
     write_reaction_rate_profile_image,
     write_temperature_profile_by_position_image,
     write_temperature_profile_image,
 )
+from reaction_Champon.utils.catalyst_mass_sizing import size_for_target_conversion
+from reaction_Champon.utils.coupled_tube_sizing import solve_coupled_tube_sizing
+from reaction_Champon.utils.tube_sizing import select_tube_count_for_catalyst_mass
 
 
 INPUT_PATH = Path(__file__).parent / "inputs" / "input.json"
@@ -96,37 +100,36 @@ class ChamponReactorTests(unittest.TestCase):
         )
 
     def test_summary_contains_results(self) -> None:
-        result = size_for_target_conversion(
+        result = evaluate_fixed_geometry(
             design_case=self.design_case,
             config=ReactorConfig(
                 temperature_k=673.0,
                 pressure_bar=self.design_case.pressure_bar,
                 integration_steps=self.design_case.integration_steps,
             ),
-            target_conversion=self.design_case.sizing.target_conversion,
-            max_catalyst_mass_kg=self.design_case.sizing.max_catalyst_mass_kg,
         )
         summary = build_summary(self.design_case, [result])
         self.assertEqual(summary["basis"]["kinetic_model"], "Champon et al. (2019)")
-        self.assertEqual(summary["basis"]["tube_count"], 100)
+        self.assertEqual(summary["basis"]["tube_count"], 83)
         self.assertEqual(summary["basis"]["tube_inner_diameter_m"], 0.02)
         self.assertAlmostEqual(
             summary["basis"]["available_total_catalyst_mass_kg"],
-            50.2654824574367,
+            41.72035043967246,
         )
 
-    def test_profile_images_are_written(self) -> None:
-        result = size_for_target_conversion(
+    def test_fixed_geometry_uses_available_catalyst_inventory(self) -> None:
+        result = evaluate_fixed_geometry(
             design_case=self.design_case,
             config=ReactorConfig(
                 temperature_k=673.0,
                 pressure_bar=self.design_case.pressure_bar,
                 integration_steps=self.design_case.integration_steps,
             ),
-            target_conversion=self.design_case.sizing.target_conversion,
-            max_catalyst_mass_kg=self.design_case.sizing.max_catalyst_mass_kg,
         )
-        profile = temperature_profile_for_result(self.design_case, result)
+        self.assertAlmostEqual(result.catalyst_mass_kg, 41.72035043967246)
+
+    def test_profile_images_are_written(self) -> None:
+        profile = temperature_profile_for_full_bed(self.design_case, 673.0)
         temperature_path = Path("/private/tmp/test_champon_temperature_profile.png")
         rate_path = Path("/private/tmp/test_champon_reaction_rate_profile.png")
         position_temperature_path = Path("/private/tmp/test_champon_temperature_profile_z.png")
@@ -147,24 +150,35 @@ class ChamponReactorTests(unittest.TestCase):
         self.assertAlmostEqual(profile.reactor_coordinate_m[-1], 2.0)
 
     def test_full_bed_profiles_stay_in_champon_temperature_range(self) -> None:
-        for temperature_k in (623.0, 648.0, 673.0):
-            profile = temperature_profile_for_full_bed(self.design_case, temperature_k)
-            validate_profile_temperature_range(profile)
+        profile = temperature_profile_for_full_bed(self.design_case, 700.0)
+        validate_profile_temperature_range(profile)
+        validate_nonincreasing_gas_temperature_profile(profile)
+        self.assertAlmostEqual(profile.gas_temperature_k[0], 700.0)
+        self.assertGreaterEqual(profile.gas_temperature_k[-1], 624.0)
 
-    def test_target_profiles_stay_in_champon_temperature_range(self) -> None:
-        for temperature_k in (623.0, 648.0, 673.0):
-            result = size_for_target_conversion(
-                design_case=self.design_case,
-                config=ReactorConfig(
-                    temperature_k=temperature_k,
-                    pressure_bar=self.design_case.pressure_bar,
-                    integration_steps=self.design_case.integration_steps,
-                ),
-                target_conversion=self.design_case.sizing.target_conversion,
-                max_catalyst_mass_kg=self.design_case.sizing.max_catalyst_mass_kg,
-            )
-            profile = temperature_profile_for_result(self.design_case, result)
-            validate_profile_temperature_range(profile)
+    def test_tube_count_is_selected_from_required_catalyst_mass(self) -> None:
+        result = select_tube_count_for_catalyst_mass(
+            required_catalyst_mass_kg=6.20955422936,
+            catalyst_bulk_density_kg_per_m3=800.0,
+            tube_inner_diameter_m=0.02,
+            tube_length_m=2.0,
+        )
+        self.assertEqual(result.tube_count, 13)
+        self.assertAlmostEqual(result.catalyst_capacity_per_tube_kg, 0.5026548245743669)
+        self.assertAlmostEqual(result.available_catalyst_mass_kg, 6.53451271946677)
+
+    def test_coupled_tube_sizing_converges(self) -> None:
+        result = solve_coupled_tube_sizing(
+            design_case=self.design_case,
+            temperature_k=700.0,
+            initial_tube_count=83,
+            max_catalyst_mass_kg=200.0,
+        )
+        self.assertTrue(result.converged)
+        self.assertEqual(
+            result.tube_sizing.tube_count,
+            result.iterations[-1].next_tube_count,
+        )
 
 
 if __name__ == "__main__":

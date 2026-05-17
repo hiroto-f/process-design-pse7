@@ -1,7 +1,10 @@
 {
+  // 計算で扱った反応ネットワーク
   "reactions": [
     {
+      // 反応名
       "name": "CO2 methanation",
+      // 表示用の反応式
       "equation": "CO2 + 4 H2 -> CH4 + 2 H2O"
     },
     {
@@ -13,16 +16,28 @@
       "equation": "CO + 3 H2 -> CH4 + H2O"
     }
   ],
+
+  // 計算の前提条件
   "basis": {
+    // 反応器モデルの説明
     "model": "non-isothermal multitube packed-bed reactor with countercurrent cooling",
+    // 使用した速度論モデル
     "kinetic_model": "Champon et al. (2019)",
+    // 反応器圧力 [bar]
     "pressure_bar": 1.0,
+    // 並列管本数
     "tube_count": 83,
+    // 管内径 [m]
     "tube_inner_diameter_m": 0.02,
+    // 管長 [m]
     "tube_length_m": 2.0,
+    // 充填触媒密度 [kg/m3]
     "catalyst_bulk_density_kg_per_m3": 800.0,
+    // 1本あたりに充填できる触媒量 [kg/tube]
     "available_catalyst_mass_per_tube_kg": 0.5026548245743669,
+    // 全管合計で充填できる触媒量 [kg]
     "available_total_catalyst_mass_kg": 41.72035043967246,
+    // 反応器全体への入口供給流量 [kmol/h]
     "total_feed_kmol_per_h": {
       "CO2": 12.4,
       "H2": 49.6,
@@ -30,6 +45,7 @@
       "H2O": 0.0,
       "CO": 0.0
     },
+    // 代表管1本あたりの入口供給流量 [kmol/h/tube]
     "feed_per_tube_kmol_per_h": {
       "CO2": 0.1493975903614458,
       "H2": 0.5975903614457831,
@@ -37,30 +53,54 @@
       "H2O": 0.0,
       "CO": 0.0
     },
+    // 転化率を評価する対象成分
     "target_species": "CO2",
+    // 収率や選択率を評価する主生成物
     "product_species": "CH4"
   },
+
+  // 冷却条件
   "cooling": {
+    // 冷媒入口温度 [K]
     "coolant_inlet_temperature_k": 624.0,
+    // 全管合計の冷媒流量 [kmol/h]
     "total_coolant_flow_kmol_per_h": 500.0,
+    // 代表管1本あたりの冷媒流量 [kmol/h/tube]
     "coolant_flow_per_tube_kmol_per_h": 6.024096385542169,
+    // 冷媒の定圧熱容量 [kJ/(kmol K)]
     "coolant_heat_capacity_kj_per_kmol_k": 75.3,
+    // 触媒質量基準の伝熱能力 [kJ/(kgcat h K)]
     "heat_transfer_ua_kj_per_kgcat_h_k": 12000.0
   },
+
+  // 固定形状反応器の評価結果
   "results": [
     {
+      // ガス入口温度 [K]
       "inlet_temperature_k": 700.0,
+      // 判定に使う目標転化率 [-]
       "target_conversion": 0.8,
+      // 実際の転化率が目標を満たしたか
       "reached_target": false,
+      // 実際に計算へ使った総触媒量 [kg]
       "total_catalyst_mass_kg": 41.72035043967246,
+      // 代表管1本あたりの触媒量 [kg/tube]
       "catalyst_mass_per_tube_kg": 0.5026548245743669,
+      // 現在の main では固定形状評価なので、利用可能な総触媒量と同じ値 [kg]
       "total_search_limit_kg": 41.72035043967246,
+      // 現在の main では固定形状評価なので、1本あたり利用可能触媒量と同じ値 [kg/tube]
       "search_limit_per_tube_kg": 0.5026548245743669,
+      // 実際に達成した CO2 転化率 [-]
       "achieved_conversion": 0.7385578955260926,
+      // CO2 供給量基準の CH4 収率 [-]
       "ch4_yield_on_co2_feed": 0.7308028667186238,
+      // CO2 供給量基準の CO 収率 [-]
       "co_yield_on_co2_feed": 0.007755028807469507,
+      // 反応した CO2 基準の CH4 選択率 [-]
       "ch4_selectivity_on_converted_co2": 0.9894997685970918,
+      // 反応した CO2 基準の CO 選択率 [-]
       "co_selectivity_on_converted_co2": 0.010500231402909059,
+      // 反応器全体の出口流量 [kmol/h]
       "total_outlet_flows_kmol_per_h": {
         "CO2": 3.241882095476451,
         "H2": 13.256015453543688,
@@ -68,6 +108,7 @@
         "H2O": 18.220073451834494,
         "CO": 0.09616235721262188
       },
+      // 代表管1本あたりの出口流量 [kmol/h/tube]
       "outlet_flows_per_tube_kmol_per_h": {
         "CO2": 0.03905882042742712,
         "H2": 0.15971102956076733,
@@ -75,9 +116,13 @@
         "H2O": 0.21951895725101803,
         "CO": 0.0011585826170195407
       },
+      // ガス出口温度 [K]
       "gas_outlet_temperature_k": 624.4924962591188,
+      // 反応器内での最高ガス温度 [K]
       "max_gas_temperature_k": 700.0,
+      // 冷媒出口温度 [K]
       "coolant_outlet_temperature_k": 666.9685150980949,
+      // 冷媒が除去した熱量 [kJ/h]
       "cooling_duty_kj_per_h": 1617764.5934432745
     }
   ]

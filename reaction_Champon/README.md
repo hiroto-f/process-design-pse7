@@ -29,6 +29,8 @@ Champon モデルは次を同時に扱います。
 ```
 
 `inputs/input.json` では次を設定できます。
+各項目の意味を日本語コメント付きで確認したい場合は、
+`inputs/input.annotated.jsonc` を参照してください。
 
 - `kinetics.kinetic_constants`: Champon Table 3 の `k0` と `Ea`
 - `kinetics.adsorption_constants`: Champon Table 3 の `K0` と `Q`
@@ -54,6 +56,7 @@ Champon モデルは次を同時に扱います。
 生成物:
 
 - `outputs/summary.json`: 各入口温度での反応結果
+- `outputs/summary.annotated.jsonc`: `summary.json` の各項目を日本語コメントで説明した参照用ファイル
 - `outputs/temperature_profile.png`: 代表管のガス温度と冷媒温度
 - `outputs/reaction_rate_profile.png`: 代表管の各反応速度分布
 - `outputs/temperature_profile_z.png`: `z` 軸で見た代表管のガス温度と冷媒温度
@@ -64,3 +67,31 @@ Champon モデルは次を同時に扱います。
 現在のサンプルでは、管内径 `20 mm`、管長 `2 m`、管本数 `100` 本、
 充填触媒密度 `800 kg/m3` とし、幾何から決まる総触媒量 `50.265 kg` を
 利用可能触媒量として使っています。画像はこの `2 m` の全長プロファイルです。
+
+必要触媒量を逆算したい場合は、メイン実行とは分けて utility を使います。
+
+```bash
+./.venv/bin/python -m reaction_Champon.utils.catalyst_mass_sizing \
+  --input reaction_Champon/inputs/input.json \
+  --temperature-k 673 \
+  --target-conversion 0.8
+```
+
+必要触媒量から管本数を決めたい場合は、管径と管長を先に選び、
+次の utility を使います。
+
+```bash
+./.venv/bin/python -m reaction_Champon.utils.tube_sizing \
+  --required-catalyst-mass-kg 6.20955422936 \
+  --catalyst-bulk-density-kg-per-m3 800 \
+  --tube-inner-diameter-m 0.02 \
+  --tube-length-m 2.0
+```
+
+管本数と必要触媒量を連成で収束させたい場合は、次の utility を使います。
+
+```bash
+./.venv/bin/python -m reaction_Champon.utils.coupled_tube_sizing \
+  --input reaction_Champon/inputs/input.json \
+  --temperature-k 673
+```

@@ -70,8 +70,8 @@
     }
   },
   "feed_kmol_per_h": {
-    "CO2": 1.0,
-    "H2": 4.0,
+    "CO2": 12.4,
+    "H2": 49.6,
     "CH4": 0.0,
     "H2O": 0.0,
     "CO": 0.0
@@ -79,18 +79,18 @@
   "reactor": {
     "pressure_bar": 1.0,
     "integration_steps": 200,
-    "tube_count": 100,
+    "tube_count": 83,
     "tube_inner_diameter_m": 0.02,
     "tube_length_m": 2.0,
     "catalyst_bulk_density_kg_per_m3": 800.0
   },
   "temperature_sweep_k": {
-    "start": 623,
-    "stop": 673,
+    "start": 700,
+    "stop": 700,
     "step": 25
   },
   "sizing": {
-    "target_conversion": 0.85,
+    "target_conversion": 0.8,
     "max_catalyst_mass_kg": 50.2654824574367
   },
   "metrics": {
@@ -113,9 +113,9 @@
     },
     "countercurrent_cooling": {
       "coolant_inlet_temperature_k": 624.0,
-      "coolant_flow_kmol_per_h": 100.0,
+      "coolant_flow_kmol_per_h": 500.0,
       "coolant_heat_capacity_kj_per_kmol_k": 75.3,
-      "heat_transfer_ua_kj_per_kgcat_h_k": 7500.0
+      "heat_transfer_ua_kj_per_kgcat_h_k": 12000.0
     }
   }
 }

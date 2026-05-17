@@ -1,0 +1,169 @@
+{
+  // モデルで扱う化学種の一覧
+  "species": ["CO2", "H2", "CH4", "H2O", "CO"],
+
+  // 反応ネットワーク
+  "reactions": [
+    {
+      // 反応名
+      "name": "CO2 methanation",
+      // 反応式の表示用文字列
+      "equation": "CO2 + 4 H2 -> CH4 + 2 H2O",
+      // 化学量論係数。負は消費、正は生成、0 は関与なし
+      "stoichiometry": {
+        "CO2": -1.0,
+        "H2": -4.0,
+        "CH4": 1.0,
+        "H2O": 2.0,
+        "CO": 0.0,
+      },
+    },
+    {
+      "name": "reverse water-gas shift",
+      "equation": "CO2 + H2 -> CO + H2O",
+      "stoichiometry": {
+        "CO2": -1.0,
+        "H2": -1.0,
+        "CH4": 0.0,
+        "H2O": 1.0,
+        "CO": 1.0,
+      },
+    },
+    {
+      "name": "CO methanation",
+      "equation": "CO + 3 H2 -> CH4 + H2O",
+      "stoichiometry": {
+        "CO2": 0.0,
+        "H2": -3.0,
+        "CH4": 1.0,
+        "H2O": 1.0,
+        "CO": -1.0,
+      },
+    },
+  ],
+
+  // Champon モデルの速度論パラメータ
+  "kinetics": {
+    // Arrhenius 型速度定数 k = k0 exp(-Ea / RT)
+    "kinetic_constants": {
+      "CO2 methanation": {
+        // 前指数因子 [mol/(gcat min)]
+        "preexponential_mol_per_gcat_min": 114000000.0,
+        // 活性化エネルギー [kJ/mol]
+        "activation_energy_kj_per_mol": 110.0,
+      },
+      "reverse water-gas shift": {
+        "preexponential_mol_per_gcat_min": 1780000.0,
+        "activation_energy_kj_per_mol": 97.1,
+      },
+      "CO methanation": {
+        "preexponential_mol_per_gcat_min": 223000000.0,
+        "activation_energy_kj_per_mol": 97.3,
+      },
+    },
+    // 吸着平衡定数 K = K0 exp(Q / RT)
+    "adsorption_constants": {
+      "CO": {
+        // 前指数因子 [1/bar]
+        "preexponential_bar_inv": 0.00239,
+        // 吸着熱 [kJ/mol]
+        "heat_of_adsorption_kj_per_mol": 40.6,
+      },
+      "H2O": {
+        "preexponential_bar_inv": 0.609,
+        "heat_of_adsorption_kj_per_mol": 14.5,
+      },
+      "CO2": {
+        "preexponential_bar_inv": 1.07,
+        "heat_of_adsorption_kj_per_mol": 9.72,
+      },
+      "H2": {
+        "preexponential_bar_inv": 0.000052,
+        "heat_of_adsorption_kj_per_mol": 52.0,
+      },
+    },
+  },
+
+  // 反応器入口の総供給流量 [kmol/h]
+  "feed_kmol_per_h": {
+    "CO2": 12.4,
+    "H2": 49.6,
+    "CH4": 0.0,
+    "H2O": 0.0,
+    "CO": 0.0,
+  },
+
+  // 反応器の幾何条件と数値積分条件
+  "reactor": {
+    // 全圧 [bar]
+    "pressure_bar": 1.0,
+    // 積分分割数。大きいほど分解能は上がるが計算時間も増える
+    "integration_steps": 200,
+    // 並列管本数
+    "tube_count": 90,
+    // 管内径 [m]
+    "tube_inner_diameter_m": 0.02,
+    // 管長 [m]
+    "tube_length_m": 2.0,
+    // 充填触媒密度 [kg/m3]。W と z の換算に使う
+    "catalyst_bulk_density_kg_per_m3": 800.0,
+  },
+
+  // 評価する入口ガス温度範囲 [K]
+  "temperature_sweep_k": {
+    // 評価開始温度 [K]
+    "start": 700,
+    // 評価終了温度 [K]
+    "stop": 700,
+    // 温度刻み [K]
+    "step": 25,
+  },
+
+  // 設計判定や utility で使うサイジング条件
+  "sizing": {
+    // 目標 CO2 転化率 [-]
+    "target_conversion": 0.8,
+    // 必要触媒量探索時の上限 [kg]
+    "max_catalyst_mass_kg": 50.2654824574367,
+  },
+
+  // 評価指標に使う化学種
+  "metrics": {
+    // 転化率を計算する対象成分
+    "target_species": "CO2",
+    // 生成量や収率を評価する生成物
+    "product_species": "CH4",
+  },
+
+  // 熱収支モデルの設定
+  "thermal": {
+    // true なら非等温計算、false なら等温計算
+    "enabled": true,
+    // 各成分の定圧熱容量 [kJ/(kmol K)]
+    "species_heat_capacity_kj_per_kmol_k": {
+      "CO2": 37.1,
+      "H2": 28.8,
+      "CH4": 35.7,
+      "H2O": 33.6,
+      "CO": 29.1,
+    },
+    // 各反応の反応エンタルピー [kJ/kmol]
+    // 負は発熱反応、正は吸熱反応
+    "reaction_enthalpy_kj_per_kmol": {
+      "CO2 methanation": -165000.0,
+      "reverse water-gas shift": 41000.0,
+      "CO methanation": -206000.0,
+    },
+    // 向流冷却条件
+    "countercurrent_cooling": {
+      // 冷媒入口温度 [K]
+      "coolant_inlet_temperature_k": 624.0,
+      // 全管合計の冷媒流量 [kmol/h]
+      "coolant_flow_kmol_per_h": 500.0,
+      // 冷媒の定圧熱容量 [kJ/(kmol K)]
+      "coolant_heat_capacity_kj_per_kmol_k": 75.3,
+      // 触媒質量基準の伝熱能力 [kJ/(kgcat h K)]
+      "heat_transfer_ua_kj_per_kgcat_h_k": 12000.0,
+    },
+  },
+}
