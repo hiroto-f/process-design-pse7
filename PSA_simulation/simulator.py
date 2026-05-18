@@ -176,7 +176,7 @@ class PsaSimulator:
             count += 1
             for i in range(2):
                 st.flow_out[i] += st.c0[i] * lt * dt * ct_1[i][M] * u[M] * area
-            if ct_1[1][M] > 0.05:
+            if ct_1[1][M] > self.setup.adsorption_breakthrough_threshold:
                 break
 
         st.end_time[0] = (count - 1) * lt / u0 * dt
@@ -240,7 +240,7 @@ class PsaSimulator:
             count += 1
             for i in range(2):
                 st.purge_out[i] += st.c0[i] * lt * dt * ct_1[i][1] * u[1] * area
-            if qt_1[1][1] < 0.005:
+            if qt_1[1][1] < self.setup.desorption_residual_loading_threshold:
                 break
 
         st.end_time[1] = (count - 1) * lt / u0 * dt

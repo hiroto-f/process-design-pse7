@@ -31,7 +31,10 @@ class TowerInput:
     adsorption_temperature_c: float
     height_to_diameter_ratio: float
     adsorption_velocity_m_per_s: float
-    desorption_velocity_m_per_s: float
+    adsorption_breakthrough_threshold: float = 0.05
+    desorption_residual_loading_threshold: float = 0.005
+    purge_fraction: float | None = None
+    desorption_velocity_m_per_s: float | None = None
 
 
 @dataclass(frozen=True)

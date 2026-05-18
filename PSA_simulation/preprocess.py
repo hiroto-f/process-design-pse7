@@ -54,6 +54,9 @@ class SetupState:
     volume_flow_m3_per_h: float = 0.0
     feed_pressure_kpa: float = 0.0
     reflux: float = 0.0
+    purge_fraction: float | None = None
+    adsorption_breakthrough_threshold: float = 0.0
+    desorption_residual_loading_threshold: float = 0.0
 
 
 class Preprocessor:
@@ -128,7 +131,15 @@ class Preprocessor:
         st.plow = tower.desorption_pressure_kpa
         st.zt_dto = tower.height_to_diameter_ratio
         st.uhigh = tower.adsorption_velocity_m_per_s
-        st.ulow = tower.desorption_velocity_m_per_s
+        st.adsorption_breakthrough_threshold = tower.adsorption_breakthrough_threshold
+        st.desorption_residual_loading_threshold = tower.desorption_residual_loading_threshold
+        st.purge_fraction = tower.purge_fraction
+        if tower.purge_fraction is not None:
+            st.ulow = st.uhigh * st.phigh / st.plow * tower.purge_fraction
+        elif tower.desorption_velocity_m_per_s is not None:
+            st.ulow = tower.desorption_velocity_m_per_s
+        else:
+            raise ValueError("tower must define purge_fraction or desorption_velocity_m_per_s.")
         st.dto = math.sqrt(4.0 * st.vt / st.uhigh / PI)
         st.zt = st.zt_dto * st.dto
         st.reflux = st.ulow * st.phigh / st.uhigh / st.plow

@@ -143,7 +143,10 @@ def _build_summary(
             "tower_height_m": setup_state.zt,
             "tower_diameter_m": setup_state.dto,
             "adsorption_velocity_m_per_s": setup_state.uhigh,
+            "purge_fraction": setup_state.purge_fraction,
             "desorption_velocity_m_per_s": setup_state.ulow,
+            "adsorption_breakthrough_threshold": setup_state.adsorption_breakthrough_threshold,
+            "desorption_residual_loading_threshold": setup_state.desorption_residual_loading_threshold,
             "reflux_factor": setup_state.reflux,
             "molar_flow_mol_per_s": setup_state.qt,
         },
@@ -152,23 +155,33 @@ def _build_summary(
     if simulation_state is None:
         return summary
 
-    hydrogen_feed = setup_state.flows_kmol_per_h[0]
-    hydrogen_product = simulation_state.product_out[0]
+    hydrogen_feed_rate = setup_state.flows_kmol_per_h[0]
+    methane_feed_rate = setup_state.flows_kmol_per_h[1]
+    adsorption_time_h = simulation_state.end_time[0] / 3600.0
+    hydrogen_feed_kmol = hydrogen_feed_rate * adsorption_time_h
+    methane_feed_kmol = methane_feed_rate * adsorption_time_h
+    methane_product_kmol = simulation_state.purge_out[1]
     summary["performance"] = {
         "adsorption_end_time_s": simulation_state.end_time[0],
         "desorption_end_time_s": simulation_state.end_time[1],
-        "product_kmol": {
+        "adsorption_feed_kmol": {
+            "H2": hydrogen_feed_kmol,
+            "CH4": methane_feed_kmol,
+        },
+        "recycle_kmol": {
             "H2": simulation_state.product_out[0],
             "CH4": simulation_state.product_out[1],
+        },
+        "desorption_product_kmol": {
+            "H2": simulation_state.purge_out[0],
+            "CH4": methane_product_kmol,
         },
         "regeneration_inlet_concentration_kmol_per_m3": {
             "H2": simulation_state.regeneration_inlet_concentration[0],
             "CH4": simulation_state.regeneration_inlet_concentration[1],
         },
-        "offgas_kmol": {
-            "H2": simulation_state.purge_out[0],
-            "CH4": simulation_state.purge_out[1],
-        },
-        "hydrogen_recovery_percent": hydrogen_product / hydrogen_feed * 100.0 if hydrogen_feed else None,
+        "methane_desorption_recovery_percent": (
+            methane_product_kmol / methane_feed_kmol * 100.0 if methane_feed_kmol else None
+        ),
     }
     return summary
