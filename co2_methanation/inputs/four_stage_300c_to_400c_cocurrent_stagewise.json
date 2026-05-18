@@ -1,0 +1,51 @@
+{
+  "species": ["CO2", "H2", "CH4", "H2O", "CO"],
+  "feed": {
+    "basis": "Four-stage wall-cooled CO2 methanation with stagewise coolant temperatures",
+    "hydrogen_mass_flow_kg_per_h": 100.0,
+    "h2_to_co2_molar_ratio": 4.0,
+    "temperature_k": 573.15,
+    "flows_kmol_per_h": {
+      "CO2": 12.401534688995215,
+      "H2": 49.60613875598086,
+      "CH4": 0.0,
+      "H2O": 0.0,
+      "CO": 0.0
+    }
+  },
+  "reactor": {
+    "pressure_bar": 10.0,
+    "tube_count": 100,
+    "tube_inner_diameter_m": 0.02,
+    "tube_length_per_stage_m": 0.2,
+    "catalyst_bulk_density_kg_per_m3": 800.0,
+    "fresh_catalyst": false,
+    "integration_steps_per_stage": 600
+  },
+  "stages": {
+    "count": 4,
+    "interstage_cooler_outlet_temperature_k": 573.15
+  },
+  "external_cooling": {
+    "enabled": true,
+    "flow_pattern": "co_current",
+    "coolant_inlet_temperature_k": 545.15,
+    "coolant_inlet_temperatures_k": [545.15, 546.16, 547.15, 550.15],
+    "coolant_heat_capacity_flow_kj_per_h_k": 2500.0,
+    "overall_heat_transfer_coefficient_kj_per_m2_h_k": 72.0
+  },
+  "thermal": {
+    "species_heat_capacity_kj_per_kmol_k": {
+      "CO2": 37.1,
+      "H2": 28.8,
+      "CH4": 35.7,
+      "H2O": 33.6,
+      "CO": 29.1
+    },
+    "reaction_enthalpy_kj_per_kmol": {
+      "R1": 206100.0,
+      "R2": -41150.0,
+      "R3": 164900.0
+    }
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "source": {
+    "authors": "Jianguo Xu; Gilbert F. Froment",
+    "year": 1989,
+    "title": "Methane Steam Reforming, Methanation and Water-Gas Shift: 1. Intrinsic Kinetics",
+    "tables": ["Table 5", "Table 6"],
+    "pdf": "documents/Xu.pdf"
+  },
+  "reactions": {
+    "R1": "CH4 + H2O <-> CO + 3 H2",
+    "R2": "CO + H2O <-> CO2 + H2",
+    "R3": "CH4 + 2 H2O <-> CO2 + 4 H2"
+  },
+  "rate_constants": {
+    "k1": {
+      "preexponential": 4.225e15,
+      "activation_energy_kj_per_mol": 240.1
+    },
+    "k2": {
+      "preexponential": 1.955e6,
+      "activation_energy_kj_per_mol": 67.13
+    },
+    "k3": {
+      "preexponential": 1.02e15,
+      "activation_energy_kj_per_mol": 243.9
+    }
+  },
+  "adsorption_constants": {
+    "CO": {
+      "preexponential_bar_inv": 8.23e-5,
+      "enthalpy_kj_per_mol": -70.65
+    },
+    "H2": {
+      "preexponential_bar_inv": 6.12e-9,
+      "enthalpy_kj_per_mol": -82.9
+    },
+    "CH4": {
+      "preexponential_bar_inv": 6.65e-4,
+      "enthalpy_kj_per_mol": -38.28
+    },
+    "H2O": {
+      "preexponential": 1.77e5,
+      "enthalpy_kj_per_mol": 88.68
+    }
+  },
+  "activity_factors": {
+    "reference_activity": 1.0,
+    "fresh_catalyst_multiplier_for_rate_constants": 2.246
+  },
+  "notes": [
+    "Rate equations use Xu and Froment reaction directions R1-R3.",
+    "For CO2 methanation, reverse reaction appears as negative Xu reaction rates.",
+    "The paper reports intrinsic kinetics; reactor-scale diffusion effects are not included."
+  ]
+}

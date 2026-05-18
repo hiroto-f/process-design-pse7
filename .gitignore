@@ -40,3 +40,7 @@ Thumbs.db
 desktop.ini
 .vscode/
 !.vscode/extensions.json
+
+co2_methanation/__pycache__/
+co2_methanation/*.py[cod]   
+co2_methanation/outputs/
