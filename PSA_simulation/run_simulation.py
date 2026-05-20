@@ -4,7 +4,7 @@ import argparse
 from pathlib import Path
 
 from .preprocess import Preprocessor
-from .simulator import PsaSimulator
+from .simulators import PsaSimulator
 from .structured_io import load_common_inputs, load_tower_input, save_outputs
 
 

@@ -6,6 +6,11 @@ Excel VBA マクロを、HYSYS を使わず実行するための Python 版で�
 
 ```text
 PSA_simulation/
+├─ models/
+│  └─ __init__.py
+├─ simulators/
+│  ├─ standard.py
+│  └─ fast.py
 ├─ inputs/
 │  ├─ common/
 │  │  ├─ adsorbent.json

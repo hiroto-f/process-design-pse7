@@ -2,8 +2,8 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 
-from .models import SimulationInput
-from .preprocess import SetupState
+from ..models import SimulationInput
+from ..preprocess import SetupState
 
 
 R = 8.31451

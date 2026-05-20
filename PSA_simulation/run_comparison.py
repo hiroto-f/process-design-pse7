@@ -7,8 +7,9 @@ from copy import deepcopy
 from pathlib import Path
 from typing import Any
 
-from .run_simulation import run_one_tower
-from .structured_io import load_common_inputs, load_json, load_tower_input
+from .preprocess import Preprocessor
+from .simulators import FastPsaSimulator
+from .structured_io import load_common_inputs, load_json, load_tower_input, save_outputs
 
 
 DEFAULT_CASES: list[dict[str, Any]] = [
@@ -144,6 +145,35 @@ def _write_comparison_outputs(rows: list[dict[str, Any]], output_dir: Path) -> N
         writer.writerows(rows)
 
 
+def _run_fast_case(
+    inputs,
+    output_dir: Path,
+    case_name: str,
+    setup_only: bool,
+    max_steps: int | None,
+    grid_size: int,
+    adsorption_dt: float,
+    desorption_dt: float,
+    cycles: int,
+    save_profiles: bool,
+) -> None:
+    setup_state = Preprocessor(inputs).run()
+    simulation_state = None
+    if not setup_only:
+        simulation_state = FastPsaSimulator(
+            inputs,
+            setup_state,
+            max_steps=max_steps,
+            grid_size=grid_size,
+            adsorption_dt=adsorption_dt,
+            desorption_dt=desorption_dt,
+            cycles=cycles,
+            save_profiles=save_profiles,
+        ).run()
+    save_outputs(inputs, output_dir, case_name, setup_state, simulation_state)
+    print(f"Output written to: {output_dir}")
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Run PSA tower_1 comparison cases for CH4 enrichment.")
     parser.add_argument("--input-dir", type=Path, default=Path("PSA_simulation/inputs/common"))
@@ -151,6 +181,11 @@ def main() -> None:
     parser.add_argument("--output-dir", type=Path, default=Path("PSA_simulation/outputs/comparison"))
     parser.add_argument("--setup-only", action="store_true", help="Only run setup calculations for each case.")
     parser.add_argument("--max-steps", type=int, default=None, help="Debug safety limit per simulation step.")
+    parser.add_argument("--grid-size", type=int, default=50)
+    parser.add_argument("--adsorption-dt", type=float, default=0.00002)
+    parser.add_argument("--desorption-dt", type=float, default=0.000005)
+    parser.add_argument("--cycles", type=int, default=1)
+    parser.add_argument("--save-profiles", action="store_true")
     args = parser.parse_args()
 
     adsorbent, components = load_common_inputs(args.input_dir)
@@ -164,7 +199,18 @@ def main() -> None:
         print(f"Running comparison case: {case_name}")
         case_input_path = _write_case_input(base_input, case, case_dir)
         inputs = load_tower_input(case_input_path, adsorbent, components)
-        run_one_tower(inputs, case_dir, case_name, args.setup_only, args.max_steps)
+        _run_fast_case(
+            inputs,
+            case_dir,
+            case_name,
+            args.setup_only,
+            args.max_steps,
+            args.grid_size,
+            args.adsorption_dt,
+            args.desorption_dt,
+            args.cycles,
+            args.save_profiles,
+        )
         rows.append(_read_comparison_row(case_name, case_dir / "summary.json"))
 
     _write_comparison_outputs(rows, args.output_dir)

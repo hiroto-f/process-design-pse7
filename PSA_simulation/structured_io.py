@@ -14,7 +14,7 @@ from .models import (
     TowerInput,
 )
 from .preprocess import SetupState
-from .simulator import SimulationState
+from .simulators import SimulationState
 
 
 PROFILE_FILES = {
