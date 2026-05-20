@@ -3,7 +3,7 @@
   "feed": {
     "temperature_k": 313.15,
     "pressure_kpa": 303.975,
-    "volume_flow_m3_per_h": 371.4,
+    "volume_flow_m3_per_h": 150.22238327792235,
     "average_molar_mass_g_per_mol": 10.795486866995512,
     "components": [
       {
@@ -30,8 +30,8 @@
     "adsorption_pressure_kpa": 303.975,
     "desorption_pressure_kpa": 101.325,
     "tower_temperature_k": 313.15,
-    "tower_height_m": 2.292212823017703,
-    "tower_diameter_m": 1.1461064115088515,
+    "tower_height_m": 1.457811298762745,
+    "tower_diameter_m": 0.7289056493813725,
     "adsorption_velocity_m_per_s": 0.1,
     "purge_fraction": 0.05,
     "desorption_velocity_m_per_s": 0.015000000000000003,
@@ -39,5 +39,43 @@
     "desorption_residual_loading_threshold": 0.05,
     "reflux_factor": 0.4500000000000001,
     "molar_flow_mol_per_s": 4.788371171584263
+  },
+  "performance": {
+    "adsorption_end_time_s": 110.73534625401811,
+    "desorption_end_time_s": 741.7924097001752,
+    "cycle_time_s": 852.5277559541933,
+    "adsorption_feed_kmol": {
+      "H2": 0.19836397962007715,
+      "CH4": 0.3318779600580645
+    },
+    "recycle_kmol": {
+      "H2": 0.04943400755824076,
+      "CH4": 9.576198400924525e-06
+    },
+    "desorption_product_kmol": {
+      "H2": 0.18228190355932314,
+      "CH4": 0.29577367782853126
+    },
+    "product_cut": {
+      "ch4_min_mole_fraction": 0.85,
+      "start_time_s": null,
+      "end_time_s": null,
+      "duration_s": 0.0,
+      "product_kmol": {
+        "H2": 0.0,
+        "CH4": 0.0
+      },
+      "methane_mole_fraction": null,
+      "methane_recovery_percent": 0.0
+    },
+    "regeneration_inlet_concentration_kmol_per_m3": {
+      "H2": 0.038908403797188934,
+      "CH4": 7.53721198481012e-06
+    },
+    "feed_methane_mole_fraction_h2_ch4": 0.6258991136376638,
+    "desorption_product_methane_mole_fraction": 0.618701442560013,
+    "methane_enrichment_factor": 0.9885002695788805,
+    "hydrogen_contamination_in_desorption_product_kmol": 0.18228190355932314,
+    "methane_desorption_recovery_percent": 89.12121726214764
   }
 }

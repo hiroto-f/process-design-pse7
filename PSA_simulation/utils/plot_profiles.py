@@ -84,6 +84,50 @@ def plot_desorption_methane_loading(
     )
 
 
+def plot_desorption_outlet_methane_concentration(
+    csv_path: str | Path,
+    output_path: str | Path | None = None,
+    *,
+    figsize: tuple[float, float] = (8.0, 5.0),
+    dpi: int = 150,
+    show: bool = False,
+):
+    """Plot outlet CH4 concentration during desorption from an outlet history CSV."""
+
+    import matplotlib.pyplot as plt
+
+    try:
+        import japanize_matplotlib  # noqa: F401
+    except ImportError:
+        pass
+
+    time_values, methane_values = _read_time_series(csv_path, "C_CH4_out_kmol_per_m3")
+    _time_values, methane_mol_fractions = _read_time_series(csv_path, "y_CH4_out")
+    methane_mol_percents = [value * 100.0 for value in methane_mol_fractions]
+
+    fig, ax = plt.subplots(figsize=figsize)
+    ax.plot(time_values, methane_values, color="#4C78A8", linewidth=1.8)
+    ax.set_xlabel("Desorption time [s]")
+    ax.set_ylabel("Outlet CH4 concentration [kmol/m3]")
+    ax.tick_params(axis="both", which="both", direction="in", top=True, right=True)
+    ax.grid(axis="both", color="#D0D0D0", linestyle="--", linewidth=0.6, alpha=0.8)
+    ax_mol_percent = ax.twinx()
+    ax_mol_percent.plot(time_values, methane_mol_percents, color="#F58518", linewidth=1.5)
+    ax_mol_percent.set_ylabel("Outlet CH4 [mol%]")
+    ax_mol_percent.tick_params(axis="y", which="both", direction="in", labelcolor="#F58518")
+    fig.tight_layout()
+
+    if output_path is not None:
+        destination = Path(output_path)
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        fig.savefig(destination, dpi=dpi)
+
+    if show:
+        plt.show()
+
+    return fig, ax
+
+
 def _plot_profile_column(
     *,
     csv_path: str | Path,
@@ -128,6 +172,33 @@ def _plot_profile_column(
         plt.show()
 
     return fig, ax
+
+
+def _read_time_series(csv_path: str | Path, y_column: str) -> tuple[list[float], list[float]]:
+    path = Path(csv_path)
+    required_columns = {"time_s", y_column}
+    time_values: list[float] = []
+    y_values: list[float] = []
+
+    with path.open("r", encoding="utf-8-sig", newline="") as handle:
+        reader = csv.DictReader(handle)
+        fieldnames = set(reader.fieldnames or [])
+        missing_columns = sorted(required_columns - fieldnames)
+        if missing_columns:
+            missing_text = ", ".join(missing_columns)
+            raise ValueError(f"{path} is missing required columns: {missing_text}")
+
+        for row_number, row in enumerate(reader, start=2):
+            try:
+                time_values.append(float(row["time_s"]))
+                y_values.append(float(row[y_column]))
+            except (TypeError, ValueError) as exc:
+                raise ValueError(f"{path} contains non-numeric data at row {row_number}") from exc
+
+    if not time_values:
+        raise ValueError(f"{path} contains no outlet history rows")
+
+    return time_values, y_values
 
 
 def _read_profile_series(csv_path: str | Path, y_column: str) -> ProfileSeries:

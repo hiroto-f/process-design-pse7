@@ -22,6 +22,7 @@ PROFILE_FILES = {
     "desorption": "desorption_profile.csv",
     "adsorption_2": "adsorption_2_profile.csv",
 }
+DESORPTION_OUTLET_FILE = "desorption_outlet_ch4_curve.csv"
 
 
 def load_json(path: Path) -> dict[str, Any]:
@@ -82,6 +83,8 @@ def save_outputs(
 
     for profile_name, filename in PROFILE_FILES.items():
         _save_profile_csv(output_dir / filename, simulation_state.profiles[profile_name])
+    if simulation_state.desorption_outlet_history:
+        _save_desorption_outlet_csv(output_dir / DESORPTION_OUTLET_FILE, simulation_state.desorption_outlet_history)
 
 
 def _ordered_feed_components(components: list[dict[str, Any]]) -> list[dict[str, Any]]:
@@ -103,6 +106,22 @@ def _save_profile_csv(path: Path, snapshots) -> None:
         for snapshot in snapshots:
             for position_m, c_h2, c_ch4, q_h2, q_ch4, u in snapshot.rows:
                 writer.writerow([snapshot.time_s, position_m, c_h2, c_ch4, q_h2, q_ch4, u])
+
+
+def _save_desorption_outlet_csv(path: Path, outlet_history) -> None:
+    with path.open("w", encoding="utf-8-sig", newline="") as handle:
+        writer = csv.writer(handle)
+        writer.writerow(
+            [
+                "time_s",
+                "C_H2_out_kmol_per_m3",
+                "C_CH4_out_kmol_per_m3",
+                "y_CH4_out",
+                "u_out_m_per_s",
+                "is_product_cut",
+            ]
+        )
+        writer.writerows(outlet_history)
 
 
 def _build_summary(
@@ -169,6 +188,12 @@ def _build_summary(
     methane_product_mole_fraction = (
         methane_product_kmol / desorption_product_kmol if desorption_product_kmol else None
     )
+    cut_hydrogen_product_kmol = simulation_state.product_cut_out[0]
+    cut_methane_product_kmol = simulation_state.product_cut_out[1]
+    cut_product_kmol = cut_hydrogen_product_kmol + cut_methane_product_kmol
+    cut_methane_product_mole_fraction = (
+        cut_methane_product_kmol / cut_product_kmol if cut_product_kmol else None
+    )
     summary["performance"] = {
         "adsorption_end_time_s": simulation_state.end_time[0],
         "desorption_end_time_s": simulation_state.end_time[1],
@@ -184,6 +209,20 @@ def _build_summary(
         "desorption_product_kmol": {
             "H2": hydrogen_product_kmol,
             "CH4": methane_product_kmol,
+        },
+        "product_cut": {
+            "ch4_min_mole_fraction": simulation_state.product_cut_ch4_min_fraction,
+            "start_time_s": simulation_state.product_cut_start_time_s,
+            "end_time_s": simulation_state.product_cut_end_time_s,
+            "duration_s": simulation_state.product_cut_duration_s,
+            "product_kmol": {
+                "H2": cut_hydrogen_product_kmol,
+                "CH4": cut_methane_product_kmol,
+            },
+            "methane_mole_fraction": cut_methane_product_mole_fraction,
+            "methane_recovery_percent": (
+                cut_methane_product_kmol / methane_feed_kmol * 100.0 if methane_feed_kmol else None
+            ),
         },
         "regeneration_inlet_concentration_kmol_per_m3": {
             "H2": simulation_state.regeneration_inlet_concentration[0],

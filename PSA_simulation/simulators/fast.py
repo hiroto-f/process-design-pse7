@@ -18,11 +18,14 @@ class FastPsaSimulator:
         desorption_dt: float = 0.000005,
         cycles: int = 1,
         save_profiles: bool = False,
+        product_cut_ch4_min_fraction: float | None = None,
     ):
         if grid_size < 5 or grid_size > 100:
             raise ValueError("grid_size must be between 5 and 100.")
         if cycles < 1:
             raise ValueError("cycles must be at least 1.")
+        if product_cut_ch4_min_fraction is not None and not 0.0 <= product_cut_ch4_min_fraction <= 1.0:
+            raise ValueError("product_cut_ch4_min_fraction must be between 0 and 1.")
         self.inputs = inputs
         self.setup = setup
         self.max_steps = max_steps
@@ -31,6 +34,7 @@ class FastPsaSimulator:
         self.desorption_dt = desorption_dt
         self.cycles = cycles
         self.save_profiles = save_profiles
+        self.product_cut_ch4_min_fraction = product_cut_ch4_min_fraction
         self.state = SimulationState()
 
     def run(self) -> SimulationState:
@@ -188,6 +192,11 @@ class FastPsaSimulator:
             st.qt[i][m + 1] = qin[i]
 
         st.purge_out = [0.0, 0.0]
+        st.product_cut_out = [0.0, 0.0]
+        st.product_cut_ch4_min_fraction = self.product_cut_ch4_min_fraction
+        st.product_cut_start_time_s = None
+        st.product_cut_end_time_s = None
+        st.product_cut_duration_s = 0.0
         self._record_profile(profile_name, 0.0, u0, u, lt, dz, st.ct, st.qt)
         count = 1
         ct_1 = [[0.0] * (m + 2), [0.0] * (m + 2)]
@@ -218,8 +227,26 @@ class FastPsaSimulator:
                     st.qt[i][kk] = qt_1[i][kk]
 
             count += 1
+            interval_start_s = (count - 2) * lt / u0 * dt
+            interval_end_s = (count - 1) * lt / u0 * dt
+            outlet_amounts = [
+                st.c0[i] * lt * dt * ct_1[i][1] * u[1] * area
+                for i in range(2)
+            ]
             for i in range(2):
-                st.purge_out[i] += st.c0[i] * lt * dt * ct_1[i][1] * u[1] * area
+                st.purge_out[i] += outlet_amounts[i]
+            if self.product_cut_ch4_min_fraction is not None:
+                c_h2_out = st.c0[0] * ct_1[0][1]
+                c_ch4_out = st.c0[1] * ct_1[1][1]
+                total_out = c_h2_out + c_ch4_out
+                y_ch4_out = c_ch4_out / total_out if total_out else 0.0
+                if y_ch4_out >= self.product_cut_ch4_min_fraction:
+                    for i in range(2):
+                        st.product_cut_out[i] += outlet_amounts[i]
+                    if st.product_cut_start_time_s is None:
+                        st.product_cut_start_time_s = interval_start_s
+                    st.product_cut_end_time_s = interval_end_s
+                    st.product_cut_duration_s += interval_end_s - interval_start_s
             if qt_1[1][1] < self.setup.desorption_residual_loading_threshold:
                 break
 

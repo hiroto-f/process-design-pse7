@@ -19,11 +19,25 @@ def find_tower_paths(tower_input_dir: Path, tower_name: str | None = None) -> li
     return sorted(path for path in tower_input_dir.glob("*.json") if path.is_file())
 
 
-def run_one_tower(inputs, output_dir: Path, tower_name: str, setup_only: bool, max_steps: int | None) -> None:
+def run_one_tower(
+    inputs,
+    output_dir: Path,
+    tower_name: str,
+    setup_only: bool,
+    max_steps: int | None,
+    product_cut_ch4_min_fraction: float | None,
+    desorption_outlet_record_interval: int,
+) -> None:
     setup_state = Preprocessor(inputs).run()
     simulation_state = None
     if not setup_only:
-        simulation_state = PsaSimulator(inputs, setup_state, max_steps=max_steps).run()
+        simulation_state = PsaSimulator(
+            inputs,
+            setup_state,
+            max_steps=max_steps,
+            product_cut_ch4_min_fraction=product_cut_ch4_min_fraction,
+            desorption_outlet_record_interval=desorption_outlet_record_interval,
+        ).run()
     save_outputs(inputs, output_dir, tower_name, setup_state, simulation_state)
     print(f"Output written to: {output_dir}")
 
@@ -44,6 +58,18 @@ def main() -> None:
     )
     parser.add_argument("--max-steps", type=int, default=None, help="Debug safety limit per adsorption/desorption step.")
     parser.add_argument("--setup-only", action="store_true", help="Only run the setup calculations.")
+    parser.add_argument(
+        "--product-cut-ch4-min-fraction",
+        type=float,
+        default=None,
+        help="Collect desorption product only when outlet CH4 mole fraction is at least this value.",
+    )
+    parser.add_argument(
+        "--desorption-outlet-record-interval",
+        type=int,
+        default=1000,
+        help="Record every N desorption steps in desorption_outlet_ch4_curve.csv.",
+    )
     args = parser.parse_args()
 
     adsorbent, components = load_common_inputs(args.input_dir)
@@ -57,7 +83,15 @@ def main() -> None:
         tower_name = tower_path.stem
         print(f"Running tower: {tower_name}")
         inputs = load_tower_input(tower_path, adsorbent, components)
-        run_one_tower(inputs, args.output_dir / tower_name, tower_name, args.setup_only, args.max_steps)
+        run_one_tower(
+            inputs,
+            args.output_dir / tower_name,
+            tower_name,
+            args.setup_only,
+            args.max_steps,
+            args.product_cut_ch4_min_fraction,
+            args.desorption_outlet_record_interval,
+        )
 
 
 if __name__ == "__main__":

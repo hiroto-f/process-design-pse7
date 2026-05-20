@@ -8,6 +8,7 @@ from pathlib import Path
 from PSA_simulation.utils import (
     plot_adsorption_hydrogen_concentration,
     plot_adsorption_methane_concentration,
+    plot_desorption_outlet_methane_concentration,
     plot_desorption_methane_loading,
 )
 
@@ -15,16 +16,15 @@ from PSA_simulation.utils import (
 DEFAULT_TOWER1_OUTPUT_DIR = Path("PSA_simulation/outputs/tower_1")
 
 
-def create_tower1_plots(
-    tower_output_dir: str | Path = DEFAULT_TOWER1_OUTPUT_DIR,
-) -> list[Path]:
-    """Create the standard three profile plots from tower_1 output CSV files."""
+def create_tower1_plots(tower_output_dir: str | Path = DEFAULT_TOWER1_OUTPUT_DIR) -> list[Path]:
+    """Create the standard tower_1 plots from output CSV files."""
 
     output_dir = Path(tower_output_dir)
     _set_matplotlib_config_dir(output_dir)
 
     adsorption_profile = output_dir / "adsorption_1_profile.csv"
     desorption_profile = output_dir / "desorption_profile.csv"
+    desorption_outlet_profile = output_dir / "desorption_outlet_ch4_curve.csv"
 
     output_paths = [
         output_dir / "adsorption_h2_concentration.png",
@@ -35,6 +35,11 @@ def create_tower1_plots(
     plot_adsorption_hydrogen_concentration(adsorption_profile, output_paths[0])
     plot_adsorption_methane_concentration(adsorption_profile, output_paths[1])
     plot_desorption_methane_loading(desorption_profile, output_paths[2])
+
+    if desorption_outlet_profile.exists():
+        outlet_plot = output_dir / "desorption_outlet_ch4_concentration.png"
+        plot_desorption_outlet_methane_concentration(desorption_outlet_profile, outlet_plot)
+        output_paths.append(outlet_plot)
 
     return output_paths
 

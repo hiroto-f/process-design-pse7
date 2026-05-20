@@ -27,6 +27,12 @@ class SimulationState:
     flow_out: list[float] = field(default_factory=lambda: [0.0, 0.0])
     purge_out: list[float] = field(default_factory=lambda: [0.0, 0.0])
     product_out: list[float] = field(default_factory=lambda: [0.0, 0.0])
+    product_cut_out: list[float] = field(default_factory=lambda: [0.0, 0.0])
+    product_cut_ch4_min_fraction: float | None = None
+    product_cut_start_time_s: float | None = None
+    product_cut_end_time_s: float | None = None
+    product_cut_duration_s: float = 0.0
+    desorption_outlet_history: list[tuple[float, float, float, float, float, bool]] = field(default_factory=list)
     regeneration_inlet_concentration: list[float] = field(default_factory=lambda: [0.0, 0.0])
     end_time: list[float] = field(default_factory=lambda: [0.0, 0.0])
     profiles: dict[str, list[ProfileSnapshot]] = field(
@@ -39,10 +45,23 @@ class SimulationState:
 
 
 class PsaSimulator:
-    def __init__(self, inputs: SimulationInput, setup: SetupState, max_steps: int | None = None):
+    def __init__(
+        self,
+        inputs: SimulationInput,
+        setup: SetupState,
+        max_steps: int | None = None,
+        product_cut_ch4_min_fraction: float | None = None,
+        desorption_outlet_record_interval: int = 1000,
+    ):
+        if product_cut_ch4_min_fraction is not None and not 0.0 <= product_cut_ch4_min_fraction <= 1.0:
+            raise ValueError("product_cut_ch4_min_fraction must be between 0 and 1.")
+        if desorption_outlet_record_interval <= 0:
+            raise ValueError("desorption_outlet_record_interval must be positive.")
         self.inputs = inputs
         self.setup = setup
         self.max_steps = max_steps
+        self.product_cut_ch4_min_fraction = product_cut_ch4_min_fraction
+        self.desorption_outlet_record_interval = desorption_outlet_record_interval
         self.state = SimulationState()
 
     def run(self) -> SimulationState:
@@ -205,6 +224,12 @@ class PsaSimulator:
             st.qt[i][M + 1] = qin[i]
 
         st.purge_out = [0.0, 0.0]
+        st.product_cut_out = [0.0, 0.0]
+        st.product_cut_ch4_min_fraction = self.product_cut_ch4_min_fraction
+        st.product_cut_start_time_s = None
+        st.product_cut_end_time_s = None
+        st.product_cut_duration_s = 0.0
+        st.desorption_outlet_history = []
         self._record_profile(profile_name, 0.0, u0, u, lt, dz, st.ct, st.qt)
         count = 1
         ct_1 = [[0.0] * (M + 2), [0.0] * (M + 2)]
@@ -238,9 +263,37 @@ class PsaSimulator:
                 self._record_profile(profile_name, count * lt / u0 * dt, u0, u, lt, dz, ct_1, qt_1)
                 print(f"{profile_name} {len(st.profiles[profile_name])}")
             count += 1
+            interval_start_s = (count - 2) * lt / u0 * dt
+            interval_end_s = (count - 1) * lt / u0 * dt
+            outlet_amounts = [
+                st.c0[i] * lt * dt * ct_1[i][1] * u[1] * area
+                for i in range(2)
+            ]
+            c_h2_out = st.c0[0] * ct_1[0][1]
+            c_ch4_out = st.c0[1] * ct_1[1][1]
+            total_out = c_h2_out + c_ch4_out
+            y_ch4_out = c_ch4_out / total_out if total_out else 0.0
+            is_product_cut = (
+                self.product_cut_ch4_min_fraction is not None
+                and y_ch4_out >= self.product_cut_ch4_min_fraction
+            )
             for i in range(2):
-                st.purge_out[i] += st.c0[i] * lt * dt * ct_1[i][1] * u[1] * area
+                st.purge_out[i] += outlet_amounts[i]
+            if is_product_cut:
+                for i in range(2):
+                    st.product_cut_out[i] += outlet_amounts[i]
+                if st.product_cut_start_time_s is None:
+                    st.product_cut_start_time_s = interval_start_s
+                st.product_cut_end_time_s = interval_end_s
+                st.product_cut_duration_s += interval_end_s - interval_start_s
+            if count == 2 or count % self.desorption_outlet_record_interval == 0:
+                st.desorption_outlet_history.append(
+                    (interval_end_s, c_h2_out, c_ch4_out, y_ch4_out, u0 * u[1], is_product_cut)
+                )
             if qt_1[1][1] < self.setup.desorption_residual_loading_threshold:
+                st.desorption_outlet_history.append(
+                    (interval_end_s, c_h2_out, c_ch4_out, y_ch4_out, u0 * u[1], is_product_cut)
+                )
                 break
 
         st.end_time[1] = (count - 1) * lt / u0 * dt

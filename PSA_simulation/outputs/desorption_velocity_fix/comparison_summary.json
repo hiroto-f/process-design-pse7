@@ -1,0 +1,20 @@
+[
+  {
+    "case": "tower1_velocity_0p10_pressure_ratio_15",
+    "purge_fraction": 0.05,
+    "adsorption_velocity_m_per_s": 0.1,
+    "desorption_velocity_m_per_s": 0.07500000000000001,
+    "adsorption_breakthrough_threshold": 0.02,
+    "desorption_residual_loading_threshold": 0.05,
+    "adsorption_end_time_s": 33.14811699126982,
+    "desorption_end_time_s": 338.00909957003006,
+    "cycle_time_s": 371.1572165612999,
+    "feed_methane_mole_fraction_h2_ch4": 0.6258991136376639,
+    "desorption_product_methane_mole_fraction": 0.6537903307438074,
+    "methane_enrichment_factor": 1.044561841514749,
+    "methane_desorption_recovery_percent": 7.980392467586646,
+    "hydrogen_contamination_in_desorption_product_kmol": 0.004198324049814241,
+    "desorption_product_h2_kmol": 0.004198324049814241,
+    "desorption_product_ch4_kmol": 0.007928212042704634
+  }
+]
