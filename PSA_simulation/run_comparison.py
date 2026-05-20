@@ -3,6 +3,8 @@ from __future__ import annotations
 import argparse
 import csv
 import json
+import os
+import tempfile
 from copy import deepcopy
 from pathlib import Path
 from typing import Any
@@ -90,6 +92,49 @@ COMPARISON_COLUMNS = [
 ]
 
 
+COMPARISON_PLOT_GROUPS = [
+    {
+        "filename": "comparison_methane_performance.png",
+        "title": "Methane performance comparison",
+        "metrics": [
+            ("feed_methane_mole_fraction_h2_ch4", "Feed CH4 mole fraction [-]"),
+            ("desorption_product_methane_mole_fraction", "Product CH4 mole fraction [-]"),
+            ("methane_enrichment_factor", "Methane enrichment factor [-]"),
+            ("methane_desorption_recovery_percent", "Methane recovery [%]"),
+        ],
+    },
+    {
+        "filename": "comparison_cycle_times.png",
+        "title": "Cycle time comparison",
+        "metrics": [
+            ("adsorption_end_time_s", "Adsorption end time [s]"),
+            ("desorption_end_time_s", "Desorption end time [s]"),
+            ("cycle_time_s", "Cycle time [s]"),
+        ],
+    },
+    {
+        "filename": "comparison_product_amounts.png",
+        "title": "Desorption product comparison",
+        "metrics": [
+            ("hydrogen_contamination_in_desorption_product_kmol", "H2 contamination [kmol]"),
+            ("desorption_product_h2_kmol", "Product H2 [kmol]"),
+            ("desorption_product_ch4_kmol", "Product CH4 [kmol]"),
+        ],
+    },
+    {
+        "filename": "comparison_operating_conditions.png",
+        "title": "Operating condition comparison",
+        "metrics": [
+            ("purge_fraction", "Purge fraction [-]"),
+            ("adsorption_velocity_m_per_s", "Adsorption velocity [m/s]"),
+            ("desorption_velocity_m_per_s", "Desorption velocity [m/s]"),
+            ("adsorption_breakthrough_threshold", "Adsorption breakthrough threshold [-]"),
+            ("desorption_residual_loading_threshold", "Desorption residual loading threshold [-]"),
+        ],
+    },
+]
+
+
 def _case_path(output_dir: Path, case_name: str) -> Path:
     return output_dir / case_name
 
@@ -145,6 +190,73 @@ def _write_comparison_outputs(rows: list[dict[str, Any]], output_dir: Path) -> N
         writer.writerows(rows)
 
 
+def _write_comparison_plots(rows: list[dict[str, Any]], output_dir: Path, dpi: int = 150) -> list[Path]:
+    if not rows:
+        return []
+
+    _set_matplotlib_config_dir(output_dir)
+
+    try:
+        import matplotlib.pyplot as plt
+    except ImportError as exc:
+        raise RuntimeError("matplotlib is required to create comparison plots.") from exc
+
+    try:
+        import japanize_matplotlib  # noqa: F401
+    except ImportError:
+        pass
+
+    case_names = [str(row["case"]) for row in rows]
+    x_positions = list(range(len(case_names)))
+    output_paths: list[Path] = []
+
+    for group in COMPARISON_PLOT_GROUPS:
+        metrics = group["metrics"]
+        fig_height = max(4.0, 2.2 * len(metrics) + 1.0)
+        fig, axes = plt.subplots(
+            nrows=len(metrics),
+            ncols=1,
+            figsize=(10.0, fig_height),
+            sharex=True,
+        )
+        if len(metrics) == 1:
+            axes = [axes]
+
+        for ax, (column, label) in zip(axes, metrics):
+            values = [_as_float(row.get(column)) for row in rows]
+            ax.bar(x_positions, values, color="#4C78A8")
+            ax.axhline(0.0, color="#444444", linewidth=0.8)
+            ax.set_ylabel(label)
+            ax.grid(axis="y", color="#D0D0D0", linestyle="--", linewidth=0.6, alpha=0.8)
+            ax.tick_params(axis="both", which="both", direction="in", top=True, right=True)
+
+        axes[-1].set_xticks(x_positions)
+        axes[-1].set_xticklabels(case_names, rotation=30, ha="right")
+        fig.suptitle(str(group["title"]), fontsize=13)
+        fig.tight_layout(rect=(0.0, 0.0, 1.0, 0.97))
+
+        output_path = output_dir / str(group["filename"])
+        fig.savefig(output_path, dpi=dpi)
+        plt.close(fig)
+        output_paths.append(output_path)
+
+    return output_paths
+
+
+def _set_matplotlib_config_dir(output_dir: Path) -> None:
+    if "MPLCONFIGDIR" not in os.environ:
+        os.environ["MPLCONFIGDIR"] = tempfile.mkdtemp(prefix="psa-matplotlib-")
+
+
+def _as_float(value: Any) -> float:
+    if value in (None, ""):
+        return float("nan")
+    try:
+        return float(value)
+    except (TypeError, ValueError):
+        return float("nan")
+
+
 def _run_fast_case(
     inputs,
     output_dir: Path,
@@ -186,6 +298,8 @@ def main() -> None:
     parser.add_argument("--desorption-dt", type=float, default=0.000005)
     parser.add_argument("--cycles", type=int, default=1)
     parser.add_argument("--save-profiles", action="store_true")
+    parser.add_argument("--skip-plots", action="store_true", help="Do not create comparison PNG plots.")
+    parser.add_argument("--plot-dpi", type=int, default=150, help="DPI for comparison PNG plots.")
     args = parser.parse_args()
 
     adsorbent, components = load_common_inputs(args.input_dir)
@@ -216,6 +330,9 @@ def main() -> None:
     _write_comparison_outputs(rows, args.output_dir)
     print(f"Comparison written to: {args.output_dir / 'comparison_summary.csv'}")
     print(f"Comparison written to: {args.output_dir / 'comparison_summary.json'}")
+    if not args.skip_plots:
+        for output_path in _write_comparison_plots(rows, args.output_dir, dpi=args.plot_dpi):
+            print(f"Comparison plot written to: {output_path}")
 
 
 if __name__ == "__main__":

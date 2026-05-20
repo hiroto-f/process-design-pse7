@@ -97,11 +97,7 @@ class Preprocessor:
         st.qt = two_component_flow / 3.6
         st.tt = feed.temperature_k if feed.temperature_k is not None else tower.adsorption_temperature_c + 273.15
         st.feed_pressure_kpa = feed.pressure_kpa if feed.pressure_kpa is not None else tower.adsorption_pressure_kpa
-        st.volume_flow_m3_per_h = (
-            feed.volume_flow_m3_per_h
-            if feed.volume_flow_m3_per_h is not None
-            else total_flow * R * st.tt / st.feed_pressure_kpa
-        )
+        st.volume_flow_m3_per_h = total_flow * R * st.tt / st.feed_pressure_kpa
         st.vt = st.volume_flow_m3_per_h / 3600.0
 
     def adsorption_data_load(self) -> None:
