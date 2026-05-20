@@ -160,10 +160,19 @@ def _build_summary(
     adsorption_time_h = simulation_state.end_time[0] / 3600.0
     hydrogen_feed_kmol = hydrogen_feed_rate * adsorption_time_h
     methane_feed_kmol = methane_feed_rate * adsorption_time_h
+    feed_h2_ch4_kmol = hydrogen_feed_kmol + methane_feed_kmol
+    feed_methane_mole_fraction = methane_feed_kmol / feed_h2_ch4_kmol if feed_h2_ch4_kmol else None
+    cycle_time_s = simulation_state.end_time[0] + simulation_state.end_time[1]
+    hydrogen_product_kmol = simulation_state.purge_out[0]
     methane_product_kmol = simulation_state.purge_out[1]
+    desorption_product_kmol = hydrogen_product_kmol + methane_product_kmol
+    methane_product_mole_fraction = (
+        methane_product_kmol / desorption_product_kmol if desorption_product_kmol else None
+    )
     summary["performance"] = {
         "adsorption_end_time_s": simulation_state.end_time[0],
         "desorption_end_time_s": simulation_state.end_time[1],
+        "cycle_time_s": cycle_time_s,
         "adsorption_feed_kmol": {
             "H2": hydrogen_feed_kmol,
             "CH4": methane_feed_kmol,
@@ -173,13 +182,21 @@ def _build_summary(
             "CH4": simulation_state.product_out[1],
         },
         "desorption_product_kmol": {
-            "H2": simulation_state.purge_out[0],
+            "H2": hydrogen_product_kmol,
             "CH4": methane_product_kmol,
         },
         "regeneration_inlet_concentration_kmol_per_m3": {
             "H2": simulation_state.regeneration_inlet_concentration[0],
             "CH4": simulation_state.regeneration_inlet_concentration[1],
         },
+        "feed_methane_mole_fraction_h2_ch4": feed_methane_mole_fraction,
+        "desorption_product_methane_mole_fraction": methane_product_mole_fraction,
+        "methane_enrichment_factor": (
+            methane_product_mole_fraction / feed_methane_mole_fraction
+            if methane_product_mole_fraction is not None and feed_methane_mole_fraction
+            else None
+        ),
+        "hydrogen_contamination_in_desorption_product_kmol": hydrogen_product_kmol,
         "methane_desorption_recovery_percent": (
             methane_product_kmol / methane_feed_kmol * 100.0 if methane_feed_kmol else None
         ),

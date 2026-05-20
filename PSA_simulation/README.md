@@ -101,7 +101,7 @@ python -m PSA_simulation.run_simulation --setup-only
 ## 出力
 
 - `summary.json`
-  - 塔寸法、供給条件、平均分子量、回収率、生成量、終了時間などの要約
+  - 塔寸法、供給条件、平均分子量、回収率、生成量、終了時間、CH4 濃縮指標などの要約
 - `adsorption_1_profile.csv`
   - 1 回目吸着時の塔内分布
 - `desorption_profile.csv`

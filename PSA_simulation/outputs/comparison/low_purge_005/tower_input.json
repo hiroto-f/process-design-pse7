@@ -4,9 +4,9 @@
     "desorption_pressure_kpa": 101.325,
     "adsorption_temperature_c": 40,
     "height_to_diameter_ratio": 2,
-    "adsorption_velocity_m_per_s": 0.1,
-    "adsorption_breakthrough_threshold": 0.02,
-    "desorption_residual_loading_threshold": 0.05,
+    "adsorption_velocity_m_per_s": 0.15,
+    "adsorption_breakthrough_threshold": 0.05,
+    "desorption_residual_loading_threshold": 0.01,
     "purge_fraction": 0.05
   },
   "feed": {
@@ -20,7 +20,7 @@
       },
       {
         "name": "CH4",
-        "flow_kmol_per_h": 10.789334179425837
+        "flow_kmol_per_h": 10.789334179425836
       },
       {
         "name": "other",

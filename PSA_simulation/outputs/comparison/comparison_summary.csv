@@ -1,0 +1,7 @@
+﻿case,purge_fraction,adsorption_velocity_m_per_s,desorption_velocity_m_per_s,adsorption_breakthrough_threshold,desorption_residual_loading_threshold,adsorption_end_time_s,desorption_end_time_s,cycle_time_s,feed_methane_mole_fraction_h2_ch4,desorption_product_methane_mole_fraction,methane_enrichment_factor,methane_desorption_recovery_percent,hydrogen_contamination_in_desorption_product_kmol,desorption_product_h2_kmol,desorption_product_ch4_kmol
+base,0.1,0.15,0.045000000000000005,0.05,0.01,,,,,,,,,,
+low_purge_005,0.05,0.15,0.022500000000000003,0.05,0.01,,,,,,,,,,
+low_purge_002,0.02,0.15,0.009000000000000001,0.05,0.01,,,,,,,,,,
+early_desorption_stop,0.05,0.15,0.022500000000000003,0.05,0.03,,,,,,,,,,
+strict_adsorption,0.05,0.15,0.022500000000000003,0.02,0.03,,,,,,,,,,
+slower_adsorption,0.05,0.1,0.015000000000000003,0.02,0.03,,,,,,,,,,
