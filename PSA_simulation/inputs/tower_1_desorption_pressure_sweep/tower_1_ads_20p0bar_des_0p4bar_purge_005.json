@@ -1,0 +1,30 @@
+{
+  "tower": {
+    "adsorption_pressure_kpa": 2000.0,
+    "desorption_pressure_kpa": 40.0,
+    "adsorption_temperature_c": 30,
+    "height_to_diameter_ratio": 2,
+    "adsorption_velocity_m_per_s": 0.1,
+    "adsorption_breakthrough_threshold": 0.02,
+    "desorption_residual_loading_threshold": 0.05,
+    "purge_fraction": 0.05
+  },
+  "feed": {
+    "temperature_k": 303.15,
+    "pressure_kpa": 2000.0,
+    "components_kmol_per_h": [
+      {
+        "name": "H2",
+        "flow_kmol_per_h": 6.44880203827751
+      },
+      {
+        "name": "CH4",
+        "flow_kmol_per_h": 10.789334179425837
+      },
+      {
+        "name": "other",
+        "flow_kmol_per_h": 0.3
+      }
+    ]
+  }
+}
