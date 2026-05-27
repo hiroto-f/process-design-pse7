@@ -13,6 +13,8 @@ from typing import Any
 
 DEFAULT_INPUT_PATH = Path("cost_estimation/inputs/equipment_costs.json")
 DEFAULT_OUTPUT_DIR = Path("cost_estimation/outputs")
+DEFAULT_ACTIVATED_CARBON_PRICE_JPY_PER_T = 1_000_000.0
+DEFAULT_ACTIVATED_CARBON_BULK_DENSITY_KG_PER_M3 = 500.0
 
 
 @dataclass(frozen=True)
@@ -88,6 +90,32 @@ def calculate_bare_module_cost_jpy(
     return purchased_cost_usd * bare_module_factor * cost_index_ratio * exchange_rate_jpy_per_usd
 
 
+def calculate_activated_carbon_cost_jpy(
+    equipment_type: str,
+    a_value: float,
+    *,
+    price_jpy_per_t: float = DEFAULT_ACTIVATED_CARBON_PRICE_JPY_PER_T,
+    bulk_density_kg_per_m3: float = DEFAULT_ACTIVATED_CARBON_BULK_DENSITY_KG_PER_M3,
+) -> dict[str, float | None]:
+    if equipment_type != "psa":
+        return {
+            "activated_carbon_mass_t": None,
+            "activated_carbon_cost_jpy": None,
+        }
+    if a_value <= 0.0:
+        raise ValueError("PSA volume must be greater than 0 to calculate activated carbon cost.")
+    if price_jpy_per_t < 0.0:
+        raise ValueError("Activated carbon price must be non-negative.")
+    if bulk_density_kg_per_m3 <= 0.0:
+        raise ValueError("Activated carbon bulk density must be greater than 0.")
+
+    mass_t = a_value * bulk_density_kg_per_m3 / 1000.0
+    return {
+        "activated_carbon_mass_t": mass_t,
+        "activated_carbon_cost_jpy": mass_t * price_jpy_per_t,
+    }
+
+
 def run_cost_estimation(input_path: str | Path, output_dir: str | Path) -> dict[str, Any]:
     input_path = Path(input_path)
     output_dir = Path(output_dir)
@@ -98,15 +126,29 @@ def run_cost_estimation(input_path: str | Path, output_dir: str | Path) -> dict[
     cost_index_ratio = float(config.get("cost_index_ratio", 846.3 / 397.0))
     exchange_rate = float(config.get("exchange_rate_jpy_per_usd", 150.0))
     parameters = _load_parameters(config.get("equipment_parameters", {}))
+    activated_carbon = _load_activated_carbon_config(config.get("activated_carbon", {}))
 
-    case_rows = _calculate_case_rows(config.get("cases", []), parameters, cost_index_ratio, exchange_rate)
-    sweep_rows = _calculate_sweep_rows(config.get("sweeps", []), parameters, cost_index_ratio, exchange_rate)
+    case_rows = _calculate_case_rows(
+        config.get("cases", []),
+        parameters,
+        cost_index_ratio,
+        exchange_rate,
+        activated_carbon,
+    )
+    sweep_rows = _calculate_sweep_rows(
+        config.get("sweeps", []),
+        parameters,
+        cost_index_ratio,
+        exchange_rate,
+        activated_carbon,
+    )
 
     output_dir.mkdir(parents=True, exist_ok=True)
     summary = {
         "input_path": str(input_path),
         "cost_index_ratio": cost_index_ratio,
         "exchange_rate_jpy_per_usd": exchange_rate,
+        "activated_carbon": activated_carbon,
         "cases": case_rows,
         "sweeps": sweep_rows,
     }
@@ -158,11 +200,21 @@ def _load_parameters(overrides: dict[str, Any]) -> dict[str, CostParameters]:
     return parameters
 
 
+def _load_activated_carbon_config(config: dict[str, Any]) -> dict[str, float]:
+    return {
+        "price_jpy_per_t": float(config.get("price_jpy_per_t", DEFAULT_ACTIVATED_CARBON_PRICE_JPY_PER_T)),
+        "bulk_density_kg_per_m3": float(
+            config.get("bulk_density_kg_per_m3", DEFAULT_ACTIVATED_CARBON_BULK_DENSITY_KG_PER_M3)
+        ),
+    }
+
+
 def _calculate_case_rows(
     cases: list[dict[str, Any]],
     parameters: dict[str, CostParameters],
     cost_index_ratio: float,
     exchange_rate: float,
+    activated_carbon: dict[str, float],
 ) -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
     for index, case in enumerate(cases, start=1):
@@ -175,6 +227,12 @@ def _calculate_case_rows(
             cost_index_ratio=cost_index_ratio,
             exchange_rate_jpy_per_usd=exchange_rate,
         )
+        activated_carbon_cost = calculate_activated_carbon_cost_jpy(
+            equipment_type,
+            a_value,
+            price_jpy_per_t=activated_carbon["price_jpy_per_t"],
+            bulk_density_kg_per_m3=activated_carbon["bulk_density_kg_per_m3"],
+        )
         rows.append(
             {
                 "case": str(case.get("name", f"case_{index}")),
@@ -182,6 +240,7 @@ def _calculate_case_rows(
                 "A": a_value,
                 "A_unit": parameters[equipment_type].a_unit,
                 "cost_jpy": cost_jpy,
+                **activated_carbon_cost,
             }
         )
     return rows
@@ -192,6 +251,7 @@ def _calculate_sweep_rows(
     parameters: dict[str, CostParameters],
     cost_index_ratio: float,
     exchange_rate: float,
+    activated_carbon: dict[str, float],
 ) -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
     for sweep_index, sweep in enumerate(sweeps, start=1):
@@ -207,6 +267,12 @@ def _calculate_sweep_rows(
                     cost_index_ratio=cost_index_ratio,
                     exchange_rate_jpy_per_usd=exchange_rate,
                 )
+                activated_carbon_cost = calculate_activated_carbon_cost_jpy(
+                    equipment_type,
+                    a_value,
+                    price_jpy_per_t=activated_carbon["price_jpy_per_t"],
+                    bulk_density_kg_per_m3=activated_carbon["bulk_density_kg_per_m3"],
+                )
                 rows.append(
                     {
                         "sweep": sweep_name,
@@ -214,6 +280,7 @@ def _calculate_sweep_rows(
                         "A": a_value,
                         "A_unit": parameters[equipment_type].a_unit,
                         "cost_jpy": cost_jpy,
+                        **activated_carbon_cost,
                     }
                 )
     return rows
@@ -254,15 +321,39 @@ def _write_csv_outputs(
     output_paths: list[Path] = []
     if case_rows:
         path = output_dir / "bare_module_cost_cases.csv"
-        _write_dict_rows(path, case_rows, ["case", "type", "A", "A_unit", "cost_jpy"])
+        _write_dict_rows(path, case_rows, _case_fieldnames())
         output_paths.append(path)
 
     if sweep_rows:
         path = output_dir / "bare_module_cost_sweeps.csv"
-        _write_dict_rows(path, sweep_rows, ["sweep", "type", "A", "A_unit", "cost_jpy"])
+        _write_dict_rows(path, sweep_rows, _sweep_fieldnames())
         output_paths.append(path)
 
     return output_paths
+
+
+def _case_fieldnames() -> list[str]:
+    return [
+        "case",
+        "type",
+        "A",
+        "A_unit",
+        "cost_jpy",
+        "activated_carbon_mass_t",
+        "activated_carbon_cost_jpy",
+    ]
+
+
+def _sweep_fieldnames() -> list[str]:
+    return [
+        "sweep",
+        "type",
+        "A",
+        "A_unit",
+        "cost_jpy",
+        "activated_carbon_mass_t",
+        "activated_carbon_cost_jpy",
+    ]
 
 
 def _write_dict_rows(path: Path, rows: list[dict[str, Any]], fieldnames: list[str]) -> None:

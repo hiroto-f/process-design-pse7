@@ -1,28 +1,38 @@
 {
-  "input_path": "cost_estimation/inputs/equipment_costs.json",
+  "input_path": "cost_estimation\\inputs\\equipment_costs.json",
   "cost_index_ratio": 2.1317380352644837,
   "exchange_rate_jpy_per_usd": 150.0,
+  "activated_carbon": {
+    "price_jpy_per_t": 1000000.0,
+    "bulk_density_kg_per_m3": 500.0
+  },
   "cases": [
     {
       "case": "pump_base",
       "type": "pump",
       "A": 100.0,
       "A_unit": "kW",
-      "cost_jpy": 13395844.678934889
+      "cost_jpy": 13395844.678934889,
+      "activated_carbon_mass_t": null,
+      "activated_carbon_cost_jpy": null
     },
     {
       "case": "decanter_base",
       "type": "decanter",
       "A": 10.0,
       "A_unit": "m^3",
-      "cost_jpy": 7343191.041406565
+      "cost_jpy": 7343191.041406565,
+      "activated_carbon_mass_t": null,
+      "activated_carbon_cost_jpy": null
     },
     {
       "case": "psa_base",
       "type": "psa",
       "A": 10.0,
       "A_unit": "m^3",
-      "cost_jpy": 15568960.945779977
+      "cost_jpy": 15568960.945779977,
+      "activated_carbon_mass_t": 5.0,
+      "activated_carbon_cost_jpy": 5000000.0
     }
   ],
   "sweeps": [
@@ -31,840 +41,1080 @@
       "type": "pump",
       "A": 1.0,
       "A_unit": "kW",
-      "cost_jpy": 2538458.7083210917
+      "cost_jpy": 2538458.7083210917,
+      "activated_carbon_mass_t": null,
+      "activated_carbon_cost_jpy": null
     },
     {
       "sweep": "pump_power_sweep",
       "type": "pump",
       "A": 1.1727470767766643,
       "A_unit": "kW",
-      "cost_jpy": 2564578.769156827
+      "cost_jpy": 2564578.769156827,
+      "activated_carbon_mass_t": null,
+      "activated_carbon_cost_jpy": null
     },
     {
       "sweep": "pump_power_sweep",
       "type": "pump",
       "A": 1.3753357060882114,
       "A_unit": "kW",
-      "cost_jpy": 2599771.348348243
+      "cost_jpy": 2599771.348348243,
+      "activated_carbon_mass_t": null,
+      "activated_carbon_cost_jpy": null
     },
     {
       "sweep": "pump_power_sweep",
       "type": "pump",
       "A": 1.6129209289015196,
       "A_unit": "kW",
-      "cost_jpy": 2644401.7440289003
+      "cost_jpy": 2644401.7440289003,
+      "activated_carbon_mass_t": null,
+      "activated_carbon_cost_jpy": null
     },
     {
       "sweep": "pump_power_sweep",
       "type": "pump",
       "A": 1.8915483044411594,
       "A_unit": "kW",
-      "cost_jpy": 2698937.874816743
+      "cost_jpy": 2698937.874816743,
+      "activated_carbon_mass_t": null,
+      "activated_carbon_cost_jpy": null
     },
     {
       "sweep": "pump_power_sweep",
       "type": "pump",
       "A": 2.2183077446152257,
       "A_unit": "kW",
-      "cost_jpy": 2763958.4631502246
+      "cost_jpy": 2763958.4631502246,
+      "activated_carbon_mass_t": null,
+      "activated_carbon_cost_jpy": null
     },
     {
       "sweep": "pump_power_sweep",
       "type": "pump",
       "A": 2.601513922888541,
       "A_unit": "kW",
-      "cost_jpy": 2840163.2763834535
+      "cost_jpy": 2840163.2763834535,
+      "activated_carbon_mass_t": null,
+      "activated_carbon_cost_jpy": null
     },
     {
       "sweep": "pump_power_sweep",
       "type": "pump",
       "A": 3.0509178482613293,
       "A_unit": "kW",
-      "cost_jpy": 2928385.6795055107
+      "cost_jpy": 2928385.6795055107,
+      "activated_carbon_mass_t": null,
+      "activated_carbon_cost_jpy": null
     },
     {
       "sweep": "pump_power_sweep",
       "type": "pump",
       "A": 3.5779549880342247,
       "A_unit": "kW",
-      "cost_jpy": 3029607.814773184
+      "cost_jpy": 3029607.814773184,
+      "activated_carbon_mass_t": null,
+      "activated_carbon_cost_jpy": null
     },
     {
       "sweep": "pump_power_sweep",
       "type": "pump",
       "A": 4.196036253055622,
       "A_unit": "kW",
-      "cost_jpy": 3144978.7951543056
+      "cost_jpy": 3144978.7951543056,
+      "activated_carbon_mass_t": null,
+      "activated_carbon_cost_jpy": null
     },
     {
       "sweep": "pump_power_sweep",
       "type": "pump",
       "A": 4.920889249819889,
       "A_unit": "kW",
-      "cost_jpy": 3275836.3827605518
+      "cost_jpy": 3275836.3827605518,
+      "activated_carbon_mass_t": null,
+      "activated_carbon_cost_jpy": null
     },
     {
       "sweep": "pump_power_sweep",
       "type": "pump",
       "A": 5.770958482867988,
       "A_unit": "kW",
-      "cost_jpy": 3423732.7234011455
+      "cost_jpy": 3423732.7234011455,
+      "activated_carbon_mass_t": null,
+      "activated_carbon_cost_jpy": null
     },
     {
       "sweep": "pump_power_sweep",
       "type": "pump",
       "A": 6.767874690982925,
       "A_unit": "kW",
-      "cost_jpy": 3590464.827646233
+      "cost_jpy": 3590464.827646233,
+      "activated_carbon_mass_t": null,
+      "activated_carbon_cost_jpy": null
     },
     {
       "sweep": "pump_power_sweep",
       "type": "pump",
       "A": 7.937005259840998,
       "A_unit": "kW",
-      "cost_jpy": 3778110.63177999
+      "cost_jpy": 3778110.63177999,
+      "activated_carbon_mass_t": null,
+      "activated_carbon_cost_jpy": null
     },
     {
       "sweep": "pump_power_sweep",
       "type": "pump",
       "A": 9.30809971683954,
       "A_unit": "kW",
-      "cost_jpy": 3989071.6441735253
+      "cost_jpy": 3989071.6441735253,
+      "activated_carbon_mass_t": null,
+      "activated_carbon_cost_jpy": null
     },
     {
       "sweep": "pump_power_sweep",
       "type": "pump",
       "A": 10.916046733269267,
       "A_unit": "kW",
-      "cost_jpy": 4226123.390581956
+      "cost_jpy": 4226123.390581956,
+      "activated_carbon_mass_t": null,
+      "activated_carbon_cost_jpy": null
     },
     {
       "sweep": "pump_power_sweep",
       "type": "pump",
       "A": 12.80176189639899,
       "A_unit": "kW",
-      "cost_jpy": 4492475.1238864735
+      "cost_jpy": 4492475.1238864735,
+      "activated_carbon_mass_t": null,
+      "activated_carbon_cost_jpy": null
     },
     {
       "sweep": "pump_power_sweep",
       "type": "pump",
       "A": 15.0132288415928,
       "A_unit": "kW",
-      "cost_jpy": 4791840.570019545
+      "cost_jpy": 4791840.570019545,
+      "activated_carbon_mass_t": null,
+      "activated_carbon_cost_jpy": null
     },
     {
       "sweep": "pump_power_sweep",
       "type": "pump",
       "A": 17.606720236957063,
       "A_unit": "kW",
-      "cost_jpy": 5128521.854817732
+      "cost_jpy": 5128521.854817732,
+      "activated_carbon_mass_t": null,
+      "activated_carbon_cost_jpy": null
     },
     {
       "sweep": "pump_power_sweep",
       "type": "pump",
       "A": 20.648229689515944,
       "A_unit": "kW",
-      "cost_jpy": 5507509.211977689
+      "cost_jpy": 5507509.211977689,
+      "activated_carbon_mass_t": null,
+      "activated_carbon_cost_jpy": null
     },
     {
       "sweep": "pump_power_sweep",
       "type": "pump",
       "A": 24.21515100899295,
       "A_unit": "kW",
-      "cost_jpy": 5934599.629610237
+      "cost_jpy": 5934599.629610237,
+      "activated_carbon_mass_t": null,
+      "activated_carbon_cost_jpy": null
     },
     {
       "sweep": "pump_power_sweep",
       "type": "pump",
       "A": 28.398247559501975,
       "A_unit": "kW",
-      "cost_jpy": 6416538.276373343
+      "cost_jpy": 6416538.276373343,
+      "activated_carbon_mass_t": null,
+      "activated_carbon_cost_jpy": null
     },
     {
       "sweep": "pump_power_sweep",
       "type": "pump",
       "A": 33.30396181098598,
       "A_unit": "kW",
-      "cost_jpy": 6961187.388166917
+      "cost_jpy": 6961187.388166917,
+      "activated_carbon_mass_t": null,
+      "activated_carbon_cost_jpy": null
     },
     {
       "sweep": "pump_power_sweep",
       "type": "pump",
       "A": 39.057123858915475,
       "A_unit": "kW",
-      "cost_jpy": 7577728.3309053
+      "cost_jpy": 7577728.3309053,
+      "activated_carbon_mass_t": null,
+      "activated_carbon_cost_jpy": null
     },
     {
       "sweep": "pump_power_sweep",
       "type": "pump",
       "A": 45.80412783284723,
       "A_unit": "kW",
-      "cost_jpy": 8276903.831659254
+      "cost_jpy": 8276903.831659254,
+      "activated_carbon_mass_t": null,
+      "activated_carbon_cost_jpy": null
     },
     {
       "sweep": "pump_power_sweep",
       "type": "pump",
       "A": 53.71665702027626,
       "A_unit": "kW",
-      "cost_jpy": 9071308.949487347
+      "cost_jpy": 9071308.949487347,
+      "activated_carbon_mass_t": null,
+      "activated_carbon_cost_jpy": null
     },
     {
       "sweep": "pump_power_sweep",
       "type": "pump",
       "A": 62.996052494743665,
       "A_unit": "kW",
-      "cost_jpy": 9975741.314178478
+      "cost_jpy": 9975741.314178478,
+      "activated_carbon_mass_t": null,
+      "activated_carbon_cost_jpy": null
     },
     {
       "sweep": "pump_power_sweep",
       "type": "pump",
       "A": 73.87843641167991,
       "A_unit": "kW",
-      "cost_jpy": 11007623.591401683
+      "cost_jpy": 11007623.591401683,
+      "activated_carbon_mass_t": null,
+      "activated_carbon_cost_jpy": null
     },
     {
       "sweep": "pump_power_sweep",
       "type": "pump",
       "A": 86.6407203386283,
       "A_unit": "kW",
-      "cost_jpy": 12187514.157244746
+      "cost_jpy": 12187514.157244746,
+      "activated_carbon_mass_t": null,
+      "activated_carbon_cost_jpy": null
     },
     {
       "sweep": "pump_power_sweep",
       "type": "pump",
       "A": 101.60765150695082,
       "A_unit": "kW",
-      "cost_jpy": 13539725.73704535
+      "cost_jpy": 13539725.73704535,
+      "activated_carbon_mass_t": null,
+      "activated_carbon_cost_jpy": null
     },
     {
       "sweep": "pump_power_sweep",
       "type": "pump",
       "A": 119.16007628291865,
       "A_unit": "kW",
-      "cost_jpy": 15093076.477462415
+      "cost_jpy": 15093076.477462415,
+      "activated_carbon_mass_t": null,
+      "activated_carbon_cost_jpy": null
     },
     {
       "sweep": "pump_power_sweep",
       "type": "pump",
       "A": 139.7446311292771,
       "A_unit": "kW",
-      "cost_jpy": 16881803.824789263
+      "cost_jpy": 16881803.824789263,
+      "activated_carbon_mass_t": null,
+      "activated_carbon_cost_jpy": null
     },
     {
       "sweep": "pump_power_sweep",
       "type": "pump",
       "A": 163.88510765209304,
       "A_unit": "kW",
-      "cost_jpy": 18946678.992853437
+      "cost_jpy": 18946678.992853437,
+      "activated_carbon_mass_t": null,
+      "activated_carbon_cost_jpy": null
     },
     {
       "sweep": "pump_power_sweep",
       "type": "pump",
       "A": 192.19578092622115,
       "A_unit": "kW",
-      "cost_jpy": 21336369.124882933
+      "cost_jpy": 21336369.124882933,
+      "activated_carbon_mass_t": null,
+      "activated_carbon_cost_jpy": null
     },
     {
       "sweep": "pump_power_sweep",
       "type": "pump",
       "A": 225.3970402500339,
       "A_unit": "kW",
-      "cost_jpy": 24109106.003608678
+      "cost_jpy": 24109106.003608678,
+      "activated_carbon_mass_t": null,
+      "activated_carbon_cost_jpy": null
     },
     {
       "sweep": "pump_power_sweep",
       "type": "pump",
       "A": 264.3337200673395,
       "A_unit": "kW",
-      "cost_jpy": 27334735.007972695
+      "cost_jpy": 27334735.007972695,
+      "activated_carbon_mass_t": null,
+      "activated_carbon_cost_jpy": null
     },
     {
       "sweep": "pump_power_sweep",
       "type": "pump",
       "A": 309.9965975024733,
       "A_unit": "kW",
-      "cost_jpy": 31097236.809298355
+      "cost_jpy": 31097236.809298355,
+      "activated_carbon_mass_t": null,
+      "activated_carbon_cost_jpy": null
     },
     {
       "sweep": "pump_power_sweep",
       "type": "pump",
       "A": 363.547603531738,
       "A_unit": "kW",
-      "cost_jpy": 35497838.14879333
+      "cost_jpy": 35497838.14879333,
+      "activated_carbon_mass_t": null,
+      "activated_carbon_cost_jpy": null
     },
     {
       "sweep": "pump_power_sweep",
       "type": "pump",
       "A": 426.34938931100766,
       "A_unit": "kW",
-      "cost_jpy": 40658858.36876016
+      "cost_jpy": 40658858.36876016,
+      "activated_carbon_mass_t": null,
+      "activated_carbon_cost_jpy": null
     },
     {
       "sweep": "pump_power_sweep",
       "type": "pump",
       "A": 499.99999999999994,
       "A_unit": "kW",
-      "cost_jpy": 46728477.030167766
+      "cost_jpy": 46728477.030167766,
+      "activated_carbon_mass_t": null,
+      "activated_carbon_cost_jpy": null
     },
     {
       "sweep": "vessel_volume_sweep",
       "type": "decanter",
       "A": 1.0,
       "A_unit": "m^3",
-      "cost_jpy": 2499106.8621580205
+      "cost_jpy": 2499106.8621580205,
+      "activated_carbon_mass_t": null,
+      "activated_carbon_cost_jpy": null
     },
     {
       "sweep": "vessel_volume_sweep",
       "type": "decanter",
       "A": 1.125335582600765,
       "A_unit": "m^3",
-      "cost_jpy": 2614489.673905351
+      "cost_jpy": 2614489.673905351,
+      "activated_carbon_mass_t": null,
+      "activated_carbon_cost_jpy": null
     },
     {
       "sweep": "vessel_volume_sweep",
       "type": "decanter",
       "A": 1.2663801734674032,
       "A_unit": "m^3",
-      "cost_jpy": 2738199.1884389226
+      "cost_jpy": 2738199.1884389226,
+      "activated_carbon_mass_t": null,
+      "activated_carbon_cost_jpy": null
     },
     {
       "sweep": "vessel_volume_sweep",
       "type": "decanter",
       "A": 1.425102670302998,
       "A_unit": "m^3",
-      "cost_jpy": 2870907.1476088124
+      "cost_jpy": 2870907.1476088124,
+      "activated_carbon_mass_t": null,
+      "activated_carbon_cost_jpy": null
     },
     {
       "sweep": "vessel_volume_sweep",
       "type": "decanter",
       "A": 1.6037187437513303,
       "A_unit": "m^3",
-      "cost_jpy": 3013347.783089406
+      "cost_jpy": 3013347.783089406,
+      "activated_carbon_mass_t": null,
+      "activated_carbon_cost_jpy": null
     },
     {
       "sweep": "vessel_volume_sweep",
       "type": "decanter",
       "A": 1.8047217668271702,
       "A_unit": "m^3",
-      "cost_jpy": 3166324.1452160273
+      "cost_jpy": 3166324.1452160273,
+      "activated_carbon_mass_t": null,
+      "activated_carbon_cost_jpy": null
     },
     {
       "sweep": "vessel_volume_sweep",
       "type": "decanter",
       "A": 2.0309176209047357,
       "A_unit": "m^3",
-      "cost_jpy": 3330715.129038987
+      "cost_jpy": 3330715.129038987,
+      "activated_carbon_mass_t": null,
+      "activated_carbon_cost_jpy": null
     },
     {
       "sweep": "vessel_volume_sweep",
       "type": "decanter",
       "A": 2.2854638641349903,
       "A_unit": "m^3",
-      "cost_jpy": 3507483.2796059223
+      "cost_jpy": 3507483.2796059223,
+      "activated_carbon_mass_t": null,
+      "activated_carbon_cost_jpy": null
     },
     {
       "sweep": "vessel_volume_sweep",
       "type": "decanter",
       "A": 2.571913809059345,
       "A_unit": "m^3",
-      "cost_jpy": 3697683.468737694
+      "cost_jpy": 3697683.468737694,
+      "activated_carbon_mass_t": null,
+      "activated_carbon_cost_jpy": null
     },
     {
       "sweep": "vessel_volume_sweep",
       "type": "decanter",
       "A": 2.8942661247167507,
       "A_unit": "m^3",
-      "cost_jpy": 3902472.547169571
+      "cost_jpy": 3902472.547169571,
+      "activated_carbon_mass_t": null,
+      "activated_carbon_cost_jpy": null
     },
     {
       "sweep": "vessel_volume_sweep",
       "type": "decanter",
       "A": 3.257020655659783,
       "A_unit": "m^3",
-      "cost_jpy": 4123120.089074235
+      "cost_jpy": 4123120.089074235,
+      "activated_carbon_mass_t": null,
+      "activated_carbon_cost_jpy": null
     },
     {
       "sweep": "vessel_volume_sweep",
       "type": "decanter",
       "A": 3.665241237079628,
       "A_unit": "m^3",
-      "cost_jpy": 4361020.360881151
+      "cost_jpy": 4361020.360881151,
+      "activated_carbon_mass_t": null,
+      "activated_carbon_cost_jpy": null
     },
     {
       "sweep": "vessel_volume_sweep",
       "type": "decanter",
       "A": 4.1246263829013525,
       "A_unit": "m^3",
-      "cost_jpy": 4617705.66320259
+      "cost_jpy": 4617705.66320259,
+      "activated_carbon_mass_t": null,
+      "activated_carbon_cost_jpy": null
     },
     {
       "sweep": "vessel_volume_sweep",
       "type": "decanter",
       "A": 4.641588833612778,
       "A_unit": "m^3",
-      "cost_jpy": 4894861.213851825
+      "cost_jpy": 4894861.213851825,
+      "activated_carbon_mass_t": null,
+      "activated_carbon_cost_jpy": null
     },
     {
       "sweep": "vessel_volume_sweep",
       "type": "decanter",
       "A": 5.223345074266842,
       "A_unit": "m^3",
-      "cost_jpy": 5194341.761715652
+      "cost_jpy": 5194341.761715652,
+      "activated_carbon_mass_t": null,
+      "activated_carbon_cost_jpy": null
     },
     {
       "sweep": "vessel_volume_sweep",
       "type": "decanter",
       "A": 5.878016072274912,
       "A_unit": "m^3",
-      "cost_jpy": 5518190.145991602
+      "cost_jpy": 5518190.145991602,
+      "activated_carbon_mass_t": null,
+      "activated_carbon_cost_jpy": null
     },
     {
       "sweep": "vessel_volume_sweep",
       "type": "decanter",
       "A": 6.614740641230149,
       "A_unit": "m^3",
-      "cost_jpy": 5868658.04344507
+      "cost_jpy": 5868658.04344507,
+      "activated_carbon_mass_t": null,
+      "activated_carbon_cost_jpy": null
     },
     {
       "sweep": "vessel_volume_sweep",
       "type": "decanter",
       "A": 7.443803013251689,
       "A_unit": "m^3",
-      "cost_jpy": 6248229.178371121
+      "cost_jpy": 6248229.178371121,
+      "activated_carbon_mass_t": null,
+      "activated_carbon_cost_jpy": null
     },
     {
       "sweep": "vessel_volume_sweep",
       "type": "decanter",
       "A": 8.376776400682918,
       "A_unit": "m^3",
-      "cost_jpy": 6659645.306422005
+      "cost_jpy": 6659645.306422005,
+      "activated_carbon_mass_t": null,
+      "activated_carbon_cost_jpy": null
     },
     {
       "sweep": "vessel_volume_sweep",
       "type": "decanter",
       "A": 9.426684551178852,
       "A_unit": "m^3",
-      "cost_jpy": 7105935.325030355
+      "cost_jpy": 7105935.325030355,
+      "activated_carbon_mass_t": null,
+      "activated_carbon_cost_jpy": null
     },
     {
       "sweep": "vessel_volume_sweep",
       "type": "decanter",
       "A": 10.608183551394482,
       "A_unit": "m^3",
-      "cost_jpy": 7590447.910564304
+      "cost_jpy": 7590447.910564304,
+      "activated_carbon_mass_t": null,
+      "activated_carbon_cost_jpy": null
     },
     {
       "sweep": "vessel_volume_sweep",
       "type": "decanter",
       "A": 11.937766417144363,
       "A_unit": "m^3",
-      "cost_jpy": 8116888.136451803
+      "cost_jpy": 8116888.136451803,
+      "activated_carbon_mass_t": null,
+      "activated_carbon_cost_jpy": null
     },
     {
       "sweep": "vessel_volume_sweep",
       "type": "decanter",
       "A": 13.433993325989,
       "A_unit": "m^3",
-      "cost_jpy": 8689358.588296631
+      "cost_jpy": 8689358.588296631,
+      "activated_carbon_mass_t": null,
+      "activated_carbon_cost_jpy": null
     },
     {
       "sweep": "vessel_volume_sweep",
       "type": "decanter",
       "A": 15.117750706156622,
       "A_unit": "m^3",
-      "cost_jpy": 9312405.562619591
+      "cost_jpy": 9312405.562619591,
+      "activated_carbon_mass_t": null,
+      "activated_carbon_cost_jpy": null
     },
     {
       "sweep": "vessel_volume_sweep",
       "type": "decanter",
       "A": 17.012542798525892,
       "A_unit": "m^3",
-      "cost_jpy": 9991071.01661263
+      "cost_jpy": 9991071.01661263,
+      "activated_carbon_mass_t": null,
+      "activated_carbon_cost_jpy": null
     },
     {
       "sweep": "vessel_volume_sweep",
       "type": "decanter",
       "A": 19.144819761699576,
       "A_unit": "m^3",
-      "cost_jpy": 10730951.02871562
+      "cost_jpy": 10730951.02871562,
+      "activated_carbon_mass_t": null,
+      "activated_carbon_cost_jpy": null
     },
     {
       "sweep": "vessel_volume_sweep",
       "type": "decanter",
       "A": 21.544346900318832,
       "A_unit": "m^3",
-      "cost_jpy": 11538261.635675794
+      "cost_jpy": 11538261.635675794,
+      "activated_carbon_mass_t": null,
+      "activated_carbon_cost_jpy": null
     },
     {
       "sweep": "vessel_volume_sweep",
       "type": "decanter",
       "A": 24.244620170823282,
       "A_unit": "m^3",
-      "cost_jpy": 12419913.033067273
+      "cost_jpy": 12419913.033067273,
+      "activated_carbon_mass_t": null,
+      "activated_carbon_cost_jpy": null
     },
     {
       "sweep": "vessel_volume_sweep",
       "type": "decanter",
       "A": 27.28333376486768,
       "A_unit": "m^3",
-      "cost_jpy": 13383593.265393727
+      "cost_jpy": 13383593.265393727,
+      "activated_carbon_mass_t": null,
+      "activated_carbon_cost_jpy": null
     },
     {
       "sweep": "vessel_volume_sweep",
       "type": "decanter",
       "A": 30.702906297578497,
       "A_unit": "m^3",
-      "cost_jpy": 14437862.691606464
+      "cost_jpy": 14437862.691606464,
+      "activated_carbon_mass_t": null,
+      "activated_carbon_cost_jpy": null
     },
     {
       "sweep": "vessel_volume_sweep",
       "type": "decanter",
       "A": 34.55107294592218,
       "A_unit": "m^3",
-      "cost_jpy": 15592260.695315953
+      "cost_jpy": 15592260.695315953,
+      "activated_carbon_mass_t": null,
+      "activated_carbon_cost_jpy": null
     },
     {
       "sweep": "vessel_volume_sweep",
       "type": "decanter",
       "A": 38.881551803080875,
       "A_unit": "m^3",
-      "cost_jpy": 16857426.319838185
+      "cost_jpy": 16857426.319838185,
+      "activated_carbon_mass_t": null,
+      "activated_carbon_cost_jpy": null
     },
     {
       "sweep": "vessel_volume_sweep",
       "type": "decanter",
       "A": 43.75479375074185,
       "A_unit": "m^3",
-      "cost_jpy": 18245234.750776075
+      "cost_jpy": 18245234.750776075,
+      "activated_carbon_mass_t": null,
+      "activated_carbon_cost_jpy": null
     },
     {
       "sweep": "vessel_volume_sweep",
       "type": "decanter",
       "A": 49.23882631706739,
       "A_unit": "m^3",
-      "cost_jpy": 19768951.848057356
+      "cost_jpy": 19768951.848057356,
+      "activated_carbon_mass_t": null,
+      "activated_carbon_cost_jpy": null
     },
     {
       "sweep": "vessel_volume_sweep",
       "type": "decanter",
       "A": 55.41020330009492,
       "A_unit": "m^3",
-      "cost_jpy": 21443409.25101647
+      "cost_jpy": 21443409.25101647,
+      "activated_carbon_mass_t": null,
+      "activated_carbon_cost_jpy": null
     },
     {
       "sweep": "vessel_volume_sweep",
       "type": "decanter",
       "A": 62.355073412739124,
       "A_unit": "m^3",
-      "cost_jpy": 23285202.950941395
+      "cost_jpy": 23285202.950941395,
+      "activated_carbon_mass_t": null,
+      "activated_carbon_cost_jpy": null
     },
     {
       "sweep": "vessel_volume_sweep",
       "type": "decanter",
       "A": 70.17038286703826,
       "A_unit": "m^3",
-      "cost_jpy": 25312918.65334868
+      "cost_jpy": 25312918.65334868,
+      "activated_carbon_mass_t": null,
+      "activated_carbon_cost_jpy": null
     },
     {
       "sweep": "vessel_volume_sweep",
       "type": "decanter",
       "A": 78.96522868499724,
       "A_unit": "m^3",
-      "cost_jpy": 27547387.746223383
+      "cost_jpy": 27547387.746223383,
+      "activated_carbon_mass_t": null,
+      "activated_carbon_cost_jpy": null
     },
     {
       "sweep": "vessel_volume_sweep",
       "type": "decanter",
       "A": 88.86238162743403,
       "A_unit": "m^3",
-      "cost_jpy": 30011978.261225108
+      "cost_jpy": 30011978.261225108,
+      "activated_carbon_mass_t": null,
+      "activated_carbon_cost_jpy": null
     },
     {
       "sweep": "vessel_volume_sweep",
       "type": "decanter",
       "A": 100.0,
       "A_unit": "m^3",
-      "cost_jpy": 32732925.874844395
+      "cost_jpy": 32732925.874844395,
+      "activated_carbon_mass_t": null,
+      "activated_carbon_cost_jpy": null
     },
     {
       "sweep": "vessel_volume_sweep",
       "type": "psa",
       "A": 1.0,
       "A_unit": "m^3",
-      "cost_jpy": 4328721.340800793
+      "cost_jpy": 4328721.340800793,
+      "activated_carbon_mass_t": 0.5,
+      "activated_carbon_cost_jpy": 500000.0
     },
     {
       "sweep": "vessel_volume_sweep",
       "type": "psa",
       "A": 1.125335582600765,
       "A_unit": "m^3",
-      "cost_jpy": 4567116.342973969
+      "cost_jpy": 4567116.342973969,
+      "activated_carbon_mass_t": 0.5626677913003825,
+      "activated_carbon_cost_jpy": 562667.7913003825
     },
     {
       "sweep": "vessel_volume_sweep",
       "type": "psa",
       "A": 1.2663801734674032,
       "A_unit": "m^3",
-      "cost_jpy": 4824912.171883013
+      "cost_jpy": 4824912.171883013,
+      "activated_carbon_mass_t": 0.6331900867337016,
+      "activated_carbon_cost_jpy": 633190.0867337016
     },
     {
       "sweep": "vessel_volume_sweep",
       "type": "psa",
       "A": 1.425102670302998,
       "A_unit": "m^3",
-      "cost_jpy": 5103893.939872824
+      "cost_jpy": 5103893.939872824,
+      "activated_carbon_mass_t": 0.712551335151499,
+      "activated_carbon_cost_jpy": 712551.335151499
     },
     {
       "sweep": "vessel_volume_sweep",
       "type": "psa",
       "A": 1.6037187437513303,
       "A_unit": "m^3",
-      "cost_jpy": 5406033.858270161
+      "cost_jpy": 5406033.858270161,
+      "activated_carbon_mass_t": 0.8018593718756651,
+      "activated_carbon_cost_jpy": 801859.3718756652
     },
     {
       "sweep": "vessel_volume_sweep",
       "type": "psa",
       "A": 1.8047217668271702,
       "A_unit": "m^3",
-      "cost_jpy": 5733512.625893244
+      "cost_jpy": 5733512.625893244,
+      "activated_carbon_mass_t": 0.9023608834135851,
+      "activated_carbon_cost_jpy": 902360.8834135851
     },
     {
       "sweep": "vessel_volume_sweep",
       "type": "psa",
       "A": 2.0309176209047357,
       "A_unit": "m^3",
-      "cost_jpy": 6088743.466572817
+      "cost_jpy": 6088743.466572817,
+      "activated_carbon_mass_t": 1.0154588104523679,
+      "activated_carbon_cost_jpy": 1015458.8104523679
     },
     {
       "sweep": "vessel_volume_sweep",
       "type": "psa",
       "A": 2.2854638641349903,
       "A_unit": "m^3",
-      "cost_jpy": 6474399.165976164
+      "cost_jpy": 6474399.165976164,
+      "activated_carbon_mass_t": 1.1427319320674951,
+      "activated_carbon_cost_jpy": 1142731.932067495
     },
     {
       "sweep": "vessel_volume_sweep",
       "type": "psa",
       "A": 2.571913809059345,
       "A_unit": "m^3",
-      "cost_jpy": 6893442.507184708
+      "cost_jpy": 6893442.507184708,
+      "activated_carbon_mass_t": 1.2859569045296726,
+      "activated_carbon_cost_jpy": 1285956.9045296726
     },
     {
       "sweep": "vessel_volume_sweep",
       "type": "psa",
       "A": 2.8942661247167507,
       "A_unit": "m^3",
-      "cost_jpy": 7349160.5609046845
+      "cost_jpy": 7349160.5609046845,
+      "activated_carbon_mass_t": 1.4471330623583754,
+      "activated_carbon_cost_jpy": 1447133.0623583754
     },
     {
       "sweep": "vessel_volume_sweep",
       "type": "psa",
       "A": 3.257020655659783,
       "A_unit": "m^3",
-      "cost_jpy": 7845203.35101682
+      "cost_jpy": 7845203.35101682,
+      "activated_carbon_mass_t": 1.6285103278298916,
+      "activated_carbon_cost_jpy": 1628510.3278298916
     },
     {
       "sweep": "vessel_volume_sweep",
       "type": "psa",
       "A": 3.665241237079628,
       "A_unit": "m^3",
-      "cost_jpy": 8385627.490705765
+      "cost_jpy": 8385627.490705765,
+      "activated_carbon_mass_t": 1.832620618539814,
+      "activated_carbon_cost_jpy": 1832620.618539814
     },
     {
       "sweep": "vessel_volume_sweep",
       "type": "psa",
       "A": 4.1246263829013525,
       "A_unit": "m^3",
-      "cost_jpy": 8974945.47017754
+      "cost_jpy": 8974945.47017754,
+      "activated_carbon_mass_t": 2.0623131914506763,
+      "activated_carbon_cost_jpy": 2062313.1914506762
     },
     {
       "sweep": "vessel_volume_sweep",
       "type": "psa",
       "A": 4.641588833612778,
       "A_unit": "m^3",
-      "cost_jpy": 9618181.375747748
+      "cost_jpy": 9618181.375747748,
+      "activated_carbon_mass_t": 2.320794416806389,
+      "activated_carbon_cost_jpy": 2320794.416806389
     },
     {
       "sweep": "vessel_volume_sweep",
       "type": "psa",
       "A": 5.223345074266842,
       "A_unit": "m^3",
-      "cost_jpy": 10320933.933930827
+      "cost_jpy": 10320933.933930827,
+      "activated_carbon_mass_t": 2.611672537133421,
+      "activated_carbon_cost_jpy": 2611672.537133421
     },
     {
       "sweep": "vessel_volume_sweep",
       "type": "psa",
       "A": 5.878016072274912,
       "A_unit": "m^3",
-      "cost_jpy": 11089447.905492537
+      "cost_jpy": 11089447.905492537,
+      "activated_carbon_mass_t": 2.939008036137456,
+      "activated_carbon_cost_jpy": 2939008.036137456
     },
     {
       "sweep": "vessel_volume_sweep",
       "type": "psa",
       "A": 6.614740641230149,
       "A_unit": "m^3",
-      "cost_jpy": 11930695.006052744
+      "cost_jpy": 11930695.006052744,
+      "activated_carbon_mass_t": 3.3073703206150746,
+      "activated_carbon_cost_jpy": 3307370.3206150746
     },
     {
       "sweep": "vessel_volume_sweep",
       "type": "psa",
       "A": 7.443803013251689,
       "A_unit": "m^3",
-      "cost_jpy": 12852465.705029098
+      "cost_jpy": 12852465.705029098,
+      "activated_carbon_mass_t": 3.7219015066258443,
+      "activated_carbon_cost_jpy": 3721901.506625844
     },
     {
       "sweep": "vessel_volume_sweep",
       "type": "psa",
       "A": 8.376776400682918,
       "A_unit": "m^3",
-      "cost_jpy": 13863473.457329514
+      "cost_jpy": 13863473.457329514,
+      "activated_carbon_mass_t": 4.188388200341459,
+      "activated_carbon_cost_jpy": 4188388.200341459
     },
     {
       "sweep": "vessel_volume_sweep",
       "type": "psa",
       "A": 9.426684551178852,
       "A_unit": "m^3",
-      "cost_jpy": 14973473.156720342
+      "cost_jpy": 14973473.156720342,
+      "activated_carbon_mass_t": 4.713342275589426,
+      "activated_carbon_cost_jpy": 4713342.275589426
     },
     {
       "sweep": "vessel_volume_sweep",
       "type": "psa",
       "A": 10.608183551394482,
       "A_unit": "m^3",
-      "cost_jpy": 16193395.871472128
+      "cost_jpy": 16193395.871472128,
+      "activated_carbon_mass_t": 5.304091775697241,
+      "activated_carbon_cost_jpy": 5304091.775697242
     },
     {
       "sweep": "vessel_volume_sweep",
       "type": "psa",
       "A": 11.937766417144363,
       "A_unit": "m^3",
-      "cost_jpy": 17535502.237869184
+      "cost_jpy": 17535502.237869184,
+      "activated_carbon_mass_t": 5.968883208572182,
+      "activated_carbon_cost_jpy": 5968883.208572182
     },
     {
       "sweep": "vessel_volume_sweep",
       "type": "psa",
       "A": 13.433993325989,
       "A_unit": "m^3",
-      "cost_jpy": 19013557.252683155
+      "cost_jpy": 19013557.252683155,
+      "activated_carbon_mass_t": 6.7169966629945,
+      "activated_carbon_cost_jpy": 6716996.6629945
     },
     {
       "sweep": "vessel_volume_sweep",
       "type": "psa",
       "A": 15.117750706156622,
       "A_unit": "m^3",
-      "cost_jpy": 20643029.630219407
+      "cost_jpy": 20643029.630219407,
+      "activated_carbon_mass_t": 7.558875353078312,
+      "activated_carbon_cost_jpy": 7558875.353078312
     },
     {
       "sweep": "vessel_volume_sweep",
       "type": "psa",
       "A": 17.012542798525892,
       "A_unit": "m^3",
-      "cost_jpy": 22441319.383003518
+      "cost_jpy": 22441319.383003518,
+      "activated_carbon_mass_t": 8.506271399262946,
+      "activated_carbon_cost_jpy": 8506271.399262946
     },
     {
       "sweep": "vessel_volume_sweep",
       "type": "psa",
       "A": 19.144819761699576,
       "A_unit": "m^3",
-      "cost_jpy": 24428017.85927035
+      "cost_jpy": 24428017.85927035,
+      "activated_carbon_mass_t": 9.572409880849788,
+      "activated_carbon_cost_jpy": 9572409.880849788
     },
     {
       "sweep": "vessel_volume_sweep",
       "type": "psa",
       "A": 21.544346900318832,
       "A_unit": "m^3",
-      "cost_jpy": 26625205.138918836
+      "cost_jpy": 26625205.138918836,
+      "activated_carbon_mass_t": 10.772173450159416,
+      "activated_carbon_cost_jpy": 10772173.450159416
     },
     {
       "sweep": "vessel_volume_sweep",
       "type": "psa",
       "A": 24.244620170823282,
       "A_unit": "m^3",
-      "cost_jpy": 29057790.468694314
+      "cost_jpy": 29057790.468694314,
+      "activated_carbon_mass_t": 12.122310085411643,
+      "activated_carbon_cost_jpy": 12122310.085411644
     },
     {
       "sweep": "vessel_volume_sweep",
       "type": "psa",
       "A": 27.28333376486768,
       "A_unit": "m^3",
-      "cost_jpy": 31753902.32616282
+      "cost_jpy": 31753902.32616282,
+      "activated_carbon_mass_t": 13.64166688243384,
+      "activated_carbon_cost_jpy": 13641666.882433841
     },
     {
       "sweep": "vessel_volume_sweep",
       "type": "psa",
       "A": 30.702906297578497,
       "A_unit": "m^3",
-      "cost_jpy": 34745335.76306287
+      "cost_jpy": 34745335.76306287,
+      "activated_carbon_mass_t": 15.351453148789249,
+      "activated_carbon_cost_jpy": 15351453.14878925
     },
     {
       "sweep": "vessel_volume_sweep",
       "type": "psa",
       "A": 34.55107294592218,
       "A_unit": "m^3",
-      "cost_jpy": 38068065.91846316
+      "cost_jpy": 38068065.91846316,
+      "activated_carbon_mass_t": 17.27553647296109,
+      "activated_carbon_cost_jpy": 17275536.47296109
     },
     {
       "sweep": "vessel_volume_sweep",
       "type": "psa",
       "A": 38.881551803080875,
       "A_unit": "m^3",
-      "cost_jpy": 41762838.042226404
+      "cost_jpy": 41762838.042226404,
+      "activated_carbon_mass_t": 19.440775901540437,
+      "activated_carbon_cost_jpy": 19440775.901540436
     },
     {
       "sweep": "vessel_volume_sweep",
       "type": "psa",
       "A": 43.75479375074185,
       "A_unit": "m^3",
-      "cost_jpy": 45875846.06675587
+      "cost_jpy": 45875846.06675587,
+      "activated_carbon_mass_t": 21.877396875370923,
+      "activated_carbon_cost_jpy": 21877396.875370923
     },
     {
       "sweep": "vessel_volume_sweep",
       "type": "psa",
       "A": 49.23882631706739,
       "A_unit": "m^3",
-      "cost_jpy": 50459513.753853366
+      "cost_jpy": 50459513.753853366,
+      "activated_carbon_mass_t": 24.619413158533696,
+      "activated_carbon_cost_jpy": 24619413.158533696
     },
     {
       "sweep": "vessel_volume_sweep",
       "type": "psa",
       "A": 55.41020330009492,
       "A_unit": "m^3",
-      "cost_jpy": 55573394.77585798
+      "cost_jpy": 55573394.77585798,
+      "activated_carbon_mass_t": 27.70510165004746,
+      "activated_carbon_cost_jpy": 27705101.65004746
     },
     {
       "sweep": "vessel_volume_sweep",
       "type": "psa",
       "A": 62.355073412739124,
       "A_unit": "m^3",
-      "cost_jpy": 61285210.82785363
+      "cost_jpy": 61285210.82785363,
+      "activated_carbon_mass_t": 31.177536706369562,
+      "activated_carbon_cost_jpy": 31177536.70636956
     },
     {
       "sweep": "vessel_volume_sweep",
       "type": "psa",
       "A": 70.17038286703826,
       "A_unit": "m^3",
-      "cost_jpy": 67672050.083946
+      "cost_jpy": 67672050.083946,
+      "activated_carbon_mass_t": 35.08519143351913,
+      "activated_carbon_cost_jpy": 35085191.433519125
     },
     {
       "sweep": "vessel_volume_sweep",
       "type": "psa",
       "A": 78.96522868499724,
       "A_unit": "m^3",
-      "cost_jpy": 74821752.0925197
+      "cost_jpy": 74821752.0925197,
+      "activated_carbon_mass_t": 39.48261434249862,
+      "activated_carbon_cost_jpy": 39482614.34249862
     },
     {
       "sweep": "vessel_volume_sweep",
       "type": "psa",
       "A": 88.86238162743403,
       "A_unit": "m^3",
-      "cost_jpy": 82834509.65654376
+      "cost_jpy": 82834509.65654376,
+      "activated_carbon_mass_t": 44.431190813717016,
+      "activated_carbon_cost_jpy": 44431190.813717015
     },
     {
       "sweep": "vessel_volume_sweep",
       "type": "psa",
       "A": 100.0,
       "A_unit": "m^3",
-      "cost_jpy": 91824723.48859887
+      "cost_jpy": 91824723.48859887,
+      "activated_carbon_mass_t": 50.0,
+      "activated_carbon_cost_jpy": 50000000.0
     }
   ]
 }

@@ -1,6 +1,10 @@
 {
   "cost_index_ratio": 2.1317380352644835,
   "exchange_rate_jpy_per_usd": 150,
+  "activated_carbon": {
+    "price_jpy_per_t": 1000000,
+    "bulk_density_kg_per_m3": 500
+  },
   "dpi": 150,
   "cases": [
     {
