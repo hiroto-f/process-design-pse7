@@ -56,6 +56,44 @@
       "H2": 0.021411066601209425,
       "CH4": 0.20419351939581
     },
+    "psa_outlet_molar_flow": {
+      "basis": "cycle_average",
+      "cycle_time_s": 133.15603705947348,
+      "desorption_product": {
+        "description": "All material leaving from the desorption side.",
+        "mol_per_s": {
+          "H2": 0.16079681457962197,
+          "CH4": 1.5334905116213995,
+          "total": 1.6942873262010214
+        },
+        "kmol_per_h": {
+          "H2": 0.578868532486639,
+          "CH4": 5.520565841837038,
+          "total": 6.0994343743236765
+        },
+        "mole_fraction": {
+          "H2": 0.09490528087710193,
+          "CH4": 0.9050947191228981
+        }
+      },
+      "hydrogen_rich": {
+        "description": "Material leaving from the adsorption side as the hydrogen-rich stream.",
+        "mol_per_s": {
+          "H2": 1.0374110364426394,
+          "CH4": 0.00015763169241798355,
+          "total": 1.0375686681350578
+        },
+        "kmol_per_h": {
+          "H2": 3.734679731193503,
+          "CH4": 0.0005674740927047408,
+          "total": 3.735247205286208
+        },
+        "mole_fraction": {
+          "H2": 0.9998480758939056,
+          "CH4": 0.00015192410609440746
+        }
+      }
+    },
     "product_cut": {
       "ch4_min_mole_fraction": 0.9,
       "start_time_s": 5.640790088192748,

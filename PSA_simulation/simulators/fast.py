@@ -147,8 +147,7 @@ class FastPsaSimulator:
                 ) + u[k - 1]
                 for i in range(2):
                     ct_1[i][k] = (
-                        f_coef * st.ct[i][k] * (u[k] - u[k - 1])
-                        + f_coef * u[k] * (st.ct[i][k] - st.ct[i][k - 1])
+                        f_coef * (u[k] * st.ct[i][k] - u[k - 1] * st.ct[i][k - 1])
                         - g[i] * (st.ct[i][k] - ceq[i][k])
                         + st.ct[i][k]
                     )
