@@ -1,0 +1,870 @@
+{
+  "input_path": "cost_estimation/inputs/equipment_costs.json",
+  "cost_index_ratio": 2.1317380352644837,
+  "exchange_rate_jpy_per_usd": 150.0,
+  "cases": [
+    {
+      "case": "pump_base",
+      "type": "pump",
+      "A": 100.0,
+      "A_unit": "kW",
+      "cost_jpy": 13395844.678934889
+    },
+    {
+      "case": "decanter_base",
+      "type": "decanter",
+      "A": 10.0,
+      "A_unit": "m^3",
+      "cost_jpy": 7343191.041406565
+    },
+    {
+      "case": "psa_base",
+      "type": "psa",
+      "A": 10.0,
+      "A_unit": "m^3",
+      "cost_jpy": 15568960.945779977
+    }
+  ],
+  "sweeps": [
+    {
+      "sweep": "pump_power_sweep",
+      "type": "pump",
+      "A": 1.0,
+      "A_unit": "kW",
+      "cost_jpy": 2538458.7083210917
+    },
+    {
+      "sweep": "pump_power_sweep",
+      "type": "pump",
+      "A": 1.1727470767766643,
+      "A_unit": "kW",
+      "cost_jpy": 2564578.769156827
+    },
+    {
+      "sweep": "pump_power_sweep",
+      "type": "pump",
+      "A": 1.3753357060882114,
+      "A_unit": "kW",
+      "cost_jpy": 2599771.348348243
+    },
+    {
+      "sweep": "pump_power_sweep",
+      "type": "pump",
+      "A": 1.6129209289015196,
+      "A_unit": "kW",
+      "cost_jpy": 2644401.7440289003
+    },
+    {
+      "sweep": "pump_power_sweep",
+      "type": "pump",
+      "A": 1.8915483044411594,
+      "A_unit": "kW",
+      "cost_jpy": 2698937.874816743
+    },
+    {
+      "sweep": "pump_power_sweep",
+      "type": "pump",
+      "A": 2.2183077446152257,
+      "A_unit": "kW",
+      "cost_jpy": 2763958.4631502246
+    },
+    {
+      "sweep": "pump_power_sweep",
+      "type": "pump",
+      "A": 2.601513922888541,
+      "A_unit": "kW",
+      "cost_jpy": 2840163.2763834535
+    },
+    {
+      "sweep": "pump_power_sweep",
+      "type": "pump",
+      "A": 3.0509178482613293,
+      "A_unit": "kW",
+      "cost_jpy": 2928385.6795055107
+    },
+    {
+      "sweep": "pump_power_sweep",
+      "type": "pump",
+      "A": 3.5779549880342247,
+      "A_unit": "kW",
+      "cost_jpy": 3029607.814773184
+    },
+    {
+      "sweep": "pump_power_sweep",
+      "type": "pump",
+      "A": 4.196036253055622,
+      "A_unit": "kW",
+      "cost_jpy": 3144978.7951543056
+    },
+    {
+      "sweep": "pump_power_sweep",
+      "type": "pump",
+      "A": 4.920889249819889,
+      "A_unit": "kW",
+      "cost_jpy": 3275836.3827605518
+    },
+    {
+      "sweep": "pump_power_sweep",
+      "type": "pump",
+      "A": 5.770958482867988,
+      "A_unit": "kW",
+      "cost_jpy": 3423732.7234011455
+    },
+    {
+      "sweep": "pump_power_sweep",
+      "type": "pump",
+      "A": 6.767874690982925,
+      "A_unit": "kW",
+      "cost_jpy": 3590464.827646233
+    },
+    {
+      "sweep": "pump_power_sweep",
+      "type": "pump",
+      "A": 7.937005259840998,
+      "A_unit": "kW",
+      "cost_jpy": 3778110.63177999
+    },
+    {
+      "sweep": "pump_power_sweep",
+      "type": "pump",
+      "A": 9.30809971683954,
+      "A_unit": "kW",
+      "cost_jpy": 3989071.6441735253
+    },
+    {
+      "sweep": "pump_power_sweep",
+      "type": "pump",
+      "A": 10.916046733269267,
+      "A_unit": "kW",
+      "cost_jpy": 4226123.390581956
+    },
+    {
+      "sweep": "pump_power_sweep",
+      "type": "pump",
+      "A": 12.80176189639899,
+      "A_unit": "kW",
+      "cost_jpy": 4492475.1238864735
+    },
+    {
+      "sweep": "pump_power_sweep",
+      "type": "pump",
+      "A": 15.0132288415928,
+      "A_unit": "kW",
+      "cost_jpy": 4791840.570019545
+    },
+    {
+      "sweep": "pump_power_sweep",
+      "type": "pump",
+      "A": 17.606720236957063,
+      "A_unit": "kW",
+      "cost_jpy": 5128521.854817732
+    },
+    {
+      "sweep": "pump_power_sweep",
+      "type": "pump",
+      "A": 20.648229689515944,
+      "A_unit": "kW",
+      "cost_jpy": 5507509.211977689
+    },
+    {
+      "sweep": "pump_power_sweep",
+      "type": "pump",
+      "A": 24.21515100899295,
+      "A_unit": "kW",
+      "cost_jpy": 5934599.629610237
+    },
+    {
+      "sweep": "pump_power_sweep",
+      "type": "pump",
+      "A": 28.398247559501975,
+      "A_unit": "kW",
+      "cost_jpy": 6416538.276373343
+    },
+    {
+      "sweep": "pump_power_sweep",
+      "type": "pump",
+      "A": 33.30396181098598,
+      "A_unit": "kW",
+      "cost_jpy": 6961187.388166917
+    },
+    {
+      "sweep": "pump_power_sweep",
+      "type": "pump",
+      "A": 39.057123858915475,
+      "A_unit": "kW",
+      "cost_jpy": 7577728.3309053
+    },
+    {
+      "sweep": "pump_power_sweep",
+      "type": "pump",
+      "A": 45.80412783284723,
+      "A_unit": "kW",
+      "cost_jpy": 8276903.831659254
+    },
+    {
+      "sweep": "pump_power_sweep",
+      "type": "pump",
+      "A": 53.71665702027626,
+      "A_unit": "kW",
+      "cost_jpy": 9071308.949487347
+    },
+    {
+      "sweep": "pump_power_sweep",
+      "type": "pump",
+      "A": 62.996052494743665,
+      "A_unit": "kW",
+      "cost_jpy": 9975741.314178478
+    },
+    {
+      "sweep": "pump_power_sweep",
+      "type": "pump",
+      "A": 73.87843641167991,
+      "A_unit": "kW",
+      "cost_jpy": 11007623.591401683
+    },
+    {
+      "sweep": "pump_power_sweep",
+      "type": "pump",
+      "A": 86.6407203386283,
+      "A_unit": "kW",
+      "cost_jpy": 12187514.157244746
+    },
+    {
+      "sweep": "pump_power_sweep",
+      "type": "pump",
+      "A": 101.60765150695082,
+      "A_unit": "kW",
+      "cost_jpy": 13539725.73704535
+    },
+    {
+      "sweep": "pump_power_sweep",
+      "type": "pump",
+      "A": 119.16007628291865,
+      "A_unit": "kW",
+      "cost_jpy": 15093076.477462415
+    },
+    {
+      "sweep": "pump_power_sweep",
+      "type": "pump",
+      "A": 139.7446311292771,
+      "A_unit": "kW",
+      "cost_jpy": 16881803.824789263
+    },
+    {
+      "sweep": "pump_power_sweep",
+      "type": "pump",
+      "A": 163.88510765209304,
+      "A_unit": "kW",
+      "cost_jpy": 18946678.992853437
+    },
+    {
+      "sweep": "pump_power_sweep",
+      "type": "pump",
+      "A": 192.19578092622115,
+      "A_unit": "kW",
+      "cost_jpy": 21336369.124882933
+    },
+    {
+      "sweep": "pump_power_sweep",
+      "type": "pump",
+      "A": 225.3970402500339,
+      "A_unit": "kW",
+      "cost_jpy": 24109106.003608678
+    },
+    {
+      "sweep": "pump_power_sweep",
+      "type": "pump",
+      "A": 264.3337200673395,
+      "A_unit": "kW",
+      "cost_jpy": 27334735.007972695
+    },
+    {
+      "sweep": "pump_power_sweep",
+      "type": "pump",
+      "A": 309.9965975024733,
+      "A_unit": "kW",
+      "cost_jpy": 31097236.809298355
+    },
+    {
+      "sweep": "pump_power_sweep",
+      "type": "pump",
+      "A": 363.547603531738,
+      "A_unit": "kW",
+      "cost_jpy": 35497838.14879333
+    },
+    {
+      "sweep": "pump_power_sweep",
+      "type": "pump",
+      "A": 426.34938931100766,
+      "A_unit": "kW",
+      "cost_jpy": 40658858.36876016
+    },
+    {
+      "sweep": "pump_power_sweep",
+      "type": "pump",
+      "A": 499.99999999999994,
+      "A_unit": "kW",
+      "cost_jpy": 46728477.030167766
+    },
+    {
+      "sweep": "vessel_volume_sweep",
+      "type": "decanter",
+      "A": 1.0,
+      "A_unit": "m^3",
+      "cost_jpy": 2499106.8621580205
+    },
+    {
+      "sweep": "vessel_volume_sweep",
+      "type": "decanter",
+      "A": 1.125335582600765,
+      "A_unit": "m^3",
+      "cost_jpy": 2614489.673905351
+    },
+    {
+      "sweep": "vessel_volume_sweep",
+      "type": "decanter",
+      "A": 1.2663801734674032,
+      "A_unit": "m^3",
+      "cost_jpy": 2738199.1884389226
+    },
+    {
+      "sweep": "vessel_volume_sweep",
+      "type": "decanter",
+      "A": 1.425102670302998,
+      "A_unit": "m^3",
+      "cost_jpy": 2870907.1476088124
+    },
+    {
+      "sweep": "vessel_volume_sweep",
+      "type": "decanter",
+      "A": 1.6037187437513303,
+      "A_unit": "m^3",
+      "cost_jpy": 3013347.783089406
+    },
+    {
+      "sweep": "vessel_volume_sweep",
+      "type": "decanter",
+      "A": 1.8047217668271702,
+      "A_unit": "m^3",
+      "cost_jpy": 3166324.1452160273
+    },
+    {
+      "sweep": "vessel_volume_sweep",
+      "type": "decanter",
+      "A": 2.0309176209047357,
+      "A_unit": "m^3",
+      "cost_jpy": 3330715.129038987
+    },
+    {
+      "sweep": "vessel_volume_sweep",
+      "type": "decanter",
+      "A": 2.2854638641349903,
+      "A_unit": "m^3",
+      "cost_jpy": 3507483.2796059223
+    },
+    {
+      "sweep": "vessel_volume_sweep",
+      "type": "decanter",
+      "A": 2.571913809059345,
+      "A_unit": "m^3",
+      "cost_jpy": 3697683.468737694
+    },
+    {
+      "sweep": "vessel_volume_sweep",
+      "type": "decanter",
+      "A": 2.8942661247167507,
+      "A_unit": "m^3",
+      "cost_jpy": 3902472.547169571
+    },
+    {
+      "sweep": "vessel_volume_sweep",
+      "type": "decanter",
+      "A": 3.257020655659783,
+      "A_unit": "m^3",
+      "cost_jpy": 4123120.089074235
+    },
+    {
+      "sweep": "vessel_volume_sweep",
+      "type": "decanter",
+      "A": 3.665241237079628,
+      "A_unit": "m^3",
+      "cost_jpy": 4361020.360881151
+    },
+    {
+      "sweep": "vessel_volume_sweep",
+      "type": "decanter",
+      "A": 4.1246263829013525,
+      "A_unit": "m^3",
+      "cost_jpy": 4617705.66320259
+    },
+    {
+      "sweep": "vessel_volume_sweep",
+      "type": "decanter",
+      "A": 4.641588833612778,
+      "A_unit": "m^3",
+      "cost_jpy": 4894861.213851825
+    },
+    {
+      "sweep": "vessel_volume_sweep",
+      "type": "decanter",
+      "A": 5.223345074266842,
+      "A_unit": "m^3",
+      "cost_jpy": 5194341.761715652
+    },
+    {
+      "sweep": "vessel_volume_sweep",
+      "type": "decanter",
+      "A": 5.878016072274912,
+      "A_unit": "m^3",
+      "cost_jpy": 5518190.145991602
+    },
+    {
+      "sweep": "vessel_volume_sweep",
+      "type": "decanter",
+      "A": 6.614740641230149,
+      "A_unit": "m^3",
+      "cost_jpy": 5868658.04344507
+    },
+    {
+      "sweep": "vessel_volume_sweep",
+      "type": "decanter",
+      "A": 7.443803013251689,
+      "A_unit": "m^3",
+      "cost_jpy": 6248229.178371121
+    },
+    {
+      "sweep": "vessel_volume_sweep",
+      "type": "decanter",
+      "A": 8.376776400682918,
+      "A_unit": "m^3",
+      "cost_jpy": 6659645.306422005
+    },
+    {
+      "sweep": "vessel_volume_sweep",
+      "type": "decanter",
+      "A": 9.426684551178852,
+      "A_unit": "m^3",
+      "cost_jpy": 7105935.325030355
+    },
+    {
+      "sweep": "vessel_volume_sweep",
+      "type": "decanter",
+      "A": 10.608183551394482,
+      "A_unit": "m^3",
+      "cost_jpy": 7590447.910564304
+    },
+    {
+      "sweep": "vessel_volume_sweep",
+      "type": "decanter",
+      "A": 11.937766417144363,
+      "A_unit": "m^3",
+      "cost_jpy": 8116888.136451803
+    },
+    {
+      "sweep": "vessel_volume_sweep",
+      "type": "decanter",
+      "A": 13.433993325989,
+      "A_unit": "m^3",
+      "cost_jpy": 8689358.588296631
+    },
+    {
+      "sweep": "vessel_volume_sweep",
+      "type": "decanter",
+      "A": 15.117750706156622,
+      "A_unit": "m^3",
+      "cost_jpy": 9312405.562619591
+    },
+    {
+      "sweep": "vessel_volume_sweep",
+      "type": "decanter",
+      "A": 17.012542798525892,
+      "A_unit": "m^3",
+      "cost_jpy": 9991071.01661263
+    },
+    {
+      "sweep": "vessel_volume_sweep",
+      "type": "decanter",
+      "A": 19.144819761699576,
+      "A_unit": "m^3",
+      "cost_jpy": 10730951.02871562
+    },
+    {
+      "sweep": "vessel_volume_sweep",
+      "type": "decanter",
+      "A": 21.544346900318832,
+      "A_unit": "m^3",
+      "cost_jpy": 11538261.635675794
+    },
+    {
+      "sweep": "vessel_volume_sweep",
+      "type": "decanter",
+      "A": 24.244620170823282,
+      "A_unit": "m^3",
+      "cost_jpy": 12419913.033067273
+    },
+    {
+      "sweep": "vessel_volume_sweep",
+      "type": "decanter",
+      "A": 27.28333376486768,
+      "A_unit": "m^3",
+      "cost_jpy": 13383593.265393727
+    },
+    {
+      "sweep": "vessel_volume_sweep",
+      "type": "decanter",
+      "A": 30.702906297578497,
+      "A_unit": "m^3",
+      "cost_jpy": 14437862.691606464
+    },
+    {
+      "sweep": "vessel_volume_sweep",
+      "type": "decanter",
+      "A": 34.55107294592218,
+      "A_unit": "m^3",
+      "cost_jpy": 15592260.695315953
+    },
+    {
+      "sweep": "vessel_volume_sweep",
+      "type": "decanter",
+      "A": 38.881551803080875,
+      "A_unit": "m^3",
+      "cost_jpy": 16857426.319838185
+    },
+    {
+      "sweep": "vessel_volume_sweep",
+      "type": "decanter",
+      "A": 43.75479375074185,
+      "A_unit": "m^3",
+      "cost_jpy": 18245234.750776075
+    },
+    {
+      "sweep": "vessel_volume_sweep",
+      "type": "decanter",
+      "A": 49.23882631706739,
+      "A_unit": "m^3",
+      "cost_jpy": 19768951.848057356
+    },
+    {
+      "sweep": "vessel_volume_sweep",
+      "type": "decanter",
+      "A": 55.41020330009492,
+      "A_unit": "m^3",
+      "cost_jpy": 21443409.25101647
+    },
+    {
+      "sweep": "vessel_volume_sweep",
+      "type": "decanter",
+      "A": 62.355073412739124,
+      "A_unit": "m^3",
+      "cost_jpy": 23285202.950941395
+    },
+    {
+      "sweep": "vessel_volume_sweep",
+      "type": "decanter",
+      "A": 70.17038286703826,
+      "A_unit": "m^3",
+      "cost_jpy": 25312918.65334868
+    },
+    {
+      "sweep": "vessel_volume_sweep",
+      "type": "decanter",
+      "A": 78.96522868499724,
+      "A_unit": "m^3",
+      "cost_jpy": 27547387.746223383
+    },
+    {
+      "sweep": "vessel_volume_sweep",
+      "type": "decanter",
+      "A": 88.86238162743403,
+      "A_unit": "m^3",
+      "cost_jpy": 30011978.261225108
+    },
+    {
+      "sweep": "vessel_volume_sweep",
+      "type": "decanter",
+      "A": 100.0,
+      "A_unit": "m^3",
+      "cost_jpy": 32732925.874844395
+    },
+    {
+      "sweep": "vessel_volume_sweep",
+      "type": "psa",
+      "A": 1.0,
+      "A_unit": "m^3",
+      "cost_jpy": 4328721.340800793
+    },
+    {
+      "sweep": "vessel_volume_sweep",
+      "type": "psa",
+      "A": 1.125335582600765,
+      "A_unit": "m^3",
+      "cost_jpy": 4567116.342973969
+    },
+    {
+      "sweep": "vessel_volume_sweep",
+      "type": "psa",
+      "A": 1.2663801734674032,
+      "A_unit": "m^3",
+      "cost_jpy": 4824912.171883013
+    },
+    {
+      "sweep": "vessel_volume_sweep",
+      "type": "psa",
+      "A": 1.425102670302998,
+      "A_unit": "m^3",
+      "cost_jpy": 5103893.939872824
+    },
+    {
+      "sweep": "vessel_volume_sweep",
+      "type": "psa",
+      "A": 1.6037187437513303,
+      "A_unit": "m^3",
+      "cost_jpy": 5406033.858270161
+    },
+    {
+      "sweep": "vessel_volume_sweep",
+      "type": "psa",
+      "A": 1.8047217668271702,
+      "A_unit": "m^3",
+      "cost_jpy": 5733512.625893244
+    },
+    {
+      "sweep": "vessel_volume_sweep",
+      "type": "psa",
+      "A": 2.0309176209047357,
+      "A_unit": "m^3",
+      "cost_jpy": 6088743.466572817
+    },
+    {
+      "sweep": "vessel_volume_sweep",
+      "type": "psa",
+      "A": 2.2854638641349903,
+      "A_unit": "m^3",
+      "cost_jpy": 6474399.165976164
+    },
+    {
+      "sweep": "vessel_volume_sweep",
+      "type": "psa",
+      "A": 2.571913809059345,
+      "A_unit": "m^3",
+      "cost_jpy": 6893442.507184708
+    },
+    {
+      "sweep": "vessel_volume_sweep",
+      "type": "psa",
+      "A": 2.8942661247167507,
+      "A_unit": "m^3",
+      "cost_jpy": 7349160.5609046845
+    },
+    {
+      "sweep": "vessel_volume_sweep",
+      "type": "psa",
+      "A": 3.257020655659783,
+      "A_unit": "m^3",
+      "cost_jpy": 7845203.35101682
+    },
+    {
+      "sweep": "vessel_volume_sweep",
+      "type": "psa",
+      "A": 3.665241237079628,
+      "A_unit": "m^3",
+      "cost_jpy": 8385627.490705765
+    },
+    {
+      "sweep": "vessel_volume_sweep",
+      "type": "psa",
+      "A": 4.1246263829013525,
+      "A_unit": "m^3",
+      "cost_jpy": 8974945.47017754
+    },
+    {
+      "sweep": "vessel_volume_sweep",
+      "type": "psa",
+      "A": 4.641588833612778,
+      "A_unit": "m^3",
+      "cost_jpy": 9618181.375747748
+    },
+    {
+      "sweep": "vessel_volume_sweep",
+      "type": "psa",
+      "A": 5.223345074266842,
+      "A_unit": "m^3",
+      "cost_jpy": 10320933.933930827
+    },
+    {
+      "sweep": "vessel_volume_sweep",
+      "type": "psa",
+      "A": 5.878016072274912,
+      "A_unit": "m^3",
+      "cost_jpy": 11089447.905492537
+    },
+    {
+      "sweep": "vessel_volume_sweep",
+      "type": "psa",
+      "A": 6.614740641230149,
+      "A_unit": "m^3",
+      "cost_jpy": 11930695.006052744
+    },
+    {
+      "sweep": "vessel_volume_sweep",
+      "type": "psa",
+      "A": 7.443803013251689,
+      "A_unit": "m^3",
+      "cost_jpy": 12852465.705029098
+    },
+    {
+      "sweep": "vessel_volume_sweep",
+      "type": "psa",
+      "A": 8.376776400682918,
+      "A_unit": "m^3",
+      "cost_jpy": 13863473.457329514
+    },
+    {
+      "sweep": "vessel_volume_sweep",
+      "type": "psa",
+      "A": 9.426684551178852,
+      "A_unit": "m^3",
+      "cost_jpy": 14973473.156720342
+    },
+    {
+      "sweep": "vessel_volume_sweep",
+      "type": "psa",
+      "A": 10.608183551394482,
+      "A_unit": "m^3",
+      "cost_jpy": 16193395.871472128
+    },
+    {
+      "sweep": "vessel_volume_sweep",
+      "type": "psa",
+      "A": 11.937766417144363,
+      "A_unit": "m^3",
+      "cost_jpy": 17535502.237869184
+    },
+    {
+      "sweep": "vessel_volume_sweep",
+      "type": "psa",
+      "A": 13.433993325989,
+      "A_unit": "m^3",
+      "cost_jpy": 19013557.252683155
+    },
+    {
+      "sweep": "vessel_volume_sweep",
+      "type": "psa",
+      "A": 15.117750706156622,
+      "A_unit": "m^3",
+      "cost_jpy": 20643029.630219407
+    },
+    {
+      "sweep": "vessel_volume_sweep",
+      "type": "psa",
+      "A": 17.012542798525892,
+      "A_unit": "m^3",
+      "cost_jpy": 22441319.383003518
+    },
+    {
+      "sweep": "vessel_volume_sweep",
+      "type": "psa",
+      "A": 19.144819761699576,
+      "A_unit": "m^3",
+      "cost_jpy": 24428017.85927035
+    },
+    {
+      "sweep": "vessel_volume_sweep",
+      "type": "psa",
+      "A": 21.544346900318832,
+      "A_unit": "m^3",
+      "cost_jpy": 26625205.138918836
+    },
+    {
+      "sweep": "vessel_volume_sweep",
+      "type": "psa",
+      "A": 24.244620170823282,
+      "A_unit": "m^3",
+      "cost_jpy": 29057790.468694314
+    },
+    {
+      "sweep": "vessel_volume_sweep",
+      "type": "psa",
+      "A": 27.28333376486768,
+      "A_unit": "m^3",
+      "cost_jpy": 31753902.32616282
+    },
+    {
+      "sweep": "vessel_volume_sweep",
+      "type": "psa",
+      "A": 30.702906297578497,
+      "A_unit": "m^3",
+      "cost_jpy": 34745335.76306287
+    },
+    {
+      "sweep": "vessel_volume_sweep",
+      "type": "psa",
+      "A": 34.55107294592218,
+      "A_unit": "m^3",
+      "cost_jpy": 38068065.91846316
+    },
+    {
+      "sweep": "vessel_volume_sweep",
+      "type": "psa",
+      "A": 38.881551803080875,
+      "A_unit": "m^3",
+      "cost_jpy": 41762838.042226404
+    },
+    {
+      "sweep": "vessel_volume_sweep",
+      "type": "psa",
+      "A": 43.75479375074185,
+      "A_unit": "m^3",
+      "cost_jpy": 45875846.06675587
+    },
+    {
+      "sweep": "vessel_volume_sweep",
+      "type": "psa",
+      "A": 49.23882631706739,
+      "A_unit": "m^3",
+      "cost_jpy": 50459513.753853366
+    },
+    {
+      "sweep": "vessel_volume_sweep",
+      "type": "psa",
+      "A": 55.41020330009492,
+      "A_unit": "m^3",
+      "cost_jpy": 55573394.77585798
+    },
+    {
+      "sweep": "vessel_volume_sweep",
+      "type": "psa",
+      "A": 62.355073412739124,
+      "A_unit": "m^3",
+      "cost_jpy": 61285210.82785363
+    },
+    {
+      "sweep": "vessel_volume_sweep",
+      "type": "psa",
+      "A": 70.17038286703826,
+      "A_unit": "m^3",
+      "cost_jpy": 67672050.083946
+    },
+    {
+      "sweep": "vessel_volume_sweep",
+      "type": "psa",
+      "A": 78.96522868499724,
+      "A_unit": "m^3",
+      "cost_jpy": 74821752.0925197
+    },
+    {
+      "sweep": "vessel_volume_sweep",
+      "type": "psa",
+      "A": 88.86238162743403,
+      "A_unit": "m^3",
+      "cost_jpy": 82834509.65654376
+    },
+    {
+      "sweep": "vessel_volume_sweep",
+      "type": "psa",
+      "A": 100.0,
+      "A_unit": "m^3",
+      "cost_jpy": 91824723.48859887
+    }
+  ]
+}

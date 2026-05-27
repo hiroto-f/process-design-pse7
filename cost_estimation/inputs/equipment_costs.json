@@ -1,0 +1,40 @@
+{
+  "cost_index_ratio": 2.1317380352644835,
+  "exchange_rate_jpy_per_usd": 150,
+  "dpi": 150,
+  "cases": [
+    {
+      "name": "pump_base",
+      "type": "pump",
+      "A": 100
+    },
+    {
+      "name": "decanter_base",
+      "type": "decanter",
+      "A": 10
+    },
+    {
+      "name": "psa_base",
+      "type": "psa",
+      "A": 10
+    }
+  ],
+  "sweeps": [
+    {
+      "name": "pump_power_sweep",
+      "types": ["pump"],
+      "A_min": 1,
+      "A_max": 500,
+      "points": 40,
+      "scale": "log"
+    },
+    {
+      "name": "vessel_volume_sweep",
+      "types": ["decanter", "psa"],
+      "A_min": 1,
+      "A_max": 100,
+      "points": 40,
+      "scale": "log"
+    }
+  ]
+}

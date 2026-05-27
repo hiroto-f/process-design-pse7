@@ -1,0 +1,4 @@
+﻿case,type,A,A_unit,cost_jpy
+pump_base,pump,100.0,kW,13395844.678934889
+decanter_base,decanter,10.0,m^3,7343191.041406565
+psa_base,psa,10.0,m^3,15568960.945779977
