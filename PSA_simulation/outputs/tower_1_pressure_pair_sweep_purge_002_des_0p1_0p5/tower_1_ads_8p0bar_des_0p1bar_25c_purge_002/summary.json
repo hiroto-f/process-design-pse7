@@ -1,0 +1,81 @@
+{
+  "tower_name": "tower_1_ads_8p0bar_des_0p1bar_25c_purge_002",
+  "feed": {
+    "temperature_k": 298.15,
+    "pressure_kpa": 800.0,
+    "volume_flow_m3_per_h": 59.75869844137812,
+    "average_molar_mass_g_per_mol": 10.880039126659481,
+    "components": [
+      {
+        "name": "H2",
+        "flow_kmol_per_h": 7.0366,
+        "mole_fraction": 0.3648742546020223,
+        "two_component_fraction": 0.3680730643288313
+      },
+      {
+        "name": "CH4",
+        "flow_kmol_per_h": 12.0808,
+        "mole_fraction": 0.6264350531501167,
+        "two_component_fraction": 0.6319269356711686
+      },
+      {
+        "name": "other",
+        "flow_kmol_per_h": 0.1676,
+        "mole_fraction": 0.008690692247861032,
+        "two_component_fraction": 0.0
+      }
+    ]
+  },
+  "setup": {
+    "adsorption_pressure_kpa": 800.0,
+    "desorption_pressure_kpa": 10.0,
+    "tower_temperature_k": 298.15,
+    "tower_height_m": 0.9194636254395306,
+    "tower_diameter_m": 0.4597318127197653,
+    "adsorption_velocity_m_per_s": 0.1,
+    "purge_fraction": 0.02,
+    "desorption_velocity_m_per_s": 0.16,
+    "adsorption_breakthrough_threshold": 0.02,
+    "desorption_residual_loading_threshold": 0.05,
+    "reflux_factor": 128.0,
+    "molar_flow_mol_per_s": 5.310388888888888
+  },
+  "performance": {
+    "adsorption_end_time_s": 49.21778451342755,
+    "desorption_end_time_s": 43.36078972608242,
+    "cycle_time_s": 92.57857423950998,
+    "adsorption_feed_kmol": {
+      "H2": 0.09620162847421787,
+      "CH4": 0.16516394754161545
+    },
+    "recycle_kmol": {
+      "H2": 0.08018316238177753,
+      "CH4": 1.0313957958597673e-05
+    },
+    "desorption_product_kmol": {
+      "H2": 0.01601524463831981,
+      "CH4": 0.1651604293658105
+    },
+    "product_cut": {
+      "ch4_min_mole_fraction": null,
+      "start_time_s": null,
+      "end_time_s": null,
+      "duration_s": 0.0,
+      "product_kmol": {
+        "H2": 0.0,
+        "CH4": 0.0
+      },
+      "methane_mole_fraction": null,
+      "methane_recovery_percent": 0.0
+    },
+    "regeneration_inlet_concentration_kmol_per_m3": {
+      "H2": 0.00403341274846822,
+      "CH4": 5.188177702358525e-07
+    },
+    "feed_methane_mole_fraction_h2_ch4": 0.6319269356711686,
+    "desorption_product_methane_mole_fraction": 0.9116037805497292,
+    "methane_enrichment_factor": 1.4425778188763487,
+    "hydrogen_contamination_in_desorption_product_kmol": 0.01601524463831981,
+    "methane_desorption_recovery_percent": 99.99786988876366
+  }
+}
