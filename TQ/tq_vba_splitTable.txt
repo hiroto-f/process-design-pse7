@@ -7,21 +7,6 @@ Dim forTGC(500) As Double, TGC(500) As Double, GCC(500) As Double, GCCmin As Dou
 Dim TGCThmin As Double, TGCTcmax As Double
 Dim i As Integer, j As Long, NHdata As Integer, NLdata As Integer, GCdata As Integer
 Dim MINdT As Double, minTh As Double, shiftQ As Double
-
-Private Function NormalizeFluidState(ByVal stateText As String) As String
-    If InStr(stateText, "凝縮") > 0 Then
-        NormalizeFluidState = "凝縮"
-    ElseIf InStr(stateText, "蒸発") > 0 Then
-        NormalizeFluidState = "蒸発"
-    ElseIf InStr(stateText, "ガス") > 0 Then
-        NormalizeFluidState = "ガス"
-    ElseIf InStr(stateText, "液") > 0 Then
-        NormalizeFluidState = "液"
-    Else
-        NormalizeFluidState = Trim(stateText)
-    End If
-End Function
-
 Sub TQDiagram()
 Dim Col_Qex As Integer, Col_Qen As Integer, Col_Data As Integer, Col_Cal As Integer
 Const EPS_T As Double = 0.001
@@ -240,27 +225,20 @@ Dim HotCompCount(500) As Integer, ColdCompCount(500) As Integer
 Dim HotCompStreamNo(500, 100) As Integer, ColdCompStreamNo(500, 100) As Integer
 Dim HotCompQdT(500, 100) As Double, ColdCompQdT(500, 100) As Double
 Dim HotCompQdTsum(500) As Double, ColdCompQdTsum(500) As Double
-Dim kPair As Integer, coldSeg As Integer
+Dim kHot As Integer, kCold As Integer, coldSeg As Integer
 Dim nBounds As Integer, b As Integer, bb As Integer, hIdx As Integer, cIdx As Integer
 Dim Bound(500) As Double, HotCum(100) As Double, ColdCum(100) As Double
 Dim qPieceStart As Double, qPieceEnd As Double, qMid As Double, tmpQ As Double
 Dim hotTStart As Double, hotTEnd As Double, coldTStart As Double, coldTEnd As Double
 Dim hotPieceTStart As Double, hotPieceTEnd As Double, coldPieceTStart As Double, coldPieceTEnd As Double
 Dim Col_Qex2 As Integer, Col_Qen2 As Integer, Col_Data2 As Integer
-Dim Col_Hx As Integer, Col_Utable As Integer
-Dim hotNo As Integer, coldNo As Integer, uRow As Long, pairRow As Long, hxRow As Long
-Dim hotState As String, coldState As String, uHotState As String, uColdState As String
 
     Col_Data2 = 34
     Col_Qex2 = 38
     Col_Qen2 = 47
-    Col_Utable = 56
-    Col_Hx = 61
 
-    .Range("AL4:AQ200").ClearContents
-    .Range("AU4:AZ200").ClearContents
-    .Range("BI5:BN200").ClearContents
-    .Range("BP5:BQ200").ClearContents
+    .Range("AL4:AS200").ClearContents
+    .Range("AU4:BB200").ClearContents
 
 Th(0) = 0
 Qh(0) = 0
@@ -333,7 +311,8 @@ For i = 1 To NlN - 1
     End If
 Next i
 
-    kPair = 1
+    kHot = 1
+    kCold = 1
     For i = 1 To NhN - 1
         If Abs(Qh(i + 1) - Qh(i)) < EPS_Q Then GoTo ContinueHotSegment
 
@@ -426,20 +405,21 @@ Next i
                                     coldPieceTEnd = Round(coldTStart + (coldTEnd - coldTStart) * (qPieceEnd - ColdCum(cIdx - 1)) / (ColdCum(cIdx) - ColdCum(cIdx - 1)), 3)
                                     qSeg = qPieceEnd - qPieceStart
 
-                                    .Cells(3 + kPair, Col_Qex2) = HotCompStreamNo(i, hIdx)
-                                    .Cells(3 + kPair, Col_Qex2 + 1) = qPieceStart
-                                    .Cells(3 + kPair, Col_Qex2 + 2) = qPieceEnd
-                                    .Cells(3 + kPair, Col_Qex2 + 3) = hotPieceTStart
-                                    .Cells(3 + kPair, Col_Qex2 + 4) = hotPieceTEnd
-                                    .Cells(3 + kPair, Col_Qex2 + 5) = qSeg
+                                    .Cells(3 + kHot, Col_Qex2) = HotCompStreamNo(i, hIdx)
+                                    .Cells(3 + kHot, Col_Qex2 + 1) = qPieceStart
+                                    .Cells(3 + kHot, Col_Qex2 + 2) = qPieceEnd
+                                    .Cells(3 + kHot, Col_Qex2 + 3) = hotPieceTStart
+                                    .Cells(3 + kHot, Col_Qex2 + 4) = hotPieceTEnd
+                                    .Cells(3 + kHot, Col_Qex2 + 5) = qSeg
+                                    kHot = kHot + 1
 
-                                    .Cells(3 + kPair, Col_Qen2) = ColdCompStreamNo(coldSeg, cIdx)
-                                    .Cells(3 + kPair, Col_Qen2 + 1) = qPieceStart
-                                    .Cells(3 + kPair, Col_Qen2 + 2) = qPieceEnd
-                                    .Cells(3 + kPair, Col_Qen2 + 3) = coldPieceTStart
-                                    .Cells(3 + kPair, Col_Qen2 + 4) = coldPieceTEnd
-                                    .Cells(3 + kPair, Col_Qen2 + 5) = qSeg
-                                    kPair = kPair + 1
+                                    .Cells(3 + kCold, Col_Qen2) = ColdCompStreamNo(coldSeg, cIdx)
+                                    .Cells(3 + kCold, Col_Qen2 + 1) = qPieceStart
+                                    .Cells(3 + kCold, Col_Qen2 + 2) = qPieceEnd
+                                    .Cells(3 + kCold, Col_Qen2 + 3) = coldPieceTStart
+                                    .Cells(3 + kCold, Col_Qen2 + 4) = coldPieceTEnd
+                                    .Cells(3 + kCold, Col_Qen2 + 5) = qSeg
+                                    kCold = kCold + 1
                                 End If
                             End If
                         Next b
@@ -450,38 +430,8 @@ Next i
 ContinueHotSegment:
     Next i
 
-    .Range("AL4:AZ200").Sort Key1:=.Range("AM4"), Order1:=xlAscending, _
-        Key2:=.Range("AN4"), Order2:=xlAscending, Header:=xlNo
-
-    For pairRow = 4 To 200
-        If Len(.Cells(pairRow, Col_Qex2).Value) = 0 Or Len(.Cells(pairRow, Col_Qen2).Value) = 0 Then
-            Exit For
-        End If
-
-        hxRow = pairRow + 1
-        hotNo = .Cells(pairRow, Col_Qex2).Value
-        coldNo = .Cells(pairRow, Col_Qen2).Value
-        hotState = NormalizeFluidState(.Cells(hotNo + 3, Col_Qex - 1).Value)
-        coldState = NormalizeFluidState(.Cells(coldNo + 3, Col_Qen - 1).Value)
-
-        .Cells(hxRow, Col_Hx).Value = hotNo
-        .Cells(hxRow, Col_Hx + 1).Value = .Cells(pairRow, Col_Qex2 + 4).Value
-        .Cells(hxRow, Col_Hx + 2).Value = .Cells(pairRow, Col_Qex2 + 3).Value
-        .Cells(hxRow, Col_Hx + 3).Value = coldNo
-        .Cells(hxRow, Col_Hx + 4).Value = .Cells(pairRow, Col_Qen2 + 3).Value
-        .Cells(hxRow, Col_Hx + 5).Value = .Cells(pairRow, Col_Qen2 + 4).Value
-        .Cells(hxRow, Col_Hx + 8).Value = .Cells(pairRow, Col_Qex2 + 5).Value
-
-        For uRow = 4 To 20
-            If Len(.Cells(uRow, Col_Utable).Value) = 0 Then Exit For
-            uHotState = NormalizeFluidState(.Cells(uRow, Col_Utable + 1).Value)
-            uColdState = NormalizeFluidState(.Cells(uRow, Col_Utable + 2).Value)
-            If hotState = uHotState And coldState = uColdState Then
-                .Cells(hxRow, Col_Hx + 7).Value = .Cells(uRow, Col_Utable + 3).Value
-                Exit For
-            End If
-        Next uRow
-    Next pairRow
+    .Range("AL4:AS200").Sort Key1:=.Range("AM4"), Order1:=xlAscending, Header:=xlNo
+    .Range("AU4:BB200").Sort Key1:=.Range("AV4"), Order1:=xlAscending, Header:=xlNo
 
 
 End With
