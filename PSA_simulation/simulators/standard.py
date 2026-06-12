@@ -22,8 +22,12 @@ class SimulationState:
     qmax: list[float] = field(default_factory=lambda: [0.0, 0.0])
     b: list[float] = field(default_factory=lambda: [0.0, 0.0])
     c0: list[float] = field(default_factory=lambda: [0.0, 0.0])
-    ct: list[list[float]] = field(default_factory=lambda: [[0.0] * (M + 2), [0.0] * (M + 2)])
-    qt: list[list[float]] = field(default_factory=lambda: [[0.0] * (M + 2), [0.0] * (M + 2)])
+    ct: list[list[float]] = field(
+        default_factory=lambda: [[0.0] * (M + 2), [0.0] * (M + 2)]
+    )
+    qt: list[list[float]] = field(
+        default_factory=lambda: [[0.0] * (M + 2), [0.0] * (M + 2)]
+    )
     flow_out: list[float] = field(default_factory=lambda: [0.0, 0.0])
     purge_out: list[float] = field(default_factory=lambda: [0.0, 0.0])
     product_out: list[float] = field(default_factory=lambda: [0.0, 0.0])
@@ -32,8 +36,12 @@ class SimulationState:
     product_cut_start_time_s: float | None = None
     product_cut_end_time_s: float | None = None
     product_cut_duration_s: float = 0.0
-    desorption_outlet_history: list[tuple[float, float, float, float, float, bool]] = field(default_factory=list)
-    regeneration_inlet_concentration: list[float] = field(default_factory=lambda: [0.0, 0.0])
+    desorption_outlet_history: list[tuple[float, float, float, float, float, bool]] = (
+        field(default_factory=list)
+    )
+    regeneration_inlet_concentration: list[float] = field(
+        default_factory=lambda: [0.0, 0.0]
+    )
     end_time: list[float] = field(default_factory=lambda: [0.0, 0.0])
     profiles: dict[str, list[ProfileSnapshot]] = field(
         default_factory=lambda: {
@@ -53,7 +61,10 @@ class PsaSimulator:
         product_cut_ch4_min_fraction: float | None = None,
         desorption_outlet_record_interval: int = 1000,
     ):
-        if product_cut_ch4_min_fraction is not None and not 0.0 <= product_cut_ch4_min_fraction <= 1.0:
+        if (
+            product_cut_ch4_min_fraction is not None
+            and not 0.0 <= product_cut_ch4_min_fraction <= 1.0
+        ):
             raise ValueError("product_cut_ch4_min_fraction must be between 0 and 1.")
         if desorption_outlet_record_interval <= 0:
             raise ValueError("desorption_outlet_record_interval must be positive.")
@@ -95,7 +106,12 @@ class PsaSimulator:
 
     def _ceq(self, component: int, qtz: list[float], tt: float) -> float:
         denominator = 1.0 - qtz[0] - qtz[1]
-        return 0.001 / (R * tt * self.state.b[component] * self.state.c0[component]) * qtz[component] / denominator
+        return (
+            0.001
+            / (R * tt * self.state.b[component] * self.state.c0[component])
+            * qtz[component]
+            / denominator
+        )
 
     def _record_profile(
         self,
@@ -129,10 +145,14 @@ class PsaSimulator:
     def adsorption_2(self) -> None:
         self._adsorption("adsorption_2", 250000, initialize_empty=False)
 
-    def _adsorption(self, profile_name: str, record_interval: int, initialize_empty: bool) -> None:
+    def _adsorption(
+        self, profile_name: str, record_interval: int, initialize_empty: bool
+    ) -> None:
         st = self.state
         st.profiles[profile_name] = []
-        eps, pt, _mav, tt, u0, lt, rho_ads, _dia, area = self._common_values(adsorption=True)
+        eps, pt, _mav, tt, u0, lt, rho_ads, _dia, area = self._common_values(
+            adsorption=True
+        )
         dz = 1.0 / M
         dt = 0.000005
         kfav = [self.setup.kfav[0][0], self.setup.kfav[1][0]]
@@ -163,7 +183,9 @@ class PsaSimulator:
 
         while True:
             if self.max_steps is not None and count > self.max_steps:
-                raise RuntimeError(f"{profile_name}: max_steps={self.max_steps} に到達しました。")
+                raise RuntimeError(
+                    f"{profile_name}: max_steps={self.max_steps} に到達しました。"
+                )
             u[0] = 1.0
             for k in range(1, M + 1):
                 qtz = [st.qt[0][k], st.qt[1][k]]
@@ -171,10 +193,14 @@ class PsaSimulator:
                     st.ct[i][0] = cin[i]
                 ceq[0][k] = self._ceq(0, qtz, tt)
                 ceq[1][k] = self._ceq(1, qtz, tt)
-                u[k] = w * (
-                    kfav[0] * st.c0[0] * (st.ct[0][k] - ceq[0][k])
-                    + kfav[1] * st.c0[1] * (st.ct[1][k] - ceq[1][k])
-                ) + u[k - 1]
+                u[k] = (
+                    w
+                    * (
+                        kfav[0] * st.c0[0] * (st.ct[0][k] - ceq[0][k])
+                        + kfav[1] * st.c0[1] * (st.ct[1][k] - ceq[1][k])
+                    )
+                    + u[k - 1]
+                )
                 for i in range(2):
                     ct_1[i][k] = (
                         f_coef * (u[k] * st.ct[i][k] - u[k - 1] * st.ct[i][k - 1])
@@ -182,14 +208,16 @@ class PsaSimulator:
                         + st.ct[i][k]
                     )
                     qt_1[i][k] = h[i] * (st.ct[i][k] - ceq[i][k]) + qtz[i]
-                    if qt_1[i][k] < 0.0:
+                     if qt_1[i][k] < 0.0:
                         qt_1[i][k] = 0.0
                 for i in range(2):
                     st.ct[i][k] = ct_1[i][k]
                     st.qt[i][k] = qt_1[i][k]
 
             if count % record_interval == 0:
-                self._record_profile(profile_name, count * lt / u0 * dt, u0, u, lt, dz, ct_1, qt_1)
+                self._record_profile(
+                    profile_name, count * lt / u0 * dt, u0, u, lt, dz, ct_1, qt_1
+                )
                 print(f"{profile_name} {len(st.profiles[profile_name])}")
             count += 1
             for i in range(2):
@@ -204,7 +232,9 @@ class PsaSimulator:
         profile_name = "desorption"
         st = self.state
         st.profiles[profile_name] = []
-        eps, pt, _mav, tt, u0, lt, rho_ads, _dia, area = self._common_values(adsorption=False)
+        eps, pt, _mav, tt, u0, lt, rho_ads, _dia, area = self._common_values(
+            adsorption=False
+        )
         dz = 1.0 / M
         dt = 0.000001
         kfav = [self.setup.kfav[0][1], self.setup.kfav[1][1]]
@@ -237,7 +267,9 @@ class PsaSimulator:
 
         while True:
             if self.max_steps is not None and count > self.max_steps:
-                raise RuntimeError(f"{profile_name}: max_steps={self.max_steps} に到達しました。")
+                raise RuntimeError(
+                    f"{profile_name}: max_steps={self.max_steps} に到達しました。"
+                )
             u[M + 1] = 1.0
             for k in range(1, M + 1):
                 kk = M + 1 - k
@@ -259,14 +291,15 @@ class PsaSimulator:
                     st.qt[i][kk] = qt_1[i][kk]
 
             if count % 300000 == 0:
-                self._record_profile(profile_name, count * lt / u0 * dt, u0, u, lt, dz, ct_1, qt_1)
+                self._record_profile(
+                    profile_name, count * lt / u0 * dt, u0, u, lt, dz, ct_1, qt_1
+                )
                 print(f"{profile_name} {len(st.profiles[profile_name])}")
             count += 1
             interval_start_s = (count - 2) * lt / u0 * dt
             interval_end_s = (count - 1) * lt / u0 * dt
             outlet_amounts = [
-                st.c0[i] * lt * dt * ct_1[i][1] * u[1] * area
-                for i in range(2)
+                st.c0[i] * lt * dt * ct_1[i][1] * u[1] * area for i in range(2)
             ]
             c_h2_out = st.c0[0] * ct_1[0][1]
             c_ch4_out = st.c0[1] * ct_1[1][1]
@@ -287,11 +320,25 @@ class PsaSimulator:
                 st.product_cut_duration_s += interval_end_s - interval_start_s
             if count == 2 or count % self.desorption_outlet_record_interval == 0:
                 st.desorption_outlet_history.append(
-                    (interval_end_s, c_h2_out, c_ch4_out, y_ch4_out, u0 * u[1], is_product_cut)
+                    (
+                        interval_end_s,
+                        c_h2_out,
+                        c_ch4_out,
+                        y_ch4_out,
+                        u0 * u[1],
+                        is_product_cut,
+                    )
                 )
             if qt_1[1][1] < self.setup.desorption_residual_loading_threshold:
                 st.desorption_outlet_history.append(
-                    (interval_end_s, c_h2_out, c_ch4_out, y_ch4_out, u0 * u[1], is_product_cut)
+                    (
+                        interval_end_s,
+                        c_h2_out,
+                        c_ch4_out,
+                        y_ch4_out,
+                        u0 * u[1],
+                        is_product_cut,
+                    )
                 )
                 break
 
