@@ -13,20 +13,24 @@ DEFAULT_CASE_DIR = Path(
     "PSA_simulation/outputs/tower_1_pressure_pair_sweep_purge_002_des_0p1_0p5/"
     "tower_1_ads_4p8bar_des_0p1bar_25c_purge_002"
 )
-DEFAULT_INPUT_NAME = "adsorption_1_profile.csv"
-DEFAULT_OUTPUT_NAME = "adsorption_methane_loading_profile.png"
+DEFAULT_INPUT_NAME = "desorption_profile.csv"
+DEFAULT_OUTPUT_NAME = "desorption_methane_loading_profile.png"
 
 
-def create_adsorption_methane_loading_profile(
+def create_desorption_methane_loading_profile(
     case_dir: str | Path = DEFAULT_CASE_DIR,
     *,
     input_name: str = DEFAULT_INPUT_NAME,
     output_name: str = DEFAULT_OUTPUT_NAME,
     dpi: int = 180,
+    zero_final_profile: bool = False,
+    zero_profile_display_offset_mol_per_kg: float = 0.0,
 ) -> Path:
     case_dir = Path(case_dir)
     series = _read_profile(case_dir / input_name)
     selected_times = _select_endpoint_and_intermediate_times(sorted(series), intermediate_count=2)
+    if zero_final_profile:
+        _set_profile_to_zero(series, max(series), display_offset_mol_per_kg=zero_profile_display_offset_mol_per_kg)
     output_path = case_dir / output_name
     _write_plot(series, selected_times, output_path, dpi=dpi)
     return output_path
@@ -68,6 +72,16 @@ def _select_endpoint_and_intermediate_times(available_times: list[float], *, int
     return [min(available_times, key=lambda time_s: abs(time_s - target_time)) for target_time in target_times]
 
 
+def _set_profile_to_zero(
+    series: dict[float, list[tuple[float, float]]],
+    time_s: float,
+    *,
+    display_offset_mol_per_kg: float,
+) -> None:
+    display_offset_kmol_per_kg = display_offset_mol_per_kg / 1000.0
+    series[time_s] = [(position_m, display_offset_kmol_per_kg) for position_m, _loading in series[time_s]]
+
+
 def _write_plot(
     series: dict[float, list[tuple[float, float]]],
     selected_times: list[float],
@@ -101,7 +115,7 @@ def _write_plot(
         methane_loading_mol_per_kg = [point[1] * 1000.0 for point in sorted_points]
         all_positions.extend(positions)
         all_loading_mol_per_kg.extend(methane_loading_mol_per_kg)
-        linewidth = 5.0 if max(methane_loading_mol_per_kg) <= 0.03 else 2.0
+        linewidth = 3.2 if max(methane_loading_mol_per_kg) <= 0.03 else 2.0
         ax.plot(
             positions,
             methane_loading_mol_per_kg,
@@ -110,10 +124,11 @@ def _write_plot(
             zorder=4,
         )
 
+    y_max = max(all_loading_mol_per_kg)
     for spine in ax.spines.values():
         spine.set_zorder(1)
     ax.set_xlim(0.0, max(all_positions))
-    ax.set_ylim(0.0, _round_axis_limit(max(all_loading_mol_per_kg) * 1.05))
+    ax.set_ylim(0.0, _round_axis_limit(y_max * 1.05))
     ax.xaxis.set_major_formatter(FuncFormatter(_format_x_tick_without_origin))
     ax.set_xlabel("塔内位置 [m]", fontsize=18)
     ax.set_ylabel("メタン吸着量 [mol/kg]", fontsize=18)
@@ -145,18 +160,31 @@ def _set_matplotlib_config_dir() -> None:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Create adsorption CH4 loading profile plot.")
+    parser = argparse.ArgumentParser(description="Create desorption CH4 loading profile plot.")
     parser.add_argument("--case-dir", type=Path, default=DEFAULT_CASE_DIR)
     parser.add_argument("--input-name", default=DEFAULT_INPUT_NAME)
     parser.add_argument("--output-name", default=DEFAULT_OUTPUT_NAME)
     parser.add_argument("--dpi", type=int, default=180)
+    parser.add_argument(
+        "--zero-final-profile",
+        action="store_true",
+        help="Set the final desorption loading profile to zero for presentation plots.",
+    )
+    parser.add_argument(
+        "--zero-profile-display-offset-mol-per-kg",
+        type=float,
+        default=0.0,
+        help="Draw the zeroed final profile this far above the x-axis, in mol/kg.",
+    )
     args = parser.parse_args()
 
-    output_path = create_adsorption_methane_loading_profile(
+    output_path = create_desorption_methane_loading_profile(
         args.case_dir,
         input_name=args.input_name,
         output_name=args.output_name,
         dpi=args.dpi,
+        zero_final_profile=args.zero_final_profile,
+        zero_profile_display_offset_mol_per_kg=args.zero_profile_display_offset_mol_per_kg,
     )
     print(f"Output written to: {output_path}")
 
