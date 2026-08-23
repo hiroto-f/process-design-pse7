@@ -103,6 +103,16 @@ python -m PSA_simulation.run_simulation --setup-only
 
 `H2` と `CH4` は PSA モデルで直接扱う 2 成分です。`other` のような追加成分も入口組成には含められますが、吸着計算では `H2` と `CH4` の流量を使って 2 成分組成を作ります。
 
+### 圧力境界と充填層圧力損失
+
+- `adsorption_pressure_kpa` は吸着時の供給入口圧力です。
+- `desorption_pressure_kpa` は脱着時の製品出口（真空側）圧力です。
+- 吸着終了時と脱着終了時の充填層圧力損失を Ergun 式で計算します。
+- `summary.json` の `performance.hydraulics.adsorption.recycle_outlet_pressure_kpa` が吸着側リサイクル出口圧力です。
+- 圧力損失用の密度・粘度は現状の二成分モデルと同じ H2/CH4 混合物性を使い、`other` は含みません。
+
+Ergun 圧力分布は成分移動計算後の局所空塔速度から計算する油圧結果です。現時点では、その局所圧力を吸着平衡・拡散係数・物質移動係数へ再結合していません。
+
 ## 出力
 
 - `summary.json`

@@ -2,7 +2,13 @@ from __future__ import annotations
 
 from ..models import SimulationInput
 from ..preprocess import SetupState
-from .standard import PI, R, ProfileSnapshot, SimulationState
+from .standard import (
+    PI,
+    R,
+    ProfileSnapshot,
+    SimulationState,
+    update_ergun_pressure_profile,
+)
 
 
 class FastPsaSimulator:
@@ -165,6 +171,9 @@ class FastPsaSimulator:
                 break
 
         st.end_time[0] = (count - 1) * lt / u0 * dt
+        update_ergun_pressure_profile(
+            self.state, self.setup, True, u[1 : m + 1]
+        )
         self._record_profile(profile_name, st.end_time[0], u0, u, lt, dz, ct_1, qt_1)
 
     def _desorption(self) -> None:
@@ -250,6 +259,9 @@ class FastPsaSimulator:
                 break
 
         st.end_time[1] = (count - 1) * lt / u0 * dt
+        update_ergun_pressure_profile(
+            self.state, self.setup, False, u[1 : m + 1]
+        )
         self._record_profile(profile_name, st.end_time[1], u0, u, lt, dz, ct_1, qt_1)
         st.product_out = [
             st.flow_out[i] - st.c0[i] * cin[i] * u0 * area * st.end_time[1]

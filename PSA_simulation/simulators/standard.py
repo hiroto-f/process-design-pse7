@@ -4,6 +4,7 @@ from dataclasses import dataclass, field
 
 from ..models import SimulationInput
 from ..preprocess import SetupState
+from ..pressure_drop import integrate_ergun_pressure_profile
 
 
 R = 8.31451
@@ -43,6 +44,12 @@ class SimulationState:
         default_factory=lambda: [0.0, 0.0]
     )
     end_time: list[float] = field(default_factory=lambda: [0.0, 0.0])
+    adsorption_pressure_profile_kpa: list[float] = field(default_factory=list)
+    adsorption_pressure_drop_kpa: float = 0.0
+    recycle_outlet_pressure_kpa: float = 0.0
+    desorption_pressure_profile_kpa: list[float] = field(default_factory=list)
+    desorption_pressure_drop_kpa: float = 0.0
+    purge_inlet_pressure_kpa: float = 0.0
     profiles: dict[str, list[ProfileSnapshot]] = field(
         default_factory=lambda: {
             "adsorption_1": [],
@@ -50,6 +57,36 @@ class SimulationState:
             "adsorption_2": [],
         }
     )
+
+
+def update_ergun_pressure_profile(
+    state: SimulationState,
+    setup: SetupState,
+    adsorption: bool,
+    normalized_velocities: list[float],
+) -> None:
+    base_velocity = setup.uhigh if adsorption else setup.ulow
+    profile = integrate_ergun_pressure_profile(
+        reference_pressure_kpa=setup.phigh if adsorption else setup.plow,
+        cell_velocities_m_per_s=[
+            base_velocity * value for value in normalized_velocities
+        ],
+        bed_length_m=setup.zt,
+        temperature_k=setup.tt,
+        average_molar_mass_g_per_mol=setup.mav,
+        viscosity_pa_s=setup.mumix,
+        bed_void_fraction=setup.eps,
+        particle_diameter_m=setup.dp,
+        flow_direction="forward" if adsorption else "reverse",
+    )
+    if adsorption:
+        state.adsorption_pressure_profile_kpa = list(profile.pressures_kpa)
+        state.adsorption_pressure_drop_kpa = profile.pressure_drop_kpa
+        state.recycle_outlet_pressure_kpa = profile.pressures_kpa[-1]
+    else:
+        state.desorption_pressure_profile_kpa = list(profile.pressures_kpa)
+        state.desorption_pressure_drop_kpa = profile.pressure_drop_kpa
+        state.purge_inlet_pressure_kpa = profile.pressures_kpa[-1]
 
 
 class PsaSimulator:
@@ -103,6 +140,18 @@ class PsaSimulator:
             component_flow = self.setup.flows_kmol_per_h[i] / 3600.0
             self.state.c0[i] = component_flow / volume
             self.setup.inlet_concentration_kmol_per_m3[i] = self.state.c0[i]
+
+    def _update_ergun_pressure_profile(
+        self,
+        adsorption: bool,
+        normalized_velocities: list[float],
+    ) -> None:
+        update_ergun_pressure_profile(
+            self.state,
+            self.setup,
+            adsorption,
+            normalized_velocities,
+        )
 
     def _ceq(self, component: int, qtz: list[float], tt: float) -> float:
         denominator = 1.0 - qtz[0] - qtz[1]
@@ -208,7 +257,7 @@ class PsaSimulator:
                         + st.ct[i][k]
                     )
                     qt_1[i][k] = h[i] * (st.ct[i][k] - ceq[i][k]) + qtz[i]
-                     if qt_1[i][k] < 0.0:
+                    if qt_1[i][k] < 0.0:
                         qt_1[i][k] = 0.0
                 for i in range(2):
                     st.ct[i][k] = ct_1[i][k]
@@ -226,6 +275,7 @@ class PsaSimulator:
                 break
 
         st.end_time[0] = (count - 1) * lt / u0 * dt
+        self._update_ergun_pressure_profile(True, u[1 : M + 1])
         self._record_profile(profile_name, st.end_time[0], u0, u, lt, dz, ct_1, qt_1)
 
     def desorption(self) -> None:
@@ -343,6 +393,7 @@ class PsaSimulator:
                 break
 
         st.end_time[1] = (count - 1) * lt / u0 * dt
+        self._update_ergun_pressure_profile(False, u[1 : M + 1])
         self._record_profile(profile_name, st.end_time[1], u0, u, lt, dz, ct_1, qt_1)
         st.product_out = [
             st.flow_out[i] - st.c0[i] * cin[i] * u0 * area * st.end_time[1]

@@ -1,0 +1,159 @@
+{
+  "source": {
+    "file": "inputs/data/コンテスト気液分離後のモル流量(0.963~10bar).xlsx",
+    "sheet": "0.963~10 barでのモル流量",
+    "note": "おそらくpV=nRTに大体従ってるっぽい？\n(圧力と水の流量は反比例になってそうなので）\nもし水分量をどのくらいに抑えたい等の要望があればまた調べるので送ってください。"
+  },
+  "records": [
+    {
+      "pressure_bar": 0.963,
+      "pressure_kpa": 96.3,
+      "temperature_c": 40,
+      "molar_flow_kmol_per_h": {
+        "CH4": 11.9441140315291,
+        "H2O": 1.1823917449665,
+        "CO2": 0.000543699339992776,
+        "H2": 2.2215201548393302
+      },
+      "water_mole_fraction": 0.07703595666683025,
+      "compressor_count": 0,
+      "compressor_power_kcal_per_h": 0,
+      "cooler_power_kcal_per_h": 7665.15516536553
+    },
+    {
+      "pressure_bar": 2,
+      "pressure_kpa": 200,
+      "temperature_c": 40,
+      "molar_flow_kmol_per_h": {
+        "CH4": 11.9440831063273,
+        "H2O": 0.54816092734322,
+        "CO2": 0.000542490738861634,
+        "H2": 2.2215162824684702
+      },
+      "water_mole_fraction": 0.03725361198132983,
+      "compressor_count": 1,
+      "compressor_power_kcal_per_h": 9726.19712861617,
+      "cooler_power_kcal_per_h": 23995.665112203227
+    },
+    {
+      "pressure_bar": 3,
+      "pressure_kpa": 300,
+      "temperature_c": 40,
+      "molar_flow_kmol_per_h": {
+        "CH4": 11.944053469436099,
+        "H2O": 0.362324055675574,
+        "CO2": 0.000542043530844986,
+        "H2": 2.22151254167888
+      },
+      "water_mole_fraction": 0.024938964708942614,
+      "compressor_count": 1,
+      "compressor_power_kcal_per_h": 15530.604001181,
+      "cooler_power_kcal_per_h": 31763.857516800228
+    },
+    {
+      "pressure_bar": 4,
+      "pressure_kpa": 400,
+      "temperature_c": 40,
+      "molar_flow_kmol_per_h": {
+        "CH4": 11.9440240129816,
+        "H2O": 0.271158105507056,
+        "CO2": 0.000541781857673076,
+        "H2": 2.22150879440626
+      },
+      "water_mole_fraction": 0.01878186154093174,
+      "compressor_count": 1,
+      "compressor_power_kcal_per_h": 19944.5999873705,
+      "cooler_power_kcal_per_h": 37162.152734989824
+    },
+    {
+      "pressure_bar": 5,
+      "pressure_kpa": 500,
+      "temperature_c": 40,
+      "molar_flow_kmol_per_h": {
+        "CH4": 11.944067308439701,
+        "H2O": 0.217015118235271,
+        "CO2": 0.00054363741835927,
+        "H2": 2.2215142754555202
+      },
+      "water_mole_fraction": 0.015088159686417829,
+      "compressor_count": 2,
+      "compressor_power_kcal_per_h": 22557.492324347797,
+      "cooler_power_kcal_per_h": 40377.74089068653
+    },
+    {
+      "pressure_bar": 6,
+      "pressure_kpa": 600,
+      "temperature_c": 40,
+      "molar_flow_kmol_per_h": {
+        "CH4": 11.9440595382796,
+        "H2O": 0.181133681624262,
+        "CO2": 0.000543628457967859,
+        "H2": 2.22151328182936
+      },
+      "water_mole_fraction": 0.012624975516604325,
+      "compressor_count": 2,
+      "compressor_power_kcal_per_h": 25283.9519309014,
+      "cooler_power_kcal_per_h": 43516.90494621023
+    },
+    {
+      "pressure_bar": 7,
+      "pressure_kpa": 700,
+      "temperature_c": 40,
+      "molar_flow_kmol_per_h": {
+        "CH4": 11.9440524375509,
+        "H2O": 0.155634551077188,
+        "CO2": 0.000543620423971894,
+        "H2": 2.22151236857111
+      },
+      "water_mole_fraction": 0.010867011879794049,
+      "compressor_count": 2,
+      "compressor_power_kcal_per_h": 27627.0440797,
+      "cooler_power_kcal_per_h": 46165.22134646893
+    },
+    {
+      "pressure_bar": 8,
+      "pressure_kpa": 800,
+      "temperature_c": 40,
+      "molar_flow_kmol_per_h": {
+        "CH4": 11.9440586285201,
+        "H2O": 0.136556369892189,
+        "CO2": 0.00054362733998239,
+        "H2": 2.22151315583314
+      },
+      "water_mole_fraction": 0.009547612640318318,
+      "compressor_count": 3,
+      "compressor_power_kcal_per_h": 28255.511159578768,
+      "cooler_power_kcal_per_h": 47032.74327993383
+    },
+    {
+      "pressure_bar": 9,
+      "pressure_kpa": 900,
+      "temperature_c": 40,
+      "molar_flow_kmol_per_h": {
+        "CH4": 11.9440543871551,
+        "H2O": 0.121759755592747,
+        "CO2": 0.000543622588702484,
+        "H2": 2.22151260665988
+      },
+      "water_mole_fraction": 0.008521896715369881,
+      "compressor_count": 3,
+      "compressor_power_kcal_per_h": 29932.47721279596,
+      "cooler_power_kcal_per_h": 48904.18763234254
+    },
+    {
+      "pressure_bar": 10,
+      "pressure_kpa": 1000,
+      "temperature_c": 40,
+      "molar_flow_kmol_per_h": {
+        "CH4": 11.944050467287299,
+        "H2O": 0.109945507119249,
+        "CO2": 0.000543618244996365,
+        "H2": 2.22151209652222
+      },
+      "water_mole_fraction": 0.007701394581152021,
+      "compressor_count": 3,
+      "compressor_power_kcal_per_h": 31443.6161666279,
+      "cooler_power_kcal_per_h": 50578.907836646526
+    }
+  ]
+}

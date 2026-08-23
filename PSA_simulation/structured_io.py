@@ -206,6 +206,25 @@ def _build_summary(
             "H2": simulation_state.product_out[0],
             "CH4": simulation_state.product_out[1],
         },
+        "hydraulics": {
+            "pressure_basis": {
+                "adsorption_pressure_kpa": "feed inlet boundary",
+                "desorption_pressure_kpa": "desorption product outlet boundary",
+            },
+            "ergun_properties_basis": "H2/CH4 mixture properties; other feed components are excluded",
+            "adsorption": {
+                "feed_inlet_pressure_kpa": setup_state.phigh,
+                "recycle_outlet_pressure_kpa": simulation_state.recycle_outlet_pressure_kpa,
+                "pressure_drop_kpa": simulation_state.adsorption_pressure_drop_kpa,
+                "pressure_profile_kpa": simulation_state.adsorption_pressure_profile_kpa,
+            },
+            "desorption": {
+                "product_outlet_pressure_kpa": setup_state.plow,
+                "purge_inlet_pressure_kpa": simulation_state.purge_inlet_pressure_kpa,
+                "pressure_drop_kpa": simulation_state.desorption_pressure_drop_kpa,
+                "pressure_profile_kpa": simulation_state.desorption_pressure_profile_kpa,
+            },
+        },
         "desorption_product_kmol": {
             "H2": hydrogen_product_kmol,
             "CH4": methane_product_kmol,
